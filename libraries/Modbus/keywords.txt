@@ -1,0 +1,10 @@
+# Syntax Coloring Map For Modbus
+
+# Datatypes (KEYWORD1)
+Modbus	KEYWORD1
+
+# Methods and Functions (KEYWORD2)
+teste	KEYWORD2
+
+# Constants (LITERAL1)
+teste2	LITERAL1

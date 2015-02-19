@@ -1,0 +1,8 @@
+# Syntax Coloring Map For ModbusSerial
+
+# Datatypes (KEYWORD1)
+ModbusSerial	KEYWORD1
+
+# Methods and Functions (KEYWORD2)
+
+# Constants (LITERAL1)
