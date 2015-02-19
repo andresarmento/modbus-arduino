@@ -6,7 +6,6 @@
 
 ModbusSerial mb;
 
-
 #define COIL1    10
 #define COIL2    20
 #define LAMP     30
@@ -40,6 +39,16 @@ void setup() {
     
     mb.Coil(COIL1, false);
     mb.Coil(COIL2, false);
+    
+    digitalWrite(ledPin, false);
+    delay(1000);
+    digitalWrite(ledPin, true);
+    delay(100);
+    digitalWrite(ledPin, false);
+    delay(1000);
+    digitalWrite(ledPin, true);
+    delay(100);
+    digitalWrite(ledPin, false);
 }
 
 void loop() {
