@@ -16,14 +16,17 @@ class ModbusSerial : public Modbus {
         int   _txPin;
         unsigned int _t15; // inter character time out
         unsigned int _t35; // frame delay
+        byte  _slaveId;
         word calcCrc(byte address, byte* pduframe, byte pdulen);
     public:
         ModbusSerial();
-        bool receive(byte* frame);
-        bool send(byte address, byte* pduframe);
-        bool send(byte* frame);
+        bool setSlaveId(byte slaveId);
+        byte getSlaveId();
         bool config(HardwareSerial* port, long baud, u_int format, int txPin=-1);
         void proc();
+        bool receive(byte* frame);
+        bool sendPDU(byte* pduframe);
+        bool send(byte* frame);
 };
 
 /* Table of CRC values for high–order byte */

@@ -4,5 +4,15 @@
 ModbusSerial	KEYWORD1
 
 # Methods and Functions (KEYWORD2)
+calcCrc         KEYWORD2
+setSlaveId      KEYWORD2
+getSlaveId      KEYWORD2
+config          KEYWORD2
+proc            KEYWORD2
+receive         KEYWORD2
+sendPDU         KEYWORD2
+send            KEYWORD2
 
 # Constants (LITERAL1)
+_auchCRCHi      LITERAL1
+_auchCRCLo      LITERAL1

@@ -1,10 +1,39 @@
 # Syntax Coloring Map For Modbus
 
 # Datatypes (KEYWORD1)
-Modbus	KEYWORD1
+Modbus	    KEYWORD1
+u_int       KEYWORD1
+TRegister   KEYWORD1
 
 # Methods and Functions (KEYWORD2)
-teste	KEYWORD2
+sReadCoils              KEYWORD2
+sReadDiscreteInputs     KEYWORD2
+sReadRegisters          KEYWORD2
+sReadInputRegisters     KEYWORD2
+sWriteSingleCoil        KEYWORD2
+sWriteSingleRegister    KEYWORD2
+searchRegister          KEYWORD2
+receivePDU              KEYWORD2
+addReg                  KEYWORD2
+addCoil                 KEYWORD2
+addDimp                 KEYWORD2
+addIReg                 KEYWORD2
+addHReg                 KEYWORD2
+Reg                     KEYWORD2
+Coil                    KEYWORD2
+Dimp                    KEYWORD2
+IReg                    KEYWORD2
+HReg                    KEYWORD2
 
 # Constants (LITERAL1)
-teste2	LITERAL1
+FC_READ_COILS       	LITERAL1
+FC_READ_INPUTS          LITERAL1
+FC_READ_REGS            LITERAL1
+FC_READ_INPUTREGS       LITERAL1
+FC_WRITE_COIL           LITERAL1
+FC_WRITE_REG            LITERAL1
+FC_WRITE_COILS          LITERAL1
+FC_WRITE_REGS           LITERAL1
+REPLY_OFF               LITERAL1
+REPLY_ECHO              LITERAL1
+REPLY_NORMAL            LITERAL1

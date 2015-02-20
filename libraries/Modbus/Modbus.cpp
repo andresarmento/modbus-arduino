@@ -9,7 +9,7 @@ Modbus::Modbus() {
     _regs_last = 0;
 }
 
-TRegister* Modbus::search(word address) {
+TRegister* Modbus::searchRegister(word address) {
     TRegister *reg = _regs_head;
     //if there is no register configured, bail
     if(reg == 0) return(0);
@@ -61,7 +61,7 @@ void Modbus::addHreg(word offset) {
 bool Modbus::Reg(word address, word value) {
     TRegister *reg;
     //search for the register address
-    reg = this->search(address);
+    reg = this->searchRegister(address);
     //if found then assign the register value to the new value.
     if (reg) {
         reg->value = value;
@@ -88,7 +88,7 @@ bool Modbus::Hreg(word offset, word value) {
 
 word Modbus::Reg(word address) {
     TRegister *reg;
-    reg = this->search(address);
+    reg = this->searchRegister(address);
     if(reg)
         return(reg->value);
     else
@@ -113,16 +113,6 @@ word Modbus::Ireg(word offset) {
 
 word Modbus::Hreg(word offset) {
     return Reg(offset + 40001);
-}
-
-
-bool Modbus::setSlaveId(byte slaveId){
-    _slaveId = slaveId;
-    return true;
-}
-
-byte Modbus::getSlaveId() {
-    return _slaveId;
 }
 
 bool Modbus::receivePDU(byte* frame) {
@@ -160,6 +150,9 @@ bool Modbus::receivePDU(byte* frame) {
             //field1 = startreg, field2 = numregs
             this->sReadInputRegisters(field1, field2);
         break;
+
+        default:
+            return false;
     }
 
     return true;
@@ -173,8 +166,7 @@ bool Modbus::sWriteSingleCoil(word reg, word status) {
 }
 
 bool Modbus::sWriteSingleRegister(word reg, word value) {
-    if (value == 0xFF00 || value == 0x0000)
-        this->Hreg(reg, value);
+    this->Hreg(reg, value);
     _reply = REPLY_ECHO;
     return true;
 }
@@ -191,7 +183,7 @@ bool Modbus::sReadCoils(word startreg, word numregs) {
 
     _frame = (byte *) malloc(_len);
     _frame[0] = FC_READ_COILS;
-    _frame[1] = _len - 2;
+    _frame[1] = _len - 2; //byte count (_len - function code and byte count)
 
     byte bitn = 0;
     word totregs = numregs;
@@ -258,7 +250,7 @@ bool Modbus::sReadRegisters(word startreg, word numregs) {
 
     _frame = (byte *) malloc(_len);
     _frame[0] = FC_READ_REGS;
-    _frame[1] = _len - 2;
+    _frame[1] = _len - 2;   //byte count
 
     word val;
     word i = 0;

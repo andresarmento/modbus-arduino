@@ -13,7 +13,7 @@
 typedef unsigned int u_int;
 
 enum {
-    FC_READ_COILS     = 0x01, //Read Coil (Output) Status 0xxxx
+    FC_READ_COILS     = 0x01, //Read Coils (Output) Status 0xxxx
 	FC_READ_INPUTS    = 0x02, //Discrete Input (Input Status) 1xxxx
     FC_READ_REGS      = 0x03, //Read Holding Registers 4xxxx
 	FC_READ_INPUTREGS = 0x04, //Read Input Registers 3xxxx
@@ -39,15 +39,15 @@ class Modbus {
     private:
         TRegister *_regs_head;
         TRegister *_regs_last;
-        byte       _slaveId;
 
-        bool sWriteSingleCoil(word reg, word status);
         bool sReadCoils(word startreg, word numregs);
+        bool sReadDiscreteInputs(word startreg, word numregs);
         bool sReadRegisters(word startreg, word numregs);
         bool sReadInputRegisters(word startreg, word numregs);
+        bool sWriteSingleCoil(word reg, word status);
         bool sWriteSingleRegister(word reg, word value);
-        bool sReadDiscreteInputs(word startreg, word numregs);
-        TRegister* search(word addr);
+
+        TRegister* searchRegister(word addr);
 
     protected:
         byte *_frame;
@@ -76,8 +76,6 @@ class Modbus {
         word Ireg(word offset);
         word Hreg(word offset); //ok
 
-        bool setSlaveId(byte slaveId);
-        byte getSlaveId();
 };
 
 #endif //MODBUS_H

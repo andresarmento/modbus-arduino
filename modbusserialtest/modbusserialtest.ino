@@ -30,25 +30,14 @@ void setup() {
     mb.addDimp(DISCINP);
     mb.addIreg(INPREG);
     
-    mb.Hreg(TESTREG, 222);
+    mb.Hreg(TESTREG, 314);
     mb.Dimp(DISCINP, true);
-    mb.Ireg(INPREG, 38);
-    
-    t1 = millis();
-    t2 = millis();
-    
+    mb.Ireg(INPREG, 0);
     mb.Coil(COIL1, false);
     mb.Coil(COIL2, false);
     
-    digitalWrite(ledPin, false);
-    delay(1000);
-    digitalWrite(ledPin, true);
-    delay(100);
-    digitalWrite(ledPin, false);
-    delay(1000);
-    digitalWrite(ledPin, true);
-    delay(100);
-    digitalWrite(ledPin, false);
+    t1 = millis();
+    t2 = millis();
 }
 
 void loop() {
