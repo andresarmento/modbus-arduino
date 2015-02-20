@@ -48,23 +48,20 @@ bool ModbusSerial::receive(byte* frame) {
 
     //Slave Check
     if (address != 0xFF && address != this->getSlaveId()) {
-    	free(_frame);
-	    _len = 0;
 		return false;
 	}
 
     //CRC Check
     if (crc != this->calcCrc(_frame[0], _frame+1, _len-3)) {
-        free(_frame);
-	    _len = 0;
 		return false;
     }
 
     //PDU starts after first byte
     //framesize PDU = framesize - address(1) - crc(2)
-    this->receivePDU(frame+1);
-
-    return true;
+    if (this->receivePDU(frame+1))
+        return true;
+    else
+        return false;
 }
 
 bool ModbusSerial::send(byte* frame) {
@@ -74,9 +71,9 @@ bool ModbusSerial::send(byte* frame) {
     }
 }
 
-bool ModbusSerial::send(byte address, byte* pduframe) {
+bool ModbusSerial::sendPDU(byte* pduframe) {
     //Send slaveId
-    (*_port).write(address);
+    (*_port).write(_slaveId);
 
     //Send PDU
     byte i;
@@ -85,7 +82,7 @@ bool ModbusSerial::send(byte address, byte* pduframe) {
     }
 
     //Send CRC
-    word crc = calcCrc(address, _frame, _len);
+    word crc = calcCrc(_slaveId, _frame, _len);
     (*_port).write(crc >> 8);
     (*_port).write(crc & 0xFF);
 }
@@ -105,10 +102,10 @@ void ModbusSerial::proc() {
 	_frame = (byte*) malloc(_len);
 	for (i=0 ; i < _len ; i++) _frame[i] = (*_port).read();
 
-    this->receive(_frame);
-
-    if (_reply == REPLY_NORMAL) this->send(this->getSlaveId(), _frame);
-    if (_reply == REPLY_ECHO) this->send(_frame);
+    if (this->receive(_frame)) {
+        if (_reply == REPLY_NORMAL) this->sendPDU(_frame);
+        if (_reply == REPLY_ECHO)   this->send(_frame);
+    }
 
   	free(_frame);
 	_len = 0;
