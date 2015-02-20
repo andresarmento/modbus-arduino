@@ -60,12 +60,26 @@ bool ModbusSerial::receive(byte* frame) {
 
 bool ModbusSerial::send(byte* frame) {
     byte i;
+
+    if (this->_txPin >= 0) {
+        digitalWrite(this->_txPin, HIGH);
+    }
+
     for (i = 0 ; i < _len ; i++) {
         (*_port).write(frame[i]);
+    }
+
+    if (this->_txPin >= 0) {
+        digitalWrite(this->_txPin, LOW);
     }
 }
 
 bool ModbusSerial::send(byte address, byte* pduframe) {
+
+    if (this->_txPin >= 0) {
+        digitalWrite(this->_txPin, HIGH);
+    }
+
     //Send slaveId
     (*_port).write(address);
 
@@ -79,6 +93,10 @@ bool ModbusSerial::send(byte address, byte* pduframe) {
     word crc = calcCrc(address, _frame, _len);
     (*_port).write(crc >> 8);
     (*_port).write(crc & 0xFF);
+
+    if (this->_txPin >= 0) {
+        digitalWrite(this->_txPin, LOW);
+    }
 }
 
 void ModbusSerial::proc() {
