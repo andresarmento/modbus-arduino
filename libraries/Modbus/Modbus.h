@@ -47,7 +47,7 @@ class Modbus {
         bool sWriteSingleCoil(word reg, word status);
         bool sWriteSingleRegister(word reg, word value);
 
-        TRegister* search(word addr);
+        TRegister* searchRegister(word addr);
 
     protected:
         byte *_frame;
