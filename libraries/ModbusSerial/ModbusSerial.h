@@ -25,7 +25,7 @@ class ModbusSerial : public Modbus {
         bool config(HardwareSerial* port, long baud, u_int format, int txPin=-1);
         void proc();
         bool receive(byte* frame);
-        bool send(byte address, byte* pduframe);
+        bool sendPDU(byte* pduframe);
         bool send(byte* frame);
 };
 
