@@ -9,7 +9,7 @@ Modbus::Modbus() {
     _regs_last = 0;
 }
 
-TRegister* Modbus::search(word address) {
+TRegister* Modbus::searchRegister(word address) {
     TRegister *reg = _regs_head;
     //if there is no register configured, bail
     if(reg == 0) return(0);
@@ -61,7 +61,7 @@ void Modbus::addHreg(word offset) {
 bool Modbus::Reg(word address, word value) {
     TRegister *reg;
     //search for the register address
-    reg = this->search(address);
+    reg = this->searchRegister(address);
     //if found then assign the register value to the new value.
     if (reg) {
         reg->value = value;
@@ -88,7 +88,7 @@ bool Modbus::Hreg(word offset, word value) {
 
 word Modbus::Reg(word address) {
     TRegister *reg;
-    reg = this->search(address);
+    reg = this->searchRegister(address);
     if(reg)
         return(reg->value);
     else
