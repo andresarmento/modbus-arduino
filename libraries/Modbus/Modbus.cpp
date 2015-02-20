@@ -150,6 +150,9 @@ bool Modbus::receivePDU(byte* frame) {
             //field1 = startreg, field2 = numregs
             this->sReadInputRegisters(field1, field2);
         break;
+
+        default:
+            return false;
     }
 
     return true;
@@ -180,7 +183,7 @@ bool Modbus::sReadCoils(word startreg, word numregs) {
 
     _frame = (byte *) malloc(_len);
     _frame[0] = FC_READ_COILS;
-    _frame[1] = _len - 2;
+    _frame[1] = _len - 2; //byte count (_len - function code and byte count)
 
     byte bitn = 0;
     word totregs = numregs;
@@ -247,7 +250,7 @@ bool Modbus::sReadRegisters(word startreg, word numregs) {
 
     _frame = (byte *) malloc(_len);
     _frame[0] = FC_READ_REGS;
-    _frame[1] = _len - 2;
+    _frame[1] = _len - 2;   //byte count
 
     word val;
     word i = 0;
