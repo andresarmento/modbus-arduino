@@ -115,16 +115,6 @@ word Modbus::Hreg(word offset) {
     return Reg(offset + 40001);
 }
 
-
-bool Modbus::setSlaveId(byte slaveId){
-    _slaveId = slaveId;
-    return true;
-}
-
-byte Modbus::getSlaveId() {
-    return _slaveId;
-}
-
 bool Modbus::receivePDU(byte* frame) {
     byte fcode  = frame[0];
     word field1 = frame[1] << 8 | frame[2];
@@ -173,8 +163,7 @@ bool Modbus::sWriteSingleCoil(word reg, word status) {
 }
 
 bool Modbus::sWriteSingleRegister(word reg, word value) {
-    if (value == 0xFF00 || value == 0x0000)
-        this->Hreg(reg, value);
+    this->Hreg(reg, value);
     _reply = REPLY_ECHO;
     return true;
 }

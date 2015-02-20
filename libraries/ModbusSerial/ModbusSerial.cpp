@@ -8,6 +8,15 @@ ModbusSerial::ModbusSerial() {
 
 }
 
+bool ModbusSerial::setSlaveId(byte slaveId){
+    _slaveId = slaveId;
+    return true;
+}
+
+byte ModbusSerial::getSlaveId() {
+    return _slaveId;
+}
+
 bool ModbusSerial::config(HardwareSerial* port, long baud, u_int format, int txPin) {
     this->_port = port;
     this->_txPin = txPin;
@@ -84,7 +93,7 @@ bool ModbusSerial::send(byte address, byte* pduframe) {
 void ModbusSerial::proc() {
     _len = 0;
 
-    while ((*_port).available()> _len)	{
+    while ((*_port).available() > _len)	{
 		_len = (*_port).available();
 		delayMicroseconds(_t35);
 		//delayMicroseconds(1250);
