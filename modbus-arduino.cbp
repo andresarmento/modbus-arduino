@@ -24,8 +24,10 @@
 		</Compiler>
 		<Unit filename="libraries/ModbusSerial/ModbusSerial.cpp" />
 		<Unit filename="libraries/ModbusSerial/ModbusSerial.h" />
+		<Unit filename="libraries/ModbusSerial/keywords.txt" />
 		<Unit filename="libraries/Modbus/Modbus.cpp" />
 		<Unit filename="libraries/Modbus/Modbus.h" />
+		<Unit filename="libraries/Modbus/keywords.txt" />
 		<Extensions>
 			<code_completion />
 			<envvars />
