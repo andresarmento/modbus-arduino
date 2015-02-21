@@ -49,12 +49,12 @@ void loop() {
      
    digitalWrite(ledPin, mb.Coil(LAMP));
    
-   if (millis() > t1 + 1000) {
+   if (millis() > t1 + 1000) {   //Increment each second
        t1 = millis();
        mb.Ireg(INPREG, mb.Ireg(INPREG)+1);
    }   
       
-   if (millis() > t2 + 7000) {
+   if (millis() > t2 + 7000) {   //Change state each seven seconds
        t2 = millis();
        mb.Dimp(DISCINP, !mb.Dimp(DISCINP));
    }  
