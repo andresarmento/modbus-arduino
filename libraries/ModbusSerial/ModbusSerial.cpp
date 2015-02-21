@@ -58,8 +58,11 @@ bool ModbusSerial::receive(byte* frame) {
 
     //PDU starts after first byte
     //framesize PDU = framesize - address(1) - crc(2)
-    if (this->receivePDU(frame+1))
+    if (this->receivePDU(frame+1)){
+        //No reply to Broadcasts
+        if (address == 0xFF) _reply = REPLY_OFF;
         return true;
+    }
     else
         return false;
 }
