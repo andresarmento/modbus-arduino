@@ -46,6 +46,8 @@ class Modbus {
         bool sReadInputRegisters(word startreg, word numregs);
         bool sWriteSingleCoil(word reg, word status);
         bool sWriteSingleRegister(word reg, word value);
+        bool sWriteCoils(word startreg, word numoutputs, byte bytecount);
+        bool sWriteRegisters(word startreg, word numoutputs, byte bytecount);
 
         TRegister* searchRegister(word addr);
 

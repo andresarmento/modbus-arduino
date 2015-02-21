@@ -151,6 +151,16 @@ bool Modbus::receivePDU(byte* frame) {
             this->sReadInputRegisters(field1, field2);
         break;
 
+        case FC_WRITE_COILS:
+            //field1 = startreg, field2 = numoutputs
+            this->sWriteCoils(field1, field2, frame[5]);
+        break;
+
+        case FC_WRITE_REGS:
+            //field1 = startreg, field2 = status
+            this->sWriteRegisters(field1, field2, frame[5]);
+        break;
+
         default:
             return false;
     }
@@ -297,6 +307,14 @@ bool Modbus::sReadInputRegisters(word startreg, word numregs) {
     return true;
 }
 
+bool Modbus::sWriteCoils(word startreg, word numoutputs, byte bytecount) {
 
+    return true;
+}
+
+bool Modbus::sWriteRegisters(word startreg, word numoutputs, byte bytecount);
+
+    return true;
+}
 
 
