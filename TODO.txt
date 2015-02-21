@@ -9,7 +9,12 @@ TODO
 
 
 
+
+
+Reference:
 http://www.modbus.org/docs/Modbus_Application_Protocol_V1_1b.pdf
+
+Reference for exceptions:
 
 WriteSingleCoil Error: (0x05)
 
@@ -18,8 +23,8 @@ Exception code: 01 or 02 or 03 or 04
 
 Function Code Not Supported       =  01  ILLEGAL FUNCTION
 Output Address not exists         =  02  ILLEGAL DATA ADDRESS
-Output Value Not 0000 an not FF00 =  03  ILLEGAL DATA VALUE 
-Write Single Coil Fails           =  04  SLAVE DEVICE FAILURE 
+Output Value Not 0000 an not FF00 =  03  ILLEGAL DATA VALUE
+Write Single Coil Fails           =  04  SLAVE DEVICE FAILURE
 
 
 WriteSingleRegister Error: (0x06)
