@@ -66,12 +66,30 @@ bool ModbusSerial::receive(byte* frame) {
 
 bool ModbusSerial::send(byte* frame) {
     byte i;
+
+    if (this->_txPin >= 0) {
+		UCSR0A=UCSR0A |(1 << TXC0);
+        digitalWrite(this->_txPin, HIGH);
+		delay(1);
+    }
+
     for (i = 0 ; i < _len ; i++) {
         (*_port).write(frame[i]);
+    }
+
+    if (this->_txPin >= 0) {
+		while (!(UCSR0A & (1 << TXC0)));
+        digitalWrite(this->_txPin, LOW);
     }
 }
 
 bool ModbusSerial::sendPDU(byte* pduframe) {
+    if (this->_txPin >= 0) {
+		UCSR0A=UCSR0A |(1 << TXC0);
+        digitalWrite(this->_txPin, HIGH);
+		delay(1);
+    }
+
     //Send slaveId
     (*_port).write(_slaveId);
 
@@ -85,6 +103,11 @@ bool ModbusSerial::sendPDU(byte* pduframe) {
     word crc = calcCrc(_slaveId, _frame, _len);
     (*_port).write(crc >> 8);
     (*_port).write(crc & 0xFF);
+
+    if (this->_txPin >= 0) {
+		while (!(UCSR0A & (1 << TXC0)));
+        digitalWrite(this->_txPin, LOW);
+    }
 }
 
 void ModbusSerial::proc() {
