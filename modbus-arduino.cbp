@@ -22,6 +22,7 @@
 		<Compiler>
 			<Add option="-Wall" />
 		</Compiler>
+		<Unit filename="TODO.txt" />
 		<Unit filename="libraries/ModbusSerial/ModbusSerial.cpp" />
 		<Unit filename="libraries/ModbusSerial/ModbusSerial.h" />
 		<Unit filename="libraries/ModbusSerial/keywords.txt" />
