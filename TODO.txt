@@ -1,0 +1,31 @@
+TODO
+====
+
+. ModBus TCP
+. Modbus Functions: sWriteCoils and sWriteRegisters
+. Check erros when register not exist
+. Implement Error response (Exception)
+. Master for Serial and TCP
+
+
+
+http://www.modbus.org/docs/Modbus_Application_Protocol_V1_1b.pdf
+
+WriteSingleCoil Error: (0x05)
+
+Error code    : 0x85  (80 hex maior)
+Exception code: 01 or 02 or 03 or 04
+
+Function Code Not Supported       =  01  ILLEGAL FUNCTION
+Output Address not exists         =  02  ILLEGAL DATA ADDRESS
+Output Value Not 0000 an not FF00 =  03  ILLEGAL DATA VALUE 
+Write Single Coil Fails           =  04  SLAVE DEVICE FAILURE 
+
+
+WriteSingleRegister Error: (0x06)
+
+Error code    : 0x86        (80 hex maior)
+Function Code Not Supported       =  01
+Output Address not exists         =  02
+Output Value Not 0000 to FFFF     =  03
+Write Single Coil Fails           =  04
