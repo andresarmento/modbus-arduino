@@ -151,6 +151,7 @@ bool Modbus::receivePDU(byte* frame) {
             this->sReadInputRegisters(field1, field2);
         break;
 
+        /*
         case FC_WRITE_COILS:
             //field1 = startreg, field2 = numoutputs
             this->sWriteCoils(field1, field2, frame[5]);
@@ -160,19 +161,31 @@ bool Modbus::receivePDU(byte* frame) {
             //field1 = startreg, field2 = status
             this->sWriteRegisters(field1, field2, frame[5]);
         break;
+        */
 
         default:
-            return false;
+            this->exceptionResponse(fcode, EX_ILLEGAL_FUNCTION);
+            //return false;
     }
 
     return true;
 }
 
-bool Modbus::sWriteSingleCoil(word reg, word status) {
-    if (status == 0xFF00 || status == 0x0000)
-        this->Coil(reg, status);
-    _reply = REPLY_ECHO;
-    return true;
+void Modbus::sWriteSingleCoil(word reg, word status) {
+    if (status == 0xFF00 || status == 0x0000) {
+        if (this->Coil(reg, status)) {
+             //Check for success
+             if (this->Coil(reg) == (bool)status) {
+                 _reply = REPLY_ECHO;
+             } else {
+                 this->exceptionResponse(FC_WRITE_COIL, EX_SLAVE_FAILURE);
+             }
+        } else {
+            this->exceptionResponse(FC_WRITE_COIL, EX_ILLEGAL_ADDRESS);
+        }
+    }
+    else
+        this->exceptionResponse(FC_WRITE_COIL, EX_ILLEGAL_VALUE);
 }
 
 bool Modbus::sWriteSingleRegister(word reg, word value) {
@@ -312,9 +325,21 @@ bool Modbus::sWriteCoils(word startreg, word numoutputs, byte bytecount) {
     return true;
 }
 
-bool Modbus::sWriteRegisters(word startreg, word numoutputs, byte bytecount);
+bool Modbus::sWriteRegisters(word startreg, word numoutputs, byte bytecount) {
 
     return true;
+}
+
+void Modbus::exceptionResponse(byte fcode, byte excode) {
+    //Clean frame buffer
+    free(_frame);
+	_len = 2;
+
+    _frame = (byte *) malloc(_len);
+	_frame[0] = fcode + 0x80;
+	_frame[1] = excode;
+
+	_reply = REPLY_NORMAL;
 }
 
 
