@@ -68,9 +68,9 @@ bool ModbusSerial::send(byte* frame) {
     byte i;
 
     if (this->_txPin >= 0) {
-		UCSR0A=UCSR0A |(1 << TXC0);
+        UCSR0A=UCSR0A |(1 << TXC0);
         digitalWrite(this->_txPin, HIGH);
-		delay(1);
+        delay(1);
     }
 
     for (i = 0 ; i < _len ; i++) {
@@ -78,16 +78,16 @@ bool ModbusSerial::send(byte* frame) {
     }
 
     if (this->_txPin >= 0) {
-		while (!(UCSR0A & (1 << TXC0)));
+        while (!(UCSR0A & (1 << TXC0)));
         digitalWrite(this->_txPin, LOW);
     }
 }
 
 bool ModbusSerial::sendPDU(byte* pduframe) {
     if (this->_txPin >= 0) {
-		UCSR0A=UCSR0A |(1 << TXC0);
+        UCSR0A=UCSR0A |(1 << TXC0);
         digitalWrite(this->_txPin, HIGH);
-		delay(1);
+        delay(1);
     }
 
     //Send slaveId
@@ -105,7 +105,7 @@ bool ModbusSerial::sendPDU(byte* pduframe) {
     (*_port).write(crc & 0xFF);
 
     if (this->_txPin >= 0) {
-		while (!(UCSR0A & (1 << TXC0)));
+        while (!(UCSR0A & (1 << TXC0)));
         digitalWrite(this->_txPin, LOW);
     }
 }
