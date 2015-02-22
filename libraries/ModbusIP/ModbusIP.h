@@ -10,16 +10,20 @@
 #ifndef MODBUSIP_H
 #define MODBUSIP_H
 
+#define MODBUSIP_PORT 	  502
+#define MODBUSIP_MAXFRAME 200
+
 class ModbusIP : public Modbus {
     private:
-        uint16_t _port;
-        EthernetServer* server;
+		EthernetServer _server;
+		byte MBAP[7];
 
     public:
         ModbusIP();
         bool config(uint8_t *mac, IPAddress ip, IPAddress dns, IPAddress gateway, IPAddress subnet);
-        void setPort(uint16_t port);
         void proc();
+		bool receive(byte* frame);
 };
 
 #endif //MODBUSIP_H
+
