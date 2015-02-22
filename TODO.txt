@@ -1,11 +1,10 @@
 TODO
 ====
 
-. ModBus TCP
+. Implement Error response (Exception) - work in progress
 . Modbus Functions: sWriteCoils and sWriteRegisters
-. Check erros when register not exist
-. Implement Error response (Exception)
-. Master for Serial and TCP
+. ModBus IP
+. Master for Serial and IP
 
 
 
