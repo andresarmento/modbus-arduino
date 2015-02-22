@@ -32,7 +32,6 @@ void setup() {
     byte subnet[] = { 255, 255, 255, 0 };
 
     mb.config(mac, ip, dns, gateway, subnet);
-    Serial.begin(9600);
     
     pinMode(ledPin, OUTPUT);
     
