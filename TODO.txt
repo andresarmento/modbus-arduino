@@ -1,7 +1,6 @@
 TODO
 ====
 
-. Correct config in ModbusIP
 . Write Examples
 . Write README
 . Code reuse
