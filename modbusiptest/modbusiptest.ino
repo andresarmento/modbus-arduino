@@ -9,13 +9,15 @@
 ModbusIP mb;
 
 #define COIL1    10
-#define COIL2    20
+#define COIL2    11
 #define LAMP     30
 #define TESTREG 100
+#define TESTREG2 101
 #define DISCINP 200
 #define INPREG  300
 
 const int ledPin = 9;
+
 
 long t1, t2;
 
@@ -32,17 +34,18 @@ void setup() {
     byte subnet[] = { 255, 255, 255, 0 };
 
     mb.config(mac, ip, dns, gateway, subnet);
-    
     pinMode(ledPin, OUTPUT);
     
     mb.addCoil(COIL1);
     mb.addCoil(COIL2);
     mb.addCoil(LAMP);
     mb.addHreg(TESTREG);
+    mb.addHreg(TESTREG2);
     mb.addDimp(DISCINP);
     mb.addIreg(INPREG);
     
     mb.Hreg(TESTREG, 314);
+    mb.Hreg(TESTREG2, 159);
     mb.Dimp(DISCINP, true);
     mb.Ireg(INPREG, 0);
     mb.Coil(COIL1, false);
