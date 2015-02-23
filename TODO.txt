@@ -1,14 +1,12 @@
 TODO
 ====
 
+. Correct config in ModbusIP
 . Implement Error response (Exception) - work in progress
 . Modbus Functions: sWriteCoils and sWriteRegisters
-. ModBus IP
+. Write Examples
+. Write README
 . Master for Serial and IP
-
-
-
-
 
 Reference:
 http://www.modbus.org/docs/Modbus_Application_Protocol_V1_1b.pdf
