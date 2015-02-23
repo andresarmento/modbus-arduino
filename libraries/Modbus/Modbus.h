@@ -14,29 +14,29 @@ typedef unsigned int u_int;
 
 //Function Codes
 enum {
-    FC_READ_COILS     = 0x01, // Read Coils (Output) Status 0xxxx
-	FC_READ_INPUTS    = 0x02, // Discrete Input (Input Status) 1xxxx
-    FC_READ_REGS      = 0x03, // Read Holding Registers 4xxxx
-	FC_READ_INPUTREGS = 0x04, // Read Input Registers 3xxxx
-	FC_WRITE_COIL     = 0x05, // Write Single Coil (Output) 0xxxx
-    FC_WRITE_REG      = 0x06, // Preset Single Register 4xxxx
-    FC_WRITE_COILS    = 0x0F, // Write Multiple Coils (Outputs) 0xxxx
-    FC_WRITE_REGS     = 0x10, // Write block of contiguous registers 4xxxx
+    MB_FC_READ_COILS       = 0x01, // Read Coils (Output) Status 0xxxx
+	MB_FC_READ_INPUT_STAT  = 0x02, // Read Input Status (Discrete Inputs) 1xxxx
+    MB_FC_READ_REGS        = 0x03, // Read Holding Registers 4xxxx
+	MB_FC_READ_INPUT_REGS  = 0x04, // Read Input Registers 3xxxx
+	MB_FC_WRITE_COIL       = 0x05, // Write Single Coil (Output) 0xxxx
+    MB_FC_WRITE_REG        = 0x06, // Preset Single Register 4xxxx
+    MB_FC_WRITE_COILS      = 0x0F, // Write Multiple Coils (Outputs) 0xxxx
+    MB_FC_WRITE_REGS       = 0x10, // Write block of contiguous registers 4xxxx
 };
 
 //Exception Codes
 enum {
-    EX_ILLEGAL_FUNCTION = 0x01, // Function Code not Supported
-    EX_ILLEGAL_ADDRESS  = 0x02, // Output Address not exists
-    EX_ILLEGAL_VALUE    = 0x03, // Output Value not in Range
-    EX_SLAVE_FAILURE    = 0x04, // Slave Deive Fails to process request
+    MB_EX_ILLEGAL_FUNCTION = 0x01, // Function Code not Supported
+    MB_EX_ILLEGAL_ADDRESS  = 0x02, // Output Address not exists
+    MB_EX_ILLEGAL_VALUE    = 0x03, // Output Value not in Range
+    MB_EX_SLAVE_FAILURE    = 0x04, // Slave Deive Fails to process request
 };
 
 //Reply Types
 enum {
-    REPLY_OFF    = 0x01,
-    REPLY_ECHO   = 0x02,
-    REPLY_NORMAL = 0x03,
+    MB_REPLY_OFF    = 0x01,
+    MB_REPLY_ECHO   = 0x02,
+    MB_REPLY_NORMAL = 0x03,
 };
 
 typedef struct TRegister {
@@ -50,14 +50,14 @@ class Modbus {
         TRegister *_regs_head;
         TRegister *_regs_last;
 
-        bool sReadCoils(word startreg, word numregs);
-        bool sReadDiscreteInputs(word startreg, word numregs);
-        bool sReadRegisters(word startreg, word numregs);
-        bool sReadInputRegisters(word startreg, word numregs);
-        void sWriteSingleCoil(word reg, word status);
-        bool sWriteSingleRegister(word reg, word value);
-        bool sWriteCoils(word startreg, word numoutputs, byte bytecount);
-        bool sWriteRegisters(word startreg, word numoutputs, byte bytecount);
+        void readCoils(word startreg, word numregs);
+        void readInputStatus(word startreg, word numregs);
+        void readRegisters(word startreg, word numregs);
+        void readInputRegisters(word startreg, word numregs);
+        void writeSingleCoil(word reg, word status);
+        void writeSingleRegister(word reg, word value);
+        void writeMultipleCoils(word startreg, word numoutputs, byte bytecount);
+        void writeMultipleRegisters(word startreg, word numoutputs, byte bytecount);
         void exceptionResponse(byte fcode, byte excode);
 
         TRegister* searchRegister(word addr);
@@ -71,24 +71,23 @@ class Modbus {
     public:
         Modbus();
 
-        void addReg(word address); //ok
-        void addCoil(word offset); //ok
+        void addReg(word address);
+        void addCoil(word offset);
         void addDimp(word offset);
         void addIreg(word offset);
-        void addHreg(word offset); //ok
+        void addHreg(word offset);
 
-        bool Reg(word address, word value); //ok
-        bool Coil(word offset, bool value); //ok
+        bool Reg(word address, word value);
+        bool Coil(word offset, bool value);
         bool Dimp(word offset, bool value);
         bool Ireg(word offset, word value);
-        bool Hreg(word offset, word value); //ok
+        bool Hreg(word offset, word value);
 
-        word Reg(word address); //ok
-        bool Coil(word offset); //ok
+        word Reg(word address);
+        bool Coil(word offset);
         bool Dimp(word offset);
         word Ireg(word offset);
-        word Hreg(word offset); //ok
-
+        word Hreg(word offset);
 };
 
 #endif //MODBUS_H
