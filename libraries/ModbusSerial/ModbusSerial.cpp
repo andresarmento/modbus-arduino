@@ -58,13 +58,10 @@ bool ModbusSerial::receive(byte* frame) {
 
     //PDU starts after first byte
     //framesize PDU = framesize - address(1) - crc(2)
-    if (this->receivePDU(frame+1)){
-        //No reply to Broadcasts
-        if (address == 0xFF) _reply = MB_REPLY_OFF;
-        return true;
-    }
-    else
-        return false;
+    this->receivePDU(frame+1);
+    //No reply to Broadcasts
+    if (address == 0xFF) _reply = MB_REPLY_OFF;
+    return true;
 }
 
 bool ModbusSerial::send(byte* frame) {
@@ -113,7 +110,7 @@ bool ModbusSerial::sendPDU(byte* pduframe) {
     }
 }
 
-void ModbusSerial::proc() {
+void ModbusSerial::task() {
     _len = 0;
 
     while ((*_port).available() > _len)	{
@@ -129,8 +126,11 @@ void ModbusSerial::proc() {
 	for (i=0 ; i < _len ; i++) _frame[i] = (*_port).read();
 
     if (this->receive(_frame)) {
-        if (_reply == MB_REPLY_NORMAL) this->sendPDU(_frame);
-        if (_reply == MB_REPLY_ECHO)   this->send(_frame);
+        if (_reply == MB_REPLY_NORMAL)
+            this->sendPDU(_frame);
+        else
+            if (_reply == MB_REPLY_ECHO)
+                this->send(_frame);
     }
 
   	free(_frame);
