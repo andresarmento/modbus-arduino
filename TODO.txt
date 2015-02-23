@@ -1,10 +1,9 @@
 TODO
 ====
 
-. Write Examples
-. Write README
-. Code reuse
-. Master for Serial and IP
+. Write a nice README
+. Code reuse in Modbus library
+. Impelement Master for Serial and IP
 
 
 
