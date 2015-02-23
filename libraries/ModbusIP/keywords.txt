@@ -4,6 +4,7 @@
 ModbusIP    	KEYWORD1
 
 # Methods and Functions (KEYWORD2)
-
+config          KEYWORD2
+proc            KEYWORD2
 
 # Constants (LITERAL1)
