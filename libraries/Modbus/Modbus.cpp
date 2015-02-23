@@ -115,7 +115,7 @@ word Modbus::Hreg(word offset) {
     return Reg(offset + 40001);
 }
 
-bool Modbus::receivePDU(byte* frame) {
+void Modbus::receivePDU(byte* frame) {
     byte fcode  = frame[0];
     word field1 = frame[1] << 8 | frame[2];
     word field2 = frame[3] << 8 | frame[4];
@@ -164,7 +164,6 @@ bool Modbus::receivePDU(byte* frame) {
         default:
             this->exceptionResponse(fcode, MB_EX_ILLEGAL_FUNCTION);
     }
-    return true;
 }
 
 void Modbus::readCoils(word startreg, word numregs) {
