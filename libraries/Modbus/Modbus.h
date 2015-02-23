@@ -71,11 +71,11 @@ class Modbus {
     public:
         Modbus();
 
-        void addReg(word address);
-        void addCoil(word offset);
-        void addDimp(word offset);
-        void addIreg(word offset);
-        void addHreg(word offset);
+        void addReg(word address, word value = 0);
+        void addCoil(word offset, bool value = false);
+        void addDimp(word offset, bool value = false);
+        void addIreg(word offset, word value = 0);
+        void addHreg(word offset, word value = 0);
 
         bool Reg(word address, word value);
         bool Coil(word offset, bool value);

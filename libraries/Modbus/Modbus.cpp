@@ -22,12 +22,12 @@ TRegister* Modbus::searchRegister(word address) {
 	return(0);
 }
 
-void Modbus::addReg(word address) {
+void Modbus::addReg(word address, word value) {
     TRegister *newreg;
 
 	newreg = (TRegister *) malloc(sizeof(TRegister));
 	newreg->address = address;
-	newreg->value		= 0;
+	newreg->value		= value;
 	newreg->next		= 0;
 
 	if(_regs_head == 0) {
@@ -42,20 +42,20 @@ void Modbus::addReg(word address) {
 }
 
 
-void Modbus::addCoil(word offset) {
-    this->addReg(offset + 1);
+void Modbus::addCoil(word offset, bool value) {
+    this->addReg(offset + 1, value?0xFF00:0x0000);
 }
 
-void Modbus::addDimp(word offset) {
-    this->addReg(offset + 10001);
+void Modbus::addDimp(word offset, bool value) {
+    this->addReg(offset + 10001, value?0xFF00:0x0000);
 }
 
-void Modbus::addIreg(word offset) {
-    this->addReg(offset + 30001);
+void Modbus::addIreg(word offset, word value) {
+    this->addReg(offset + 30001, value);
 }
 
-void Modbus::addHreg(word offset) {
-    this->addReg(offset + 40001);
+void Modbus::addHreg(word offset, word value) {
+    this->addReg(offset + 40001, value);
 }
 
 bool Modbus::Reg(word address, word value) {
