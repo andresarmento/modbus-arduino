@@ -17,8 +17,6 @@ ModbusIP mb;
 #define INPREG  300
 
 const int ledPin = 9;
-
-
 long t1, t2;
 
 void setup() {
