@@ -6,12 +6,14 @@ u_int       KEYWORD1
 TRegister   KEYWORD1
 
 # Methods and Functions (KEYWORD2)
-sReadCoils              KEYWORD2
-sReadDiscreteInputs     KEYWORD2
-sReadRegisters          KEYWORD2
-sReadInputRegisters     KEYWORD2
-sWriteSingleCoil        KEYWORD2
-sWriteSingleRegister    KEYWORD2
+readCoils               KEYWORD2
+readInputStatus         KEYWORD2
+readRegisters           KEYWORD2
+readInputRegisters      KEYWORD2
+writeSingleCoil         KEYWORD2
+writeSingleRegister     KEYWORD2
+writeMultipleCoils      KEYWORD2
+writeMultipleRegisters  KEYWORD2
 searchRegister          KEYWORD2
 receivePDU              KEYWORD2
 addReg                  KEYWORD2
@@ -26,14 +28,14 @@ IReg                    KEYWORD2
 HReg                    KEYWORD2
 
 # Constants (LITERAL1)
-FC_READ_COILS       	LITERAL1
-FC_READ_INPUTS          LITERAL1
-FC_READ_REGS            LITERAL1
-FC_READ_INPUTREGS       LITERAL1
-FC_WRITE_COIL           LITERAL1
-FC_WRITE_REG            LITERAL1
-FC_WRITE_COILS          LITERAL1
-FC_WRITE_REGS           LITERAL1
-REPLY_OFF               LITERAL1
-REPLY_ECHO              LITERAL1
-REPLY_NORMAL            LITERAL1
+MB_FC_READ_COILS       	   LITERAL1
+MB_FC_READ_INPUTS          LITERAL1
+MB_FC_READ_REGS            LITERAL1
+MB_FC_READ_INPUTREGS       LITERAL1
+MB_FC_WRITE_COIL           LITERAL1
+MB_FC_WRITE_REG            LITERAL1
+MB_FC_WRITE_COILS          LITERAL1
+MB_FC_WRITE_REGS           LITERAL1
+MB_REPLY_OFF               LITERAL1
+MB_REPLY_ECHO              LITERAL1
+MB_REPLY_NORMAL            LITERAL1
