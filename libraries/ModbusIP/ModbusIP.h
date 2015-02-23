@@ -20,8 +20,12 @@ class ModbusIP : public Modbus {
 
     public:
         ModbusIP();
-        bool config(uint8_t *mac, IPAddress ip, IPAddress dns, IPAddress gateway, IPAddress subnet);
-        void proc();
+        void config(uint8_t *mac);
+        void config(uint8_t *mac, IPAddress ip);
+        void config(uint8_t *mac, IPAddress ip, IPAddress dns);
+        void config(uint8_t *mac, IPAddress ip, IPAddress dns, IPAddress gateway);
+        void config(uint8_t *mac, IPAddress ip, IPAddress dns, IPAddress gateway, IPAddress subnet);
+        void task();
 };
 
 #endif //MODBUSIP_H
