@@ -22,7 +22,6 @@ class ModbusIP : public Modbus {
         ModbusIP();
         bool config(uint8_t *mac, IPAddress ip, IPAddress dns, IPAddress gateway, IPAddress subnet);
         void proc();
-		bool receive(byte* frame);
 };
 
 #endif //MODBUSIP_H

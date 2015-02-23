@@ -13,10 +13,6 @@ bool ModbusIP::config(uint8_t *mac, IPAddress ip, IPAddress dns, IPAddress gatew
     return true;
 }
 
-bool ModbusIP::receive(byte* frame) {
-
-}
-
 void ModbusIP::proc() {
     EthernetClient client = _server.available();
 
