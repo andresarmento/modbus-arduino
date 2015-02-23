@@ -38,7 +38,7 @@ void ModbusIP::proc() {
                 if (i==_len) break;
 			}
 
-			if (this->receivePDU(_frame) && _reply != REPLY_OFF)  {
+			if (this->receivePDU(_frame) && _reply != MB_REPLY_OFF)  {
                 //MBAP
                 _MBAP[4] = _len >> 8;
                 _MBAP[5] = _len | 0x00FF;
