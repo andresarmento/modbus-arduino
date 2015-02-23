@@ -1,5 +1,6 @@
-Arduino ModBus Serial Library
-=============================
+Arduino ModBus Library
+======================
+
 
 Features
 ========
