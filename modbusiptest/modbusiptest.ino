@@ -15,7 +15,7 @@ ModbusIP mb;
 #define DISCINP 200
 #define INPREG  300
 
-const int ledPin = 13;
+const int ledPin = 9;
 
 long t1, t2;
 
