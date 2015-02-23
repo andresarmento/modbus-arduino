@@ -62,6 +62,10 @@ class Modbus {
 
         TRegister* searchRegister(word addr);
 
+        void addReg(word address, word value = 0);
+        bool Reg(word address, word value);
+        word Reg(word address);
+
     protected:
         byte *_frame;
         byte  _len;
@@ -71,23 +75,20 @@ class Modbus {
     public:
         Modbus();
 
-        void addReg(word address, word value = 0);
         void addCoil(word offset, bool value = false);
-        void addDimp(word offset, bool value = false);
-        void addIreg(word offset, word value = 0);
         void addHreg(word offset, word value = 0);
+        void addIsts(word offset, bool value = false);
+        void addIreg(word offset, word value = 0);
 
-        bool Reg(word address, word value);
         bool Coil(word offset, bool value);
-        bool Dimp(word offset, bool value);
-        bool Ireg(word offset, word value);
         bool Hreg(word offset, word value);
+        bool Ists(word offset, bool value);
+        bool Ireg(word offset, word value);
 
-        word Reg(word address);
         bool Coil(word offset);
-        bool Dimp(word offset);
-        word Ireg(word offset);
         word Hreg(word offset);
+        bool Ists(word offset);
+        word Ireg(word offset);
 };
 
 #endif //MODBUS_H

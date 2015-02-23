@@ -46,7 +46,7 @@ void Modbus::addCoil(word offset, bool value) {
     this->addReg(offset + 1, value?0xFF00:0x0000);
 }
 
-void Modbus::addDimp(word offset, bool value) {
+void Modbus::addIsts(word offset, bool value) {
     this->addReg(offset + 10001, value?0xFF00:0x0000);
 }
 
@@ -74,7 +74,7 @@ bool Modbus::Coil(word offset, bool value) {
     return Reg(offset + 1, value?0xFF00:0x0000);
 }
 
-bool Modbus::Dimp(word offset, bool value) {
+bool Modbus::Ists(word offset, bool value) {
     return Reg(offset + 10001, value?0xFF00:0x0000);
 }
 
@@ -101,7 +101,7 @@ bool Modbus::Coil(word offset) {
     } else return false;
 }
 
-bool Modbus::Dimp(word offset) {
+bool Modbus::Ists(word offset) {
     if (Reg(offset + 10001) == 0xFF00) {
         return true;
     } else return false;
@@ -256,7 +256,7 @@ void Modbus::readInputStatus(word startreg, word numregs) {
     word i;
 	while (numregs--) {
         i = (totregs - numregs) / 8;
-		if (this->Dimp(startreg))
+		if (this->Ists(startreg))
 			bitSet(_frame[2+i], bitn);
 		else
 			bitClear(_frame[2+i], bitn);
