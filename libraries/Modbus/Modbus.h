@@ -66,7 +66,7 @@ class Modbus {
         byte *_frame;
         byte  _len;
         byte  _reply;
-        bool receivePDU(byte* frame);
+        void receivePDU(byte* frame);
 
     public:
         Modbus();
