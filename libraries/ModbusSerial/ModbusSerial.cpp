@@ -60,7 +60,7 @@ bool ModbusSerial::receive(byte* frame) {
     //framesize PDU = framesize - address(1) - crc(2)
     if (this->receivePDU(frame+1)){
         //No reply to Broadcasts
-        if (address == 0xFF) _reply = REPLY_OFF;
+        if (address == 0xFF) _reply = MB_REPLY_OFF;
         return true;
     }
     else
@@ -129,8 +129,8 @@ void ModbusSerial::proc() {
 	for (i=0 ; i < _len ; i++) _frame[i] = (*_port).read();
 
     if (this->receive(_frame)) {
-        if (_reply == REPLY_NORMAL) this->sendPDU(_frame);
-        if (_reply == REPLY_ECHO)   this->send(_frame);
+        if (_reply == MB_REPLY_NORMAL) this->sendPDU(_frame);
+        if (_reply == MB_REPLY_ECHO)   this->send(_frame);
     }
 
   	free(_frame);
