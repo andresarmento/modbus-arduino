@@ -18,12 +18,12 @@ searchRegister          KEYWORD2
 receivePDU              KEYWORD2
 addReg                  KEYWORD2
 addCoil                 KEYWORD2
-addDimp                 KEYWORD2
+addIsts                 KEYWORD2
 addIReg                 KEYWORD2
 addHReg                 KEYWORD2
 Reg                     KEYWORD2
 Coil                    KEYWORD2
-Dimp                    KEYWORD2
+Ists                    KEYWORD2
 IReg                    KEYWORD2
 HReg                    KEYWORD2
 
@@ -31,7 +31,7 @@ HReg                    KEYWORD2
 MB_FC_READ_COILS       	   LITERAL1
 MB_FC_READ_INPUTS          LITERAL1
 MB_FC_READ_REGS            LITERAL1
-MB_FC_READ_INPUTREGS       LITERAL1
+MB_FC_READ_INPUT_STAT      LITERAL1
 MB_FC_WRITE_COIL           LITERAL1
 MB_FC_WRITE_REG            LITERAL1
 MB_FC_WRITE_COILS          LITERAL1
