@@ -5,15 +5,30 @@
 #include "ModbusIP.h"
 
 ModbusIP::ModbusIP():_server(MODBUSIP_PORT) {
-}
-
-bool ModbusIP::config(uint8_t *mac, IPAddress ip, IPAddress dns, IPAddress gateway, IPAddress subnet) {
-    Ethernet.begin(mac, ip);
     _server.begin();
-    return true;
 }
 
-void ModbusIP::proc() {
+void ModbusIP::config(uint8_t *mac) {
+    Ethernet.begin(mac);
+}
+
+void ModbusIP::config(uint8_t *mac, IPAddress ip) {
+    Ethernet.begin(mac, ip);
+}
+
+void ModbusIP::config(uint8_t *mac, IPAddress ip, IPAddress dns) {
+    Ethernet.begin(mac, ip, dns);
+}
+
+void ModbusIP::config(uint8_t *mac, IPAddress ip, IPAddress dns, IPAddress gateway) {
+    Ethernet.begin(mac, ip, dns, gateway);
+}
+
+void ModbusIP::config(uint8_t *mac, IPAddress ip, IPAddress dns, IPAddress gateway, IPAddress subnet) {
+    Ethernet.begin(mac, ip, dns, gateway, subnet);
+}
+
+void ModbusIP::task() {
     EthernetClient client = _server.available();
 
     if (client) {
@@ -38,7 +53,8 @@ void ModbusIP::proc() {
                 if (i==_len) break;
 			}
 
-			if (this->receivePDU(_frame) && _reply != MB_REPLY_OFF)  {
+            this->receivePDU(_frame);
+			if (_reply != MB_REPLY_OFF) {
                 //MBAP
                 _MBAP[4] = _len >> 8;
                 _MBAP[5] = _len | 0x00FF;
