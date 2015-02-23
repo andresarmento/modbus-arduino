@@ -117,8 +117,8 @@ word Modbus::Hreg(word offset) {
 
 void Modbus::receivePDU(byte* frame) {
     byte fcode  = frame[0];
-    word field1 = frame[1] << 8 | frame[2];
-    word field2 = frame[3] << 8 | frame[4];
+    word field1 = (word)frame[1] << 8 | (word)frame[2];
+    word field2 = (word)frame[3] << 8 | (word)frame[4];
 
     switch (fcode) {
         case MB_FC_READ_COILS:
@@ -173,12 +173,14 @@ void Modbus::readCoils(word startreg, word numregs) {
         return;
     }
 
-    //Check Address (startreg...startreg + numregs)
-    for (int k = 0; k < numregs; k++) {
-        if (!this->searchRegister(startreg + 1 + k)) {
-            this->exceptionResponse(MB_FC_READ_COILS, MB_EX_ILLEGAL_ADDRESS);
-            return;
-        }
+    //Check Address
+    //Check only startreg. Is this correct?
+    //When I check all registers in range I got errors in ScadaBR
+    //I think that ScadaBR request more than one in the single request
+    //when you have more then one datapoint configured from same type.
+    if (!this->searchRegister(startreg + 1)) {
+        this->exceptionResponse(MB_FC_READ_COILS, MB_EX_ILLEGAL_ADDRESS);
+        return;
     }
 
     //Clean frame buffer
@@ -225,12 +227,11 @@ void Modbus::readInputStatus(word startreg, word numregs) {
         return;
     }
 
-    //Check Address (startreg...startreg + numregs)
-    for (int k = 0; k < numregs; k++) {
-        if (!this->searchRegister(startreg + 10001 + k)) {
-            this->exceptionResponse(MB_FC_READ_INPUT_STAT, MB_EX_ILLEGAL_ADDRESS);
-            return;
-        }
+    //Check Address
+    //*** See comments on readCoils method.
+    if (!this->searchRegister(startreg + 10001)) {
+        this->exceptionResponse(MB_FC_READ_COILS, MB_EX_ILLEGAL_ADDRESS);
+        return;
     }
 
     //Clean frame buffer
@@ -277,13 +278,13 @@ void Modbus::readRegisters(word startreg, word numregs) {
         return;
     }
 
-    //Check Address (startreg...startreg + numregs)
-    for (int k = 0; k < numregs; k++) {
-        if (!this->searchRegister(startreg + 40001 + k)) {
-            this->exceptionResponse(MB_FC_READ_REGS, MB_EX_ILLEGAL_ADDRESS);
-            return;
-        }
+    //Check Address
+    //*** See comments on readCoils method.
+    if (!this->searchRegister(startreg + 40001)) {
+        this->exceptionResponse(MB_FC_READ_COILS, MB_EX_ILLEGAL_ADDRESS);
+        return;
     }
+
 
     //Clean frame buffer
     free(_frame);
@@ -324,12 +325,11 @@ void Modbus::readInputRegisters(word startreg, word numregs) {
         return;
     }
 
-    //Check Address (startreg...startreg + numregs)
-    for (int k = 0; k < numregs; k++) {
-        if (!this->searchRegister(startreg + 30001 + k)) {
-            this->exceptionResponse(MB_FC_READ_INPUT_REGS, MB_EX_ILLEGAL_ADDRESS);
-            return;
-        }
+    //Check Address
+    //*** See comments on readCoils method.
+    if (!this->searchRegister(startreg + 30001)) {
+        this->exceptionResponse(MB_FC_READ_COILS, MB_EX_ILLEGAL_ADDRESS);
+        return;
     }
 
     //Clean frame buffer
@@ -431,9 +431,9 @@ void Modbus::writeMultipleCoils(word startreg, word numoutputs, byte bytecount) 
 
     _frame[0] = MB_FC_WRITE_COILS;
     _frame[1] = startreg >> 8;
-    _frame[2] = startreg | 0x00FF;
+    _frame[2] = startreg & 0x00FF;
     _frame[3] = numoutputs >> 8;
-    _frame[4] = numoutputs | 0x00FF;
+    _frame[4] = numoutputs & 0x00FF;
 
     byte bitn = 0;
     word totoutputs = numoutputs;
@@ -477,14 +477,14 @@ void Modbus::writeMultipleRegisters(word startreg, word numoutputs, byte bytecou
 
     _frame[0] = MB_FC_WRITE_REGS;
     _frame[1] = startreg >> 8;
-    _frame[2] = startreg | 0x00FF;
+    _frame[2] = startreg & 0x00FF;
     _frame[3] = numoutputs >> 8;
-    _frame[4] = numoutputs | 0x00FF;
+    _frame[4] = numoutputs & 0x00FF;
 
     word val;
     word i = 0;
 	while(numoutputs--) {
-        val = _frame[6+i*2] << 8 | _frame[7+i*2];
+        val = (word)_frame[6+i*2] << 8 | (word)_frame[7+i*2];
 		this->Hreg(startreg + i, val);
 		i++;
 	}
