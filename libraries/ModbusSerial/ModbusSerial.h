@@ -23,7 +23,7 @@ class ModbusSerial : public Modbus {
         bool setSlaveId(byte slaveId);
         byte getSlaveId();
         bool config(HardwareSerial* port, long baud, u_int format, int txPin=-1);
-        void proc();
+        void task();
         bool receive(byte* frame);
         bool sendPDU(byte* pduframe);
         bool send(byte* frame);
