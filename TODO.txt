@@ -2,9 +2,9 @@ TODO
 ====
 
 . Correct config in ModbusIP
-. Code reuse
 . Write Examples
 . Write README
+. Code reuse
 . Master for Serial and IP
 
 
