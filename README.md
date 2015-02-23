@@ -19,7 +19,6 @@ Serial 232, 485 and Modbus IP (TCP not keep alive)
 
 Reference
 =========
-
 http://www.modbus.org/docs/Modbus_Application_Protocol_V1_1b.pdf
 
 License
