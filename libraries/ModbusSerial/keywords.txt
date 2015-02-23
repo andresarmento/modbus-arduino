@@ -8,7 +8,7 @@ calcCrc         KEYWORD2
 setSlaveId      KEYWORD2
 getSlaveId      KEYWORD2
 config          KEYWORD2
-proc            KEYWORD2
+task            KEYWORD2
 receive         KEYWORD2
 sendPDU         KEYWORD2
 send            KEYWORD2
