@@ -32,5 +32,5 @@ void loop() {
    mb.task();
    
    //Attach switchPin to SWITCH_ISTS register     
-   mb.Ists(SWITCH_ISTS, digitalRead(SWITCH_ISTS));
+   mb.Ists(SWITCH_ISTS, digitalRead(switchPin));
 }
