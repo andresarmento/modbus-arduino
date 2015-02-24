@@ -68,11 +68,11 @@ Como utilizar
 Existem três classes que correspondem a três cabeçalhos que podem ser utilizados:
 <ul>
     <li>Modbus - Biblioteca Base</li>
-    <li>Modbus Serial - Biblioteca Modbus Serial (RS-232 e RS-485)</li>
-    <li>Modbus IP - Biblioteca Modbus IP</li>
+    <li>ModbusSerial - Biblioteca Modbus Serial (RS-232 e RS-485)</li>
+    <li>ModbusIP - Biblioteca Modbus IP</li>
 </ul>
 
-Ao optar por Modbus Serial ou Modbus IP você deve incluir o cabeçalho correspondente e o cabeçalho da biblioteca base, Ex:
+Ao optar por Modbus Serial ou Modbus IP você deve incluir o cabeçalho correspondente e o cabeçalho da biblioteca base em seu sketch, Ex:
 ```
 #include <Modbus.h>
 #include <ModbusSerial.h>
@@ -92,7 +92,7 @@ os nomes dos tipos de registradores:
 
 <b>Observações:</b>
 
-1. <i>Input Status</i> também é chamada de <i>Discrete Input</i>.
+1. <i>Input Status</i> é às vezes chamada de <i>Discrete Input</i>.
 2. <i>Holding Register</i> ou apenas <i>Register</i> também é utilizado para armazenar valores no escravo.
 3. Exemplos de uso: Um <i>Coil</i> pode ser utilizado para acionar uma lâmpada ou led. Um <i>Holding Register</i> para
 armazenar um contador ou acionar um Servo. Um <i>Input Status</i> pode ser utilizado com um reed-switch
