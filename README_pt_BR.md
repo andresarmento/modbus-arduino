@@ -2,16 +2,14 @@ Biblioteca Modbus para Arduino
 ==============================
 
 Esta biblioteca permite que seu arduino se comunique através do protocolo Modbus.
-O Mosbus é um protocolo do tipo mestre-escravo, utilizado em automação industrial,
+O Modbus é um protocolo do tipo mestre-escravo, utilizado em automação industrial,
 podendo ser utilizado em outras áreas, como por exemplo, na automação residencial.
 
 O Modbus geralmente utiliza como meio físico as interfaces seriais RS-232 ou RS-485
-(quando é chamado Modbus Serial) ou TCP/IP via Ethernet ou Wi-fi (Modbus IP).
+(quando é chamado Modbus Serial) e TCP/IP via Ethernet ou Wi-fi (Modbus IP).
 
 Na versão atual a biblioteca permite que o arduino opere como escravo, suportando
-tando Modbus Serial quanto Modbus IP.
-
-Para mais informações sobre o Modbus consulte:
+tando Modbus Serial quanto Modbus IP. Para mais informações sobre o Modbus consulte:
 
 http://pt.wikipedia.org/wiki/Modbus
 http://www.modbus.org/docs/Modbus_Application_Protocol_V1_1b.pdf
@@ -27,7 +25,7 @@ em fracos em todas elas. Pensei também que serial legal ter uma biblioteca base 
 Modbus e derivá-la para cada tipo de meio físico utilizado.
 
 Agradeço ao trabalho de todos os autores das outras bibliotecas, das quais utilizei
-várias ideias para compor a modbus-arduino. No final do texto estão listadas as
+várias ideias para compor a modbus-arduino. No final deste documento estão listadas as
 bibliotecas e seus respectivos autores.
 
 Características
@@ -52,41 +50,41 @@ Características
 
 <b>Observações:</b>
 
-1. Ao utilizar ModbusIP o protocolo de transporte é o TCP (porta 502) e a conexão
+1. Quando se usa Modbus IP o protocolo de transporte é o TCP (porta 502) e a conexão
 é finalizada a cada mensagem transmitida, ou seja, não é do tipo keep-alive.
 
 2. Os offsets para acesso aos registradores são baseados em 0. Assim, tenha cuidado
 ao configurar seu seu supervisório ou utilitário de teste. Por exempo, no ScadaBR
-(http://www.scadabr.com.br) os offsets são baseados em 0, então, um registro
+(http://www.scadabr.com.br) os offsets são baseados em 0, então, um registrador
 configurado como 100 na biblioteca será configurado como 100 no ScadaBR. Por outro
-lado, no utilitário CAS Modbus Scanner (http://www.chipkin.com/products/software/modbus-software/cas-modbus-scanner/)
-os offsets são baseados em 1, logo, um registro configurado como 100 na biblioteca
+lado, no software de teste CAS Modbus Scanner (http://www.chipkin.com/products/software/modbus-software/cas-modbus-scanner/)
+os offsets são baseados em 1, logo, um registrador configurado como 100 na biblioteca
 deverá ser 101 neste software.
 
 
 Como utilizar
 =============
 
-Existem três classes que correspondem a três includes que podem ser utilizados:
+Existem três classes que correspondem a três cabeçalhos que podem ser utilizados:
 <ul>
     <li>Modbus - Biblioteca Base</li>
     <li>Modbus Serial - Biblioteca Modbus Serial (RS-232 e RS-485)</li>
     <li>Modbus IP - Biblioteca Modbus IP</li>
 </ul>
 
-Ao optar por Serial ou IP deve-se incluir o cabeçalho correspondente e o cabeçalho da biblioteca base, Ex:
+Ao optar por Modbus Serial ou Modbus IP você deve incluir o cabeçalho correspondente e o cabeçalho da biblioteca base, Ex:
 ```
 #include <Modbus.h>
 #include <ModbusSerial.h>
 ```
 
-<b>Jargão do protocolo Modbus</b>
+<b>Jargão do Modbus</b>
 
-Optou-se por utilizar os termos do Modbus para os métodos de acesso à biblioteca, assim, convém esclarecer
-os tipos de registradores:
+Optou-se por utilizar os termos usados no Modbus para os métodos da biblioteca, assim, convém esclarecer
+os nomes dos tipos de registradores:
 
 | Tipo de registrador  | Uso                | Acesso            | Métodos da biblioteca |
-| -------------------- | ------------------ | ----------------- | ---------------------
+| -------------------- | ------------------ | ----------------- | --------------------- |
 | Coil                 | Sáida digital      | Leitura/Escrita   | addCoil(), Coil()     |
 | Holding Register     | Saída analógica    | Leitura/Escrita   | addHReg(), HReg()     |
 | Input Status         | Entrada digital    | Somente Leitura   | addIsts(), Ists()     |
@@ -96,17 +94,15 @@ os tipos de registradores:
 
 1. <i>Input Status</i> também é chamada de <i>Discrete Input</i>.
 2. <i>Holding Register</i> ou apenas <i>Register</i> também é utilizado para armazenar valores no escravo.
-
-Um <i>Coil</i> pode ser utilizado para acionar uma lâmpada ou led.
-Um <i>Holding Register</i> pode ser utilizado para armazenar um contador ou acionar um Servo.
-Um <i>Input Status</i> pode ser utilizado com um reed-switch em um sensor de porta.
-Um <i>Input Register</i> pode ser utilizado com um sensor de temperatura.
+3. Exemplos de uso: Um <i>Coil</i> pode ser utilizado para acionar uma lâmpada ou led. Um <i>Holding Register</i> para
+armazenar um contador ou acionar um Servo. Um <i>Input Status</i> pode ser utilizado com um reed-switch
+em um sensor de porta e um <i>Input Register</i> com um sensor de temperatura.
 
 
 <h3>ModBus Serial</h3>
 
 Há quatro exemplos que podem ser acessados da interface do Arduino, uma vez que você tenha instalado
-a biblioteca. Vejamos um deles (Lamp.ino):
+a biblioteca. Vejamos o exemplo Lamp.ino (apenas as partes relativas ao modbus sserão comentadas)
 
 ```
 #include <Modbus.h>
@@ -163,14 +159,14 @@ o primeira forma o valor default é false.
 ```
 mb.task();
 ```
-Este método faz toda a mágica, respondendo as requições e alterando os registradores
+Este método faz toda a mágica, respondendo as requisições e alterando os registradores
 se necessário, ele deve ser chamado apenas uma vez, no início no loop.
 
 
 ```
 digitalWrite(ledPin, mb.Coil(LAMP1_COIL));
 ```
-Por fim o valor do regitrador LAMP1_COIL é utilizado para acionar a lâmpada ou led.
+Por fim o valor do registrador LAMP1_COIL é utilizado para acionar a lâmpada ou led.
 
 
 De forma bastante similar os outros exemplos mostram o uso dos outros métodos
@@ -219,7 +215,7 @@ Inclusão das bibliotecas necessárias.
 const int SWITCH_ISTS = 100;
 const int switchPin = 3;
 ```
-Define o registrador Modbus para representar o interrupor. Este valor é o offset
+Define o registrador Modbus para representar o interruptor. Este valor é o offset
 (baseado em 0) a ser colocado no seu supervisório ou utilitário de teste. Observe
 que se seu supervisório ou utilitário utiliza offsets baseados em 1 o valor configurado
 lá deverá ser 101, para este exemplo.
@@ -237,7 +233,7 @@ byte ip[] = { 192, 168, 1, 120 };
 mb.config(mac, ip);
 ```
 Configura a shield Ethernet. Os valores do endereço MAC e o IP são passados
-pelo método config(). A sintaxe é idêndica ao uso da classe Ethernet do arduino,
+pelo método config(). A sintaxe é igual a da classe Ethernet do arduino,
 e suporta os seguintes formatos:
 ```
 void config(uint8_t *mac)
@@ -274,7 +270,7 @@ se necessário, ele deve ser chamado apenas uma vez, no início no loop.
 ```
 mb.Ists(SWITCH_ISTS, digitalRead(switchPin));
 ```
-Por fim o valor do regitrador SWITCH_ISTS é alterado conforme o estado da entrada
+Por fim o valor do registrador SWITCH_ISTS é alterado conforme o estado da entrada
 digital escolhida.
 
 
@@ -320,7 +316,7 @@ http://github.com/andresarmento/modbus-arduino
 Licença
 =======
 
-The code in this repo is licensed under the BSD New License.
-See [LICENSE.txt](LICENSE.txt) for more info.
+O código neste repositório é licenciado pela BSD New License.
+Veja [LICENSE.txt](LICENSE.txt) para mais informações.
 
 
