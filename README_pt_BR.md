@@ -311,7 +311,7 @@ Website : http://playground.arduino.cc/Code/ModbusMaster
 Contribuições
 =============
 http://github.com/andresarmento/modbus-arduino
-
+prof (at) andresarmento (dot) com
 
 Licença
 =======

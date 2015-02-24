@@ -197,7 +197,7 @@ Inclusion of the necessary libraries.
 ```
 const int SWITCH_ISTS = 100;
 ```
-Sets the Modbus register to represent the interrupor. This value is the offset (0-based) to be placed in its supervisory or testing software.
+Sets the Modbus register to represent the switch. This value is the offset (0-based) to be placed in its supervisory or testing software.
 Note that if your software uses offsets 1-based the set value there should be 101, for this example.
 
 ```
@@ -280,7 +280,7 @@ Website: http://playground.arduino.cc/Code/ModbusMaster
 Contributions
 =============
 http://github.com/andresarmento/modbus-arduino
-
+prof (at) andresarmento (dot) com
 
 License
 =======
