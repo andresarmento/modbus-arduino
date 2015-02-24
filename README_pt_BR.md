@@ -283,37 +283,37 @@ Outras bibliotecas Modbus
 
 <b>Arduino Modbus RTU</b>
 
-Autor   : Juan Pablo Zometa, Samuel Marco and Andras Tucsni</br>
-Ano     : 2010</br>
+Autor   : Juan Pablo Zometa, Samuel Marco and Andras Tucsni<br>
+Ano     : 2010<br>
 Website : https://sites.google.com/site/jpmzometa/
 
 
 <b>Simple Modbus</b>
 
-Autor   : Bester.J</br>
+Autor   : Bester.J<br>
 Ano     : 2013</br>
 Website : https://code.google.com/p/simple-modbus/
 
 
 <b>Arduino-Modbus-Slave</b>
 
-Autor   : Jason Vreeland [CodeRage]</br>
-Ano     : 2010</br>
+Autor   : Jason Vreeland [CodeRage]<br>
+Ano     : 2010<br>
 Website : http://code.google.com/p/arduino-modbus-slave/
 
 
 <b>Mudbus (Modbus TCP)</b>
 
-Autor   : Dee Wykoff</br>
-Ano     : 2011</br>
+Autor   : Dee Wykoff<br>
+Ano     : 2011<br>
 Website : http://code.google.com/p/mudbus/
 
 
 <b>ModbusMaster Library for Arduino</b>
 
-Autor   : Doc Walker</br>
-Ano     : 2012</br>
-Website : https://github.com/4-20ma/ModbusMaster</br>
+Autor   : Doc Walker<br>
+Ano     : 2012<br>
+Website : https://github.com/4-20ma/ModbusMaster<br>
 Website : http://playground.arduino.cc/Code/ModbusMaster
 
 
