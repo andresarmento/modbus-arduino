@@ -102,7 +102,7 @@ em um sensor de porta e um <i>Input Register</i> com um sensor de temperatura.
 <h3>ModBus Serial</h3>
 
 Há quatro exemplos que podem ser acessados da interface do Arduino, uma vez que você tenha instalado
-a biblioteca. Vejamos o exemplo Lamp.ino (apenas as partes relativas ao modbus sserão comentadas)
+a biblioteca. Vejamos o exemplo Lamp.ino (apenas as partes relativas ao modbus serão comentadas):
 
 ```
 #include <Modbus.h>
@@ -115,8 +115,8 @@ Inclusão das bibliotecas necessárias.
 const int LAMP1_COIL = 100;
 ```
 Define o registrador Modbus para representar lâmpada ou led. Este valor é o offset
-(baseado em 0) a ser colocado no seu supervisório ou utilitário de teste. Observe
-que se seu supervisório ou utilitário utiliza offsets baseados em 1 o valor configurado
+(baseado em 0) a ser colocado no seu sistema supervisório ou software de teste. Observe
+que se seu software utiliza offsets baseados em 1 o valor configurado
 lá deverá ser 101, para este exemplo.
 
 
@@ -200,7 +200,7 @@ Retorna o valor de um registrador.
 <h3>ModBus IP</h3>
 
 Há quatro exemplos que podem ser acessados da interface do Arduino, uma vez que você tenha instalado
-a biblioteca. Vejamos um deles (Switch.ino):
+a biblioteca. Vejamos o exemplo Switch.ino (apenas as partes relativas ao modbus serão comentadas):
 
 ```
 #include <SPI.h>
@@ -216,8 +216,8 @@ const int SWITCH_ISTS = 100;
 const int switchPin = 3;
 ```
 Define o registrador Modbus para representar o interruptor. Este valor é o offset
-(baseado em 0) a ser colocado no seu supervisório ou utilitário de teste. Observe
-que se seu supervisório ou utilitário utiliza offsets baseados em 1 o valor configurado
+(baseado em 0) a ser colocado no seu sistema supervisório ou software de teste. Observe
+que se seu software utiliza offsets baseados em 1 o valor configurado
 lá deverá ser 101, para este exemplo.
 
 
@@ -263,7 +263,7 @@ o primeira forma o valor default é false.
 ```
 mb.task();
 ```
-Este método faz toda a mágica, respondendo as requições e alterando os registradores
+Este método faz toda a mágica, respondendo as requisições e alterando os registradores
 se necessário, ele deve ser chamado apenas uma vez, no início no loop.
 
 
@@ -310,7 +310,7 @@ Website : http://playground.arduino.cc/Code/ModbusMaster
 
 Contribuições
 =============
-http://github.com/andresarmento/modbus-arduino
+http://github.com/andresarmento/modbus-arduino<br>
 prof (at) andresarmento (dot) com
 
 Licença

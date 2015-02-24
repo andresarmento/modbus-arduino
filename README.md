@@ -279,7 +279,7 @@ Website: http://playground.arduino.cc/Code/ModbusMaster
 
 Contributions
 =============
-http://github.com/andresarmento/modbus-arduino
+http://github.com/andresarmento/modbus-arduino<br>
 prof (at) andresarmento (dot) com
 
 License
