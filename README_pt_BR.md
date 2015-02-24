@@ -12,11 +12,13 @@ Na versão atual a biblioteca permite que o arduino opere como escravo, suportand
 tando Modbus Serial quanto Modbus IP.
 
 Para mais informações sobre o Modbus consulte:
+
 http://pt.wikipedia.org/wiki/Modbus
 http://www.modbus.org/docs/Modbus_Application_Protocol_V1_1b.pdf
 http://www.modbus.org/docs/Modbus_Messaging_Implementation_Guide_V1_0b.pdf
 
-<b>Nota do autor (motivação e agradecimentos)</b>
+<b>Nota do autor (motivação e agradecimentos):</b>
+
 Tudo começou quando eu encontrei a biblioteca Arduino Modbus RTU de Juan Pablo Zometa
 e estendi a biblioteca para suportar outras funções Modbus.
 
@@ -67,9 +69,9 @@ Como utilizar
 
 Existem três classes que correspondem a três includes que podem ser utilizados:
 <ul>
-    <li>Modbus (#include <Modbus.h>) - Biblioteca Base</li>
-    <li>Modbus Serial (#include <ModbusSrial.h>) - Biblioteca Modbus Serial (RS-232 e RS-485)</li>
-    <li>Modbus IP (#include <ModbusIP.h>) - Biblioteca Modbus IP</li>
+    <li>Modbus - Biblioteca Base</li>
+    <li>Modbus Serial - Biblioteca Modbus Serial (RS-232 e RS-485)</li>
+    <li>Modbus IP - Biblioteca Modbus IP</li>
 </ul>
 
 Ao optar por Serial ou IP deve-se incluir o cabeçalho correspondente e o cabeçalho da biblioteca base, Ex:
@@ -79,6 +81,7 @@ Ao optar por Serial ou IP deve-se incluir o cabeçalho correspondente e o cabeçal
 ```
 
 <b>Jargão do protocolo Modbus</b>
+
 Optou-se por utilizar os termos do Modbus para os métodos de acesso à biblioteca, assim, convém esclarecer
 os tipos de registradores:
 
@@ -90,6 +93,7 @@ os tipos de registradores:
 | Input Register       | Entrada analógica  | Somente Leitura   | addIreg(), Ireg()     |
 
 <b>Observações:</b>
+
 1. <i>Input Status</i> também é chamada de <i>Discrete Input</i>.
 2. <i>Holding Register</i> ou apenas <i>Register</i> também é utilizado para armazenar valores no escravo.
 
@@ -99,7 +103,7 @@ Um <i>Input Status</i> pode ser utilizado com um reed-switch em um sensor de por
 Um <i>Input Register</i> pode ser utilizado com um sensor de temperatura.
 
 
-<b>ModBus Serial</b>
+<h3>ModBus Serial</h3>
 
 Há quatro exemplos que podem ser acessados da interface do Arduino, uma vez que você tenha instalado
 a biblioteca. Vejamos um deles (Lamp.ino):
@@ -110,6 +114,7 @@ a biblioteca. Vejamos um deles (Lamp.ino):
 ```
 Inclusão das bibliotecas necessárias.
 
+
 ```
 const int LAMP1_COIL = 100;
 ```
@@ -118,10 +123,12 @@ Define o registrador Modbus para representar lâmpada ou led. Este valor é o offs
 que se seu supervisório ou utilitário utiliza offsets baseados em 1 o valor configurado
 lá deverá ser 101, para este exemplo.
 
+
 ```
 ModbusSerial mb;
 ```
 Cria a instância mb (ModbusSerial) a ser utilizada.
+
 
 ```
 mb.config(&Serial, 38400, SERIAL_8N1);
@@ -137,6 +144,7 @@ controle de transmissão/recepção. Isto é feito da seguinte forma:
 mb.config(&Serial, 38400, SERIAL_8N1, 2);
 ```
 Nesse caso, o pino 2 será utilizado para controle de TX/RX.
+
 
 ```
 mb.addCoil(LAMP1_COIL);
@@ -158,10 +166,12 @@ mb.task();
 Este método faz toda a mágica, respondendo as requições e alterando os registradores
 se necessário, ele deve ser chamado apenas uma vez, no início no loop.
 
+
 ```
 digitalWrite(ledPin, mb.Coil(LAMP1_COIL));
 ```
 Por fim o valor do regitrador LAMP1_COIL é utilizado para acionar a lâmpada ou led.
+
 
 De forma bastante similar os outros exemplos mostram o uso dos outros métodos
 disponíveis na biblioteca:
@@ -173,6 +183,7 @@ void addIreg(word offset, word value)
 ```
 Adiciona registradores e configura valor inicial se especificado.
 
+
 ```
 bool Coil(word offset, bool value)
 bool Hreg(word offset, word value)
@@ -181,6 +192,7 @@ bool Ireg(word offset, word value)
 ```
 Configura um valor para o registrador.
 
+```
 bool Coil(word offset)
 word Hreg(word offset)
 bool Ists(word offset)
@@ -189,7 +201,7 @@ word Ireg(word offset)
 Retorna o valor de um registrador.
 
 
-<b>ModBus IP</b>
+<h3>ModBus IP</h3>
 
 Há quatro exemplos que podem ser acessados da interface do Arduino, uma vez que você tenha instalado
 a biblioteca. Vejamos um deles (Switch.ino):
@@ -202,6 +214,7 @@ a biblioteca. Vejamos um deles (Switch.ino):
 ```
 Inclusão das bibliotecas necessárias.
 
+
 ```
 const int SWITCH_ISTS = 100;
 const int switchPin = 3;
@@ -211,10 +224,12 @@ Define o registrador Modbus para representar o interrupor. Este valor é o offset
 que se seu supervisório ou utilitário utiliza offsets baseados em 1 o valor configurado
 lá deverá ser 101, para este exemplo.
 
+
 ```
 ModbusIP mb;
 ```
 Cria a instância mb (ModbusIP) a ser utilizada.
+
 
 ```
 byte mac[] = { 0xDE, 0xAD, 0xBE, 0xEF, 0xFE, 0xED };
@@ -232,6 +247,7 @@ void config(uint8_t *mac, IPAddress ip, IPAddress dns, IPAddress gateway)
 void config(uint8_t *mac, IPAddress ip, IPAddress dns, IPAddress gateway, IPAddress subnet)
 ```
 
+
 Em seguida temos:
 ```
 mb.addIsts(SWITCH_ISTS);
@@ -243,14 +259,17 @@ A biblioteca permite configurar um valor inicial para o registrador:
 ```
 mb.addIsts(SWITCH_ISTS, true);
 ```
+
 Nesse caso o registrador é adicionado e configurado como true. Caso se utilize
 o primeira forma o valor default é false.
+
 
 ```
 mb.task();
 ```
 Este método faz toda a mágica, respondendo as requições e alterando os registradores
 se necessário, ele deve ser chamado apenas uma vez, no início no loop.
+
 
 ```
 mb.Ists(SWITCH_ISTS, digitalRead(switchPin));
