@@ -3,7 +3,7 @@ TODO
 
 . Write a nice README
 . Code reuse in Modbus library
-. Impelement Master for Serial and IP
+. Implement Master for Serial and IP
 
 
 
