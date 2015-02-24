@@ -35,40 +35,40 @@ void ModbusIP::task() {
         if (client.connected()) {
             int i = 0;
             while (client.available()){
-                _MBAP[i] = client.read();
+            _MBAP[i] = client.read();
                 i++;
                 if (i==7) break;  //MBAP length has 7 bytes size
             }
-			_len = _MBAP[4] << 8 | _MBAP[5];
-			_len--;  // Do not count with last byte from MBAP
+            _len = _MBAP[4] << 8 | _MBAP[5];
+            _len--;  // Do not count with last byte from MBAP
 
-			if (_MBAP[2] !=0 | _MBAP[3] !=0) return;   //Not a MODBUSIP packet
-			if (_len > MODBUSIP_MAXFRAME) return;      //Length is over MODBUSIP_MAXFRAME
+            if (_MBAP[2] !=0 | _MBAP[3] !=0) return;   //Not a MODBUSIP packet
+            if (_len > MODBUSIP_MAXFRAME) return;      //Length is over MODBUSIP_MAXFRAME
 
-			_frame = (byte*) malloc(_len);
-			i = 0;
-			while (client.available()){
-			    _frame[i] = client.read();
+            _frame = (byte*) malloc(_len);
+            i = 0;
+            while (client.available()){
+                _frame[i] = client.read();
                 i++;
                 if (i==_len) break;
-			}
+            }
 
             this->receivePDU(_frame);
-			if (_reply != MB_REPLY_OFF) {
+            if (_reply != MB_REPLY_OFF) {
                 //MBAP
                 _MBAP[4] = _len >> 8;
                 _MBAP[5] = _len | 0x00FF;
-				for (i = 0 ; i < 7 ; i++) {
-					client.write(_MBAP[i]);
-				}
+                for (i = 0 ; i < 7 ; i++) {
+                    client.write(_MBAP[i]);
+                }
                 //PDU Frame
-				for (i = 0 ; i < _len ; i++) {
-					client.write(_frame[i]);
-				}
-			}
+                for (i = 0 ; i < _len ; i++) {
+                    client.write(_frame[i]);
+                }
+            }
 
-		    free(_frame);
-	        _len = 0;
+            free(_frame);
+            _len = 0;
             client.stop();
         }
     }

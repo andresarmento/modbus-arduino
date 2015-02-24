@@ -34,8 +34,8 @@ void Modbus::addReg(word address, word value) {
         _regs_head = newreg;
         _regs_last = _regs_head;
     } else {
-		//Assign the last register's next pointer to newreg.
-	    _regs_last->next = newreg;
+        //Assign the last register's next pointer to newreg.
+        _regs_last->next = newreg;
         //then make temp the last register in the list.
         _regs_last = newreg;
     }
@@ -306,13 +306,13 @@ void Modbus::readRegisters(word startreg, word numregs) {
     word val;
     word i = 0;
 	while(numregs--) {
-		//retrieve the value from the register bank for the current register
-		val = this->Hreg(startreg + i);
-		//write the high byte of the register value
-		_frame[2 + i * 2]  = val >> 8;
-		//write the low byte of the register value
-		_frame[3 + i * 2] = val & 0xFF;
-		i++;
+        //retrieve the value from the register bank for the current register
+        val = this->Hreg(startreg + i);
+        //write the high byte of the register value
+        _frame[2 + i * 2]  = val >> 8;
+        //write the low byte of the register value
+        _frame[3 + i * 2] = val & 0xFF;
+        i++;
 	}
 
     _reply = MB_REPLY_NORMAL;
@@ -352,13 +352,13 @@ void Modbus::readInputRegisters(word startreg, word numregs) {
     word val;
     word i = 0;
 	while(numregs--) {
-		//retrieve the value from the register bank for the current register
-		val = this->Ireg(startreg + i);
-		//write the high byte of the register value
-		_frame[2 + i * 2]  = val >> 8;
-		//write the low byte of the register value
-		_frame[3 + i * 2] = val & 0xFF;
-		i++;
+        //retrieve the value from the register bank for the current register
+        val = this->Ireg(startreg + i);
+        //write the high byte of the register value
+        _frame[2 + i * 2]  = val >> 8;
+        //write the low byte of the register value
+        _frame[3 + i * 2] = val & 0xFF;
+        i++;
 	}
 
     _reply = MB_REPLY_NORMAL;
@@ -440,12 +440,12 @@ void Modbus::writeMultipleCoils(word startreg, word numoutputs, byte bytecount) 
     word i;
 	while (numoutputs--) {
         i = (totoutputs - numoutputs) / 8;
-		this->Coil(startreg, bitRead(_frame[6+i], bitn));
-		//increment the bit index
-		bitn++;
-		if (bitn == 8) bitn = 0;
-		//increment the register
-		startreg++;
+        this->Coil(startreg, bitRead(_frame[6+i], bitn));
+        //increment the bit index
+        bitn++;
+        if (bitn == 8) bitn = 0;
+        //increment the register
+        startreg++;
 	}
 
     _reply = MB_REPLY_NORMAL;
@@ -485,8 +485,8 @@ void Modbus::writeMultipleRegisters(word startreg, word numoutputs, byte bytecou
     word i = 0;
 	while(numoutputs--) {
         val = (word)_frame[6+i*2] << 8 | (word)_frame[7+i*2];
-		this->Hreg(startreg + i, val);
-		i++;
+        this->Hreg(startreg + i, val);
+        i++;
 	}
 
     _reply = MB_REPLY_NORMAL;
@@ -495,13 +495,12 @@ void Modbus::writeMultipleRegisters(word startreg, word numoutputs, byte bytecou
 void Modbus::exceptionResponse(byte fcode, byte excode) {
     //Clean frame buffer
     free(_frame);
-	_len = 2;
-
+    _len = 2;
     _frame = (byte *) malloc(_len);
-	_frame[0] = fcode + 0x80;
-	_frame[1] = excode;
+    _frame[0] = fcode + 0x80;
+    _frame[1] = excode;
 
-	_reply = MB_REPLY_NORMAL;
+    _reply = MB_REPLY_NORMAL;
 }
 
 

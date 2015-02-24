@@ -30,12 +30,12 @@ bool ModbusSerial::config(HardwareSerial* port, long baud, u_int format, int txP
     }
 
     if (baud > 19200) {
-		_t15 = 750;
-		_t35 = 1750;
-	} else {
-		_t15 = 15000000/baud; // 1T * 1.5 = T1.5
-		_t35 = 35000000/baud; // 1T * 3.5 = T3.5
-	}
+        _t15 = 750;
+        _t35 = 1750;
+    } else {
+        _t15 = 15000000/baud; // 1T * 1.5 = T1.5
+        _t35 = 35000000/baud; // 1T * 3.5 = T3.5
+    }
 
     return true;
 }
@@ -114,27 +114,27 @@ void ModbusSerial::task() {
     _len = 0;
 
     while ((*_port).available() > _len)	{
-		_len = (*_port).available();
-		delayMicroseconds(_t35);
-		//delayMicroseconds(1250);
-	}
+        _len = (*_port).available();
+        delayMicroseconds(_t35);
+        //delayMicroseconds(1250);
+    }
 
-	if (_len == 0) return;
+    if (_len == 0) return;
 
-	byte i;
-	_frame = (byte*) malloc(_len);
-	for (i=0 ; i < _len ; i++) _frame[i] = (*_port).read();
+    byte i;
+    _frame = (byte*) malloc(_len);
+    for (i=0 ; i < _len ; i++) _frame[i] = (*_port).read();
 
     if (this->receive(_frame)) {
         if (_reply == MB_REPLY_NORMAL)
             this->sendPDU(_frame);
         else
-            if (_reply == MB_REPLY_ECHO)
-                this->send(_frame);
+        if (_reply == MB_REPLY_ECHO)
+            this->send(_frame);
     }
 
-  	free(_frame);
-	_len = 0;
+    free(_frame);
+    _len = 0;
 }
 
 word ModbusSerial::calcCrc(byte address, byte* pduFrame, byte pduLen) {
@@ -144,13 +144,13 @@ word ModbusSerial::calcCrc(byte address, byte* pduFrame, byte pduLen) {
     CRCHi = CRCLo ^ _auchCRCHi[Index];
     CRCLo = _auchCRCLo[Index];
 
-	while (pduLen--) {
-		Index = CRCHi ^ *pduFrame++;
-		CRCHi = CRCLo ^ _auchCRCHi[Index];
-		CRCLo = _auchCRCLo[Index];
-	}
+    while (pduLen--) {
+        Index = CRCHi ^ *pduFrame++;
+        CRCHi = CRCLo ^ _auchCRCHi[Index];
+        CRCLo = _auchCRCLo[Index];
+    }
 
-	return (CRCHi << 8) | CRCLo;
+    return (CRCHi << 8) | CRCLo;
 }
 
 
