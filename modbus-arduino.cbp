@@ -22,6 +22,7 @@
 		<Compiler>
 			<Add option="-Wall" />
 		</Compiler>
+		<Unit filename="README_pt_BR.md" />
 		<Unit filename="TODO.txt" />
 		<Unit filename="libraries/ModbusIP/ModbusIP.cpp" />
 		<Unit filename="libraries/ModbusIP/ModbusIP.h" />
