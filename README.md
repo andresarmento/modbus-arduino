@@ -8,7 +8,7 @@ The Modbus generally uses serial RS-232 or RS-485 as physical layer (then called
 TCP/IP via Ethernet or WiFi (Modbus over IP).
 
 In the current version the library allows the Arduino operate as a slave, supporting Modbus Serial and
-Modbus over IP. For more information on the Modbus see:
+Modbus over IP. For more information sbout Modbus see:
 
 http://pt.wikipedia.org/wiki/Modbus http://www.modbus.org/docs/Modbus_Application_Protocol_V1_1b.pdf
 http://www.modbus.org/docs/Modbus_Messaging_Implementation_Guide_V1_0b.pdf
@@ -21,7 +21,7 @@ library to support other Modbus functions.
 After researching several other Modbus libraries I realized strengths and weaknesses in all of them.
 I also thought it would be cool have a base library for Modbus and derive it for each type of physical layer used.
 
-I appreciate the work of all the authors of the other libraries, of which I used several ideas to compose the Modbus-arduino.
+I appreciate the work of all the authors of the other libraries, of which I used several ideas to compose the modbus-arduino.
 At the end of this document is a list of libraries and their authors.
 
 Features
@@ -59,11 +59,11 @@ There are three classes corresponding to three headers that may be used:
 
 <ul>
 <li>Modbus - Base Library</li>
-<li>Modbus Serial - Modbus Serial Library (RS-232 and RS-485)</li>
-<li>Modbus IP - IP Modbus Library</li>
+<li>ModbusSerial - Modbus Serial Library (RS-232 and RS-485)</li>
+<li>ModbusIP - IP Modbus Library</li>
 </ul>
 
-By opting for Modbus Serial or Modbus IP you must include the corresponding header and the base library header, eg:
+By opting for Modbus Serial or Modbus IP you must include in your sketch the corresponding header and the base library header, eg:
 
 ```
 #include <Modbus.h>
@@ -84,10 +84,10 @@ register types:
 
 <b>Notes:</b>
 
-1. <i>Input Status</i> is also called <i>Discrete Input</i>.
+1. <i>Input Status</i> is sometimes called <i>Discrete Input</i>.
 2. <i>Holding Register</i> or just <i>Register</i> is also used to store values in the slave.
 3. Examples of use: A <i>Coil</i> can be used to drive a lamp or LED. A <i>Holding Register</i> to
-store a counter or drive a Servo Motor. A <i>Input Status</ i> can be used with a reed switch
+store a counter or drive a Servo Motor. A <i>Input Status</i> can be used with a reed switch
 in a door sensor and a <i>Input Register</i> with a temperature sensor.
 
 
@@ -172,7 +172,7 @@ bool IREG (offset word, word value)
 ```
 Sets a value to the register.
 
-``
+```
 bool Coil (offset word)
 Hreg word (word offset)
 bool Ist (offset word)
