@@ -1,8 +1,7 @@
 TODO
 ====
 
-. Write a nice README
-. Code reuse in Modbus library
+. Code reuse in Modbus Base library
 . Implement Master for Serial and IP
 
 
