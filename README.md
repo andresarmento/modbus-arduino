@@ -8,7 +8,7 @@ The Modbus generally uses serial RS-232 or RS-485 as physical layer (then called
 TCP/IP via Ethernet or WiFi (Modbus over IP).
 
 In the current version the library allows the Arduino operate as a slave, supporting Modbus Serial and
-Modbus over IP. For more information sbout Modbus see:
+Modbus over IP. For more information about Modbus see:
 
 http://pt.wikipedia.org/wiki/Modbus http://www.modbus.org/docs/Modbus_Application_Protocol_V1_1b.pdf
 http://www.modbus.org/docs/Modbus_Messaging_Implementation_Guide_V1_0b.pdf
