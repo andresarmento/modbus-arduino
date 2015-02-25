@@ -78,7 +78,7 @@ register types:
 | Register type        | Use as             | Access            | Library methods       |
 | -------------------- | ------------------ | ----------------- | --------------------- |
 | Coil                 | Digital Output     | Read/Write        | addCoil(), Coil()     |
-| Holding Register     | Analog Output      | Read/Write        | addHReg(), HReg()     |
+| Holding Register     | Analog Output      | Read/Write        | addHreg(), Hreg()     |
 | Input Status         | Digital Input      | Read Only         | addIsts(), Ists()     |
 | Input Register       | Analog Input       | Read Only         | addIreg(), Ireg()     |
 

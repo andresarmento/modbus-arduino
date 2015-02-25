@@ -19,13 +19,13 @@ receivePDU              KEYWORD2
 addReg                  KEYWORD2
 addCoil                 KEYWORD2
 addIsts                 KEYWORD2
-addIReg                 KEYWORD2
-addHReg                 KEYWORD2
+addIreg                 KEYWORD2
+addHreg                 KEYWORD2
 Reg                     KEYWORD2
 Coil                    KEYWORD2
 Ists                    KEYWORD2
-IReg                    KEYWORD2
-HReg                    KEYWORD2
+Ireg                    KEYWORD2
+Hreg                    KEYWORD2
 
 # Constants (LITERAL1)
 MB_FC_READ_COILS       	   LITERAL1

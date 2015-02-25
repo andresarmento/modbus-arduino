@@ -86,7 +86,7 @@ os nomes dos tipos de registradores:
 | Tipo de registrador  | Uso                | Acesso            | Métodos da biblioteca |
 | -------------------- | ------------------ | ----------------- | --------------------- |
 | Coil                 | Sáida digital      | Leitura/Escrita   | addCoil(), Coil()     |
-| Holding Register     | Saída analógica    | Leitura/Escrita   | addHReg(), HReg()     |
+| Holding Register     | Saída analógica    | Leitura/Escrita   | addHreg(), Hreg()     |
 | Input Status         | Entrada digital    | Somente Leitura   | addIsts(), Ists()     |
 | Input Register       | Entrada analógica  | Somente Leitura   | addIreg(), Ireg()     |
 
