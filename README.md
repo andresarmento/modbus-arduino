@@ -1,7 +1,7 @@
 Modbus Library for Arduino
 ==========================
 
-This library allows your Arduino to communicate via Modbus protocol. The Mosbus is a master-slave protocol
+This library allows your Arduino to communicate via Modbus protocol. The Modbus is a master-slave protocol
 used in industrial automation and can be used in other areas, such as home automation.
 
 The Modbus generally uses serial RS-232 or RS-485 as physical layer (then called Modbus Serial) and
