@@ -115,8 +115,7 @@ void ModbusSerial::task() {
 
     while ((*_port).available() > _len)	{
         _len = (*_port).available();
-        delayMicroseconds(_t35);
-        //delayMicroseconds(1250);
+        delayMicroseconds(_t15);
     }
 
     if (_len == 0) return;
