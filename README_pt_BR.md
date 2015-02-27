@@ -1,41 +1,41 @@
 Biblioteca Modbus para Arduino
 ==============================
 
-Esta biblioteca permite que seu arduino se comunique atravÈs do protocolo Modbus.
-O Modbus È um protocolo do tipo mestre-escravo, utilizado em automaÁ„o industrial,
-podendo ser utilizado em outras ·reas, como por exemplo, na automaÁ„o residencial.
+Esta biblioteca permite que seu arduino se comunique atrav√©s do protocolo Modbus.
+O Modbus √© um protocolo do tipo mestre-escravo, utilizado em automa√ß√£o industrial,
+podendo ser utilizado em outras √°reas, como por exemplo, na automa√ß√£o residencial.
 
-O Modbus geralmente utiliza como meio fÌsico as interfaces seriais RS-232 ou RS-485
-(quando È chamado Modbus Serial) e TCP/IP via Ethernet ou Wi-fi (Modbus IP).
+O Modbus geralmente utiliza como meio f√≠sico as interfaces seriais RS-232 ou RS-485
+(quando √© chamado Modbus Serial) e TCP/IP via Ethernet, por exemplo (Modbus IP).
 
-Na vers„o atual a biblioteca permite que o arduino opere como escravo, suportando
-tando Modbus Serial quanto Modbus IP. Para mais informaÁıes sobre o Modbus consulte:
+Na vers√£o atual a biblioteca permite que o arduino opere como escravo, suportando
+tando Modbus Serial quanto Modbus IP. Para mais informa√ß√µes sobre o Modbus consulte:
 
 http://pt.wikipedia.org/wiki/Modbus
 http://www.modbus.org/docs/Modbus_Application_Protocol_V1_1b.pdf
 http://www.modbus.org/docs/Modbus_Messaging_Implementation_Guide_V1_0b.pdf
 
-<b>Nota do autor (motivaÁ„o e agradecimentos):</b>
+<b>Nota do autor (motiva√ß√£o e agradecimentos):</b>
 
-Tudo comeÁou quando eu encontrei a biblioteca Arduino Modbus RTU de Juan Pablo Zometa
-e estendi a biblioteca para suportar outras funÁıes Modbus.
+Tudo come√ßou quando eu encontrei a biblioteca Arduino Modbus RTU de Juan Pablo Zometa
+e estendi a biblioteca para suportar outras fun√ß√µes Modbus.
 
-Depois de pesquisar v·rias outras bibliotecas Modbus percebi pontos fortes
-em fracos em todas elas. Pensei tambÈm que serial legal ter uma biblioteca base para
-Modbus e deriv·-la para cada tipo de meio fÌsico utilizado.
+Depois de pesquisar v√°rias outras bibliotecas Modbus percebi pontos fortes
+em fracos em todas elas. Pensei tamb√©m que serial legal ter uma biblioteca base para
+Modbus e deriv√°-la para cada tipo de meio f√≠sico utilizado.
 
-AgradeÁo ao trabalho de todos os autores das outras bibliotecas, das quais utilizei
-v·rias ideias para compor a modbus-arduino. No final deste documento est„o listadas as
+Agrade√ßo ao trabalho de todos os autores das outras bibliotecas, das quais utilizei
+v√°rias ideias para compor a modbus-arduino. No final deste documento est√£o listadas as
 bibliotecas e seus respectivos autores.
 
-CaracterÌsticas
+Caracter√≠sticas
 ===============
 
 <ul>
 <li>Opera como escravo (Modo mestre em desenvolvimento) </li>
-<li>Suporta Modbus Serial (RS-232 ou RS485) e Modbus IP (TCP n„o keep-alive)</li>
-<li>Responde todos os tipos de exceÁ„o para as funÁıes suportadas</li>
-<li>Suporta as guintes funÁıes Modbus:</li>
+<li>Suporta Modbus Serial (RS-232 ou RS485) e Modbus IP (TCP n√£o keep-alive)</li>
+<li>Responde todos os tipos de exce√ß√£o para as fun√ß√µes suportadas</li>
+<li>Suporta as guintes fun√ß√µes Modbus:</li>
 <ul>
     <li>0x01 - Read Coils</li>
     <li>0x02 - Read Input Status (Read Discrete Inputs)</li>
@@ -48,27 +48,27 @@ CaracterÌsticas
 </ul>
 </ul>
 
-<b>ObservaÁıes:</b>
+<b>Observa√ß√µes:</b>
 
-1. Quando se usa Modbus IP o protocolo de transporte È o TCP (porta 502) e a conex„o
-È finalizada a cada mensagem transmitida, ou seja, n„o È do tipo keep-alive.
+1. Quando se usa Modbus IP o protocolo de transporte √© o TCP (porta 502) e a conex√£o
+√© finalizada a cada mensagem transmitida, ou seja, n√£o √© do tipo keep-alive.
 
-2. Os offsets para acesso aos registradores s„o baseados em 0. Assim, tenha cuidado
-ao configurar seu seu supervisÛrio ou utilit·rio de teste. Por exempo, no ScadaBR
-(http://www.scadabr.com.br) os offsets s„o baseados em 0, ent„o, um registrador
-configurado como 100 na biblioteca ser· configurado como 100 no ScadaBR. Por outro
+2. Os offsets para acesso aos registradores s√£o baseados em 0. Assim, tenha cuidado
+ao configurar seu seu supervis√≥rio ou utilit√°rio de teste. Por exempo, no ScadaBR
+(http://www.scadabr.com.br) os offsets s√£o baseados em 0, ent√£o, um registrador
+configurado como 100 na biblioteca ser√° configurado como 100 no ScadaBR. Por outro
 lado, no software de teste CAS Modbus Scanner (http://www.chipkin.com/products/software/modbus-software/cas-modbus-scanner/)
-os offsets s„o baseados em 1, logo, um registrador configurado como 100 na biblioteca
-dever· ser 101 neste software.
+os offsets s√£o baseados em 1, logo, um registrador configurado como 100 na biblioteca
+dever√° ser 101 neste software.
 
-3. No inÌcio do arquivo Modbus.h da biblioteca h· uma opÁ„o para limitar o funcionamento
-da mesma ‡s funÁıes de Holding Registers, salvando espaÁo na memÛria de programa.
-Basta retirar o coment·rio da seguinte linha:
+3. No in√≠cio do arquivo Modbus.h da biblioteca h√° uma op√ß√£o para limitar o funcionamento
+da mesma √†s fun√ß√µes de Holding Registers, salvando espa√ßo na mem√≥ria de programa.
+Basta retirar o coment√°rio da seguinte linha:
 
 ```
 #define USE_HOLDING_REGISTERS_ONLY
 ```
-Dessa forma, somente as seguintes funÁıes s„o suportadas:
+Dessa forma, somente as seguintes fun√ß√µes s√£o suportadas:
 <ul>
     <li>0x03 - Read Holding Registers</li>
     <li>0x06 - Write Single Register</li>
@@ -78,65 +78,65 @@ Dessa forma, somente as seguintes funÁıes s„o suportadas:
 Como utilizar
 =============
 
-Existem trÍs classes que correspondem a trÍs cabeÁalhos que podem ser utilizados:
+Existem tr√™s classes que correspondem a tr√™s cabe√ßalhos que podem ser utilizados:
 <ul>
     <li>Modbus - Biblioteca Base</li>
     <li>ModbusSerial - Biblioteca Modbus Serial (RS-232 e RS-485)</li>
     <li>ModbusIP - Biblioteca Modbus IP</li>
 </ul>
 
-Ao optar por Modbus Serial ou Modbus IP vocÍ deve incluir o cabeÁalho correspondente e o cabeÁalho da biblioteca base em seu sketch, Ex:
+Ao optar por Modbus Serial ou Modbus IP voc√™ deve incluir o cabe√ßalho correspondente e o cabe√ßalho da biblioteca base em seu sketch, Ex:
 ```
 #include <Modbus.h>
 #include <ModbusSerial.h>
 ```
 
-<b>Jarg„o do Modbus</b>
+<b>Jarg√£o do Modbus</b>
 
-Optou-se por utilizar os termos usados no Modbus para os mÈtodos da biblioteca, assim, convÈm esclarecer
+Optou-se por utilizar os termos usados no Modbus para os m√©todos da biblioteca, assim, conv√©m esclarecer
 os nomes dos tipos de registradores:
 
-| Tipo de registrador  | Uso                | Acesso            | MÈtodos da biblioteca |
+| Tipo de registrador  | Uso                | Acesso            | M√©todos da biblioteca |
 | -------------------- | ------------------ | ----------------- | --------------------- |
-| Coil                 | S·ida digital      | Leitura/Escrita   | addCoil(), Coil()     |
-| Holding Register     | SaÌda analÛgica    | Leitura/Escrita   | addHreg(), Hreg()     |
+| Coil                 | S√°ida digital      | Leitura/Escrita   | addCoil(), Coil()     |
+| Holding Register     | Sa√≠da anal√≥gica    | Leitura/Escrita   | addHreg(), Hreg()     |
 | Input Status         | Entrada digital    | Somente Leitura   | addIsts(), Ists()     |
-| Input Register       | Entrada analÛgica  | Somente Leitura   | addIreg(), Ireg()     |
+| Input Register       | Entrada anal√≥gica  | Somente Leitura   | addIreg(), Ireg()     |
 
-<b>ObservaÁıes:</b>
+<b>Observa√ß√µes:</b>
 
-1. <i>Input Status</i> È ‡s vezes chamada de <i>Discrete Input</i>.
-2. <i>Holding Register</i> ou apenas <i>Register</i> tambÈm È utilizado para armazenar valores no escravo.
-3. Exemplos de uso: Um <i>Coil</i> pode ser utilizado para acionar uma l‚mpada ou led. Um <i>Holding Register</i> para
+1. <i>Input Status</i> √© √†s vezes chamada de <i>Discrete Input</i>.
+2. <i>Holding Register</i> ou apenas <i>Register</i> tamb√©m √© utilizado para armazenar valores no escravo.
+3. Exemplos de uso: Um <i>Coil</i> pode ser utilizado para acionar uma l√¢mpada ou led. Um <i>Holding Register</i> para
 armazenar um contador ou acionar um Servo. Um <i>Input Status</i> pode ser utilizado com um reed-switch
 em um sensor de porta e um <i>Input Register</i> com um sensor de temperatura.
 
 
 <h3>ModBus Serial</h3>
 
-H· quatro exemplos que podem ser acessados da interface do Arduino, uma vez que vocÍ tenha instalado
-a biblioteca. Vejamos o exemplo Lamp.ino (apenas as partes relativas ao modbus ser„o comentadas):
+H√° quatro exemplos que podem ser acessados da interface do Arduino, uma vez que voc√™ tenha instalado
+a biblioteca. Vejamos o exemplo Lamp.ino (apenas as partes relativas ao modbus ser√£o comentadas):
 
 ```
 #include <Modbus.h>
 #include <ModbusSerial.h>
 ```
-Inclus„o das bibliotecas necess·rias.
+Inclus√£o das bibliotecas necess√°rias.
 
 
 ```
 const int LAMP1_COIL = 100;
 ```
-Define o registrador Modbus para representar l‚mpada ou led. Este valor È o offset
-(baseado em 0) a ser colocado no seu sistema supervisÛrio ou software de teste. Observe
+Define o registrador Modbus para representar l√¢mpada ou led. Este valor √© o offset
+(baseado em 0) a ser colocado no seu sistema supervis√≥rio ou software de teste. Observe
 que se seu software utiliza offsets baseados em 1 o valor configurado
-l· dever· ser 101, para este exemplo.
+l√° dever√° ser 101, para este exemplo.
 
 
 ```
 ModbusSerial mb;
 ```
-Cria a inst‚ncia mb (ModbusSerial) a ser utilizada.
+Cria a inst√¢ncia mb (ModbusSerial) a ser utilizada.
 
 
 ```
@@ -144,46 +144,46 @@ mb.config(&Serial, 38400, SERIAL_8N1);
 mb.setSlaveId(10);
 ```
 Configura a porta serial e o Id do escravo. Observe a passagem da porta Serial como
-referÍncia, o que permite o uso de outras seriais em outros modelos de Arduino.
-A taxa e formato padr„o 8N1 est„o sendo configurados.
-Caso se esteja utilizando RS-485 È necess·rio a configuraÁ„o de outro pino para
-controle de transmiss„o/recepÁ„o. Isto È feito da seguinte forma:
+refer√™ncia, o que permite o uso de outras seriais em outros modelos de Arduino.
+A taxa e formato padr√£o 8N1 est√£o sendo configurados.
+Caso se esteja utilizando RS-485 √© necess√°rio a configura√ß√£o de outro pino para
+controle de transmiss√£o/recep√ß√£o. Isto √© feito da seguinte forma:
 
 ```
 mb.config(&Serial, 38400, SERIAL_8N1, 2);
 ```
-Nesse caso, o pino 2 ser· utilizado para controle de TX/RX.
+Nesse caso, o pino 2 ser√° utilizado para controle de TX/RX.
 
 
 ```
 mb.addCoil(LAMP1_COIL);
 ```
-Adiciona o registrador do tipo Coil (saÌda digital) que ser· respons·vel por
-acionar a led ou l‚mpada e verificar seu estado.
+Adiciona o registrador do tipo Coil (sa√≠da digital) que ser√° respons√°vel por
+acionar a led ou l√¢mpada e verificar seu estado.
 A biblioteca permite configurar um valor inicial para o registrador:
 
 ```
 mb.addCoil(LAMP1_COIL, true);
 ```
-Nesse caso o registrador È adicionado e configurado como true. Caso se utilize
-o primeira forma o valor default È false.
+Nesse caso o registrador √© adicionado e configurado como true. Caso se utilize
+o primeira forma o valor default √© false.
 
 
 ```
 mb.task();
 ```
-Este mÈtodo faz toda a m·gica, respondendo as requisiÁıes e alterando os registradores
-se necess·rio, ele deve ser chamado apenas uma vez, no inÌcio no loop.
+Este m√©todo faz toda a m√°gica, respondendo as requisi√ß√µes e alterando os registradores
+se necess√°rio, ele deve ser chamado apenas uma vez, no in√≠cio no loop.
 
 
 ```
 digitalWrite(ledPin, mb.Coil(LAMP1_COIL));
 ```
-Por fim o valor do registrador LAMP1_COIL È utilizado para acionar a l‚mpada ou led.
+Por fim o valor do registrador LAMP1_COIL √© utilizado para acionar a l√¢mpada ou led.
 
 
-De forma bastante similar os outros exemplos mostram o uso dos outros mÈtodos
-disponÌveis na biblioteca:
+De forma bastante similar os outros exemplos mostram o uso dos outros m√©todos
+dispon√≠veis na biblioteca:
 ```
 void addCoil(word offset, bool value)
 void addHreg(word offset, word value)
@@ -212,8 +212,8 @@ Retorna o valor de um registrador.
 
 <h3>ModBus IP</h3>
 
-H· quatro exemplos que podem ser acessados da interface do Arduino, uma vez que vocÍ tenha instalado
-a biblioteca. Vejamos o exemplo Switch.ino (apenas as partes relativas ao modbus ser„o comentadas):
+H√° quatro exemplos que podem ser acessados da interface do Arduino, uma vez que voc√™ tenha instalado
+a biblioteca. Vejamos o exemplo Switch.ino (apenas as partes relativas ao modbus ser√£o comentadas):
 
 ```
 #include <SPI.h>
@@ -221,23 +221,23 @@ a biblioteca. Vejamos o exemplo Switch.ino (apenas as partes relativas ao modbus
 #include <Modbus.h>
 #include <ModbusIP.h>
 ```
-Inclus„o das bibliotecas necess·rias.
+Inclus√£o das bibliotecas necess√°rias.
 
 
 ```
 const int SWITCH_ISTS = 100;
 const int switchPin = 3;
 ```
-Define o registrador Modbus para representar o interruptor. Este valor È o offset
-(baseado em 0) a ser colocado no seu sistema supervisÛrio ou software de teste. Observe
+Define o registrador Modbus para representar o interruptor. Este valor √© o offset
+(baseado em 0) a ser colocado no seu sistema supervis√≥rio ou software de teste. Observe
 que se seu software utiliza offsets baseados em 1 o valor configurado
-l· dever· ser 101, para este exemplo.
+l√° dever√° ser 101, para este exemplo.
 
 
 ```
 ModbusIP mb;
 ```
-Cria a inst‚ncia mb (ModbusIP) a ser utilizada.
+Cria a inst√¢ncia mb (ModbusIP) a ser utilizada.
 
 
 ```
@@ -245,8 +245,8 @@ byte mac[] = { 0xDE, 0xAD, 0xBE, 0xEF, 0xFE, 0xED };
 byte ip[] = { 192, 168, 1, 120 };
 mb.config(mac, ip);
 ```
-Configura a shield Ethernet. Os valores do endereÁo MAC e o IP s„o passados
-pelo mÈtodo config(). A sintaxe È igual a da classe Ethernet do arduino,
+Configura a shield Ethernet. Os valores do endere√ßo MAC e o IP s√£o passados
+pelo m√©todo config(). A sintaxe √© igual a da classe Ethernet do arduino,
 e suporta os seguintes formatos:
 ```
 void config(uint8_t *mac)
@@ -261,29 +261,29 @@ Em seguida temos:
 ```
 mb.addIsts(SWITCH_ISTS);
 ```
-Adiciona o registrador do tipo Input Status (entrada digital) que ser· respons·vel por
-detectar se um interruptor est· ou n„o acionado.
+Adiciona o registrador do tipo Input Status (entrada digital) que ser√° respons√°vel por
+detectar se um interruptor est√° ou n√£o acionado.
 A biblioteca permite configurar um valor inicial para o registrador:
 
 ```
 mb.addIsts(SWITCH_ISTS, true);
 ```
 
-Nesse caso o registrador È adicionado e configurado como true. Caso se utilize
-o primeira forma o valor default È false.
+Nesse caso o registrador √© adicionado e configurado como true. Caso se utilize
+o primeira forma o valor default √© false.
 
 
 ```
 mb.task();
 ```
-Este mÈtodo faz toda a m·gica, respondendo as requisiÁıes e alterando os registradores
-se necess·rio, ele deve ser chamado apenas uma vez, no inÌcio no loop.
+Este m√©todo faz toda a m√°gica, respondendo as requisi√ß√µes e alterando os registradores
+se necess√°rio, ele deve ser chamado apenas uma vez, no in√≠cio no loop.
 
 
 ```
 mb.Ists(SWITCH_ISTS, digitalRead(switchPin));
 ```
-Por fim o valor do registrador SWITCH_ISTS È alterado conforme o estado da entrada
+Por fim o valor do registrador SWITCH_ISTS √© alterado conforme o estado da entrada
 digital escolhida.
 
 
@@ -321,15 +321,15 @@ Website : https://github.com/4-20ma/ModbusMaster<br>
 Website : http://playground.arduino.cc/Code/ModbusMaster
 
 
-ContribuiÁıes
+Contribui√ß√µes
 =============
 http://github.com/andresarmento/modbus-arduino<br>
 prof (at) andresarmento (dot) com
 
-LicenÁa
+Licen√ßa
 =======
 
-O cÛdigo neste repositÛrio È licenciado pela BSD New License.
-Veja [LICENSE.txt](LICENSE.txt) para mais informaÁıes.
+O c√≥digo neste reposit√≥rio √© licenciado pela BSD New License.
+Veja [LICENSE.txt](LICENSE.txt) para mais informa√ß√µes.
 
 
