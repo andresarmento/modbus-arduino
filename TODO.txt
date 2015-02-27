@@ -1,6 +1,7 @@
 TODO
 ====
 
+. ENC28J60 support
 . Code reuse in Modbus Base library
 . Implement Master for Serial and IP
 
