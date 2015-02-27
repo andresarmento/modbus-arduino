@@ -53,7 +53,7 @@ offsets are 0-based, then, a register configured as 100 in the library is set to
 (http://www.chipkin.com/products/software/modbus-software/cas-modbus-scanner/) offsets are 1-based, so a register configured as 100 in library should be 101 in this software.
 
 3. Early in the library Modbus.h file there is an option to limit the operation
-the same to the functions of Holding Registers, saving space in the program memory.
+to the functions of Holding Registers, saving space in the program memory.
 Just comment out the following line:
 
 ```
