@@ -9,6 +9,7 @@
 
 #define MAX_REGS     32
 #define MAX_FRAME   128
+//#define USE_HOLDING_REGISTERS_ONLY
 
 typedef unsigned int u_int;
 
@@ -50,15 +51,17 @@ class Modbus {
         TRegister *_regs_head;
         TRegister *_regs_last;
 
-        void readCoils(word startreg, word numregs);
-        void readInputStatus(word startreg, word numregs);
         void readRegisters(word startreg, word numregs);
-        void readInputRegisters(word startreg, word numregs);
-        void writeSingleCoil(word reg, word status);
         void writeSingleRegister(word reg, word value);
-        void writeMultipleCoils(word startreg, word numoutputs, byte bytecount);
         void writeMultipleRegisters(word startreg, word numoutputs, byte bytecount);
         void exceptionResponse(byte fcode, byte excode);
+        #ifndef USE_HOLDING_REGISTERS_ONLY
+            void readCoils(word startreg, word numregs);
+            void readInputStatus(word startreg, word numregs);
+            void readInputRegisters(word startreg, word numregs);
+            void writeSingleCoil(word reg, word status);
+            void writeMultipleCoils(word startreg, word numoutputs, byte bytecount);
+        #endif
 
         TRegister* searchRegister(word addr);
 
@@ -75,20 +78,23 @@ class Modbus {
     public:
         Modbus();
 
-        void addCoil(word offset, bool value = false);
         void addHreg(word offset, word value = 0);
-        void addIsts(word offset, bool value = false);
-        void addIreg(word offset, word value = 0);
-
-        bool Coil(word offset, bool value);
         bool Hreg(word offset, word value);
-        bool Ists(word offset, bool value);
-        bool Ireg(word offset, word value);
-
-        bool Coil(word offset);
         word Hreg(word offset);
-        bool Ists(word offset);
-        word Ireg(word offset);
+
+        #ifndef USE_HOLDING_REGISTERS_ONLY
+            void addCoil(word offset, bool value = false);
+            void addIsts(word offset, bool value = false);
+            void addIreg(word offset, word value = 0);
+
+            bool Coil(word offset, bool value);
+            bool Ists(word offset, bool value);
+            bool Ireg(word offset, word value);
+
+            bool Coil(word offset);
+            bool Ists(word offset);
+            word Ireg(word offset);
+        #endif
 };
 
 #endif //MODBUS_H

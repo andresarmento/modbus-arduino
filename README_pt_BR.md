@@ -61,6 +61,19 @@ lado, no software de teste CAS Modbus Scanner (http://www.chipkin.com/products/s
 os offsets são baseados em 1, logo, um registrador configurado como 100 na biblioteca
 deverá ser 101 neste software.
 
+3. No início do arquivo Modbus.h da biblioteca há uma opção para limitar o funcionamento
+da mesma às funções de Holding Registers, salvando espaço na memória de programa.
+Basta retirar o comentário da seguinte linha:
+
+```
+#define USE_HOLDING_REGISTERS_ONLY
+```
+Dessa forma, somente as seguintes funções são suportadas:
+<ul>
+    <li>0x03 - Read Holding Registers</li>
+    <li>0x06 - Write Single Register</li>
+    <li>0x10 - Write Multiple Registers</li>
+</ul>
 
 Como utilizar
 =============

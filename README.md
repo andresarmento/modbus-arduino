@@ -52,6 +52,21 @@ Features
 offsets are 0-based, then, a register configured as 100 in the library is set to 100 in ScadaBR. On the other hand, in the CAS Modbus Scanner
 (http://www.chipkin.com/products/software/modbus-software/cas-modbus-scanner/) offsets are 1-based, so a register configured as 100 in library should be 101 in this software.
 
+3. Early in the library Modbus.h file there is an option to limit the operation
+the same to the functions of Holding Registers, saving space in the program memory.
+Just comment out the following line:
+
+```
+#define USE_HOLDING_REGISTERS_ONLY
+```
+Thus, only the following functions are supported:
+<ul>
+    <li>0x03 - Read Holding Registers</li>
+    <li>0x06 - Write Single Register</li>
+    <li>0x10 - Write Multiple Registers</li>
+</ul>
+
+
 How to
 ======
 
