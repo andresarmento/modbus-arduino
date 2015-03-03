@@ -70,12 +70,13 @@ Thus, only the following functions are supported:
 How to
 ======
 
-There are three classes corresponding to three headers that may be used:
+There are four classes corresponding to four headers that may be used:
 
 <ul>
 <li>Modbus - Base Library</li>
 <li>ModbusSerial - Modbus Serial Library (RS-232 and RS-485)</li>
 <li>ModbusIP - IP Modbus Library</li>
+<li>ModbusIP_ENC28J60 - IP Modbus Library (for ENC28J60 chip)</li>
 </ul>
 
 By opting for Modbus Serial or Modbus IP you must include in your sketch the corresponding header and the base library header, eg:
@@ -261,6 +262,53 @@ This method makes all magic, answering requests and changing the registers if ne
 mb.Ists (SWITCH_ISTS, digitalRead (switchPin));
 ```
 Finally the value of SWITCH_ISTS register changes as the state of the selected digital input.
+
+
+<H3> Modbus IP(ENC28J60) </ h3>
+
+The Arduino standard Ethernet shield is based on chip WIZnet W5100, therefore the IDE comes
+with this library installed. If you have a shield based on ENC28J60 from Microchip you must install
+another Ethernet library. Among several available we chose EtherCard.
+
+Download the EtherCard in https://github.com/jcw/ethercard and install it in your IDE.
+Use the following includes in your sketches:
+
+`` `
+#include <EtherCard.h>
+#include <ModbusIP_ENC28J60.h>
+#include <Modbus.h>
+`` `
+Done! The use of Modbus functions is identical to the ModbusIP library described above.
+
+<B> Notes: </ b>
+
+1. EtherCard is configured to use the pins 10, 11, 12 and 13.
+2. The voltage for shields based on ENC28J60 is generally 3.3V.
+
+3. Another alternative is to use the ENC28J60 UIPEthernet library, available from
+https://github.com/ntruchsess/arduino_uip. This library was made so that
+mimics the same standard Ethernet library functions, whose work is done by
+Wiznet W5100 chip. As the ENC28J60 not have all the features of the other chip, the library
+UIPEthernet uses a lot of memory, as it has to do in software what in the shield Wiznet
+is made in hardware. If for some reason you need to use this library, just change
+the file ModbusIP.h and your sketches, changing the lines:
+
+`` `
+#include <Ethernet.h>
+`` `
+
+by
+
+`` `
+#include <UIPEthernet.h>
+`` `
+
+Then, you can use the ModbusIP library (not the ModbusIP_ENC28J60).
+In fact it allows any library or skecth, made for
+Wiznet shield be used in shield ENC28J60. The big problem with this approach
+(and why we chose EtherCard) is that UIPEthernet library + ModbusIP uses about 60%
+arduino program memory, whereas with Ethercard + ModbusIP_ENC28J60
+this value drops to 30%!
 
 
 Other Modbus libraries
