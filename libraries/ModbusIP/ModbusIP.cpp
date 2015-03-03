@@ -5,27 +5,31 @@
 #include "ModbusIP.h"
 
 ModbusIP::ModbusIP():_server(MODBUSIP_PORT) {
-    _server.begin();
 }
 
 void ModbusIP::config(uint8_t *mac) {
     Ethernet.begin(mac);
+    _server.begin();
 }
 
 void ModbusIP::config(uint8_t *mac, IPAddress ip) {
     Ethernet.begin(mac, ip);
+    _server.begin();
 }
 
 void ModbusIP::config(uint8_t *mac, IPAddress ip, IPAddress dns) {
     Ethernet.begin(mac, ip, dns);
+    _server.begin();
 }
 
 void ModbusIP::config(uint8_t *mac, IPAddress ip, IPAddress dns, IPAddress gateway) {
     Ethernet.begin(mac, ip, dns, gateway);
+    _server.begin();
 }
 
 void ModbusIP::config(uint8_t *mac, IPAddress ip, IPAddress dns, IPAddress gateway, IPAddress subnet) {
     Ethernet.begin(mac, ip, dns, gateway, subnet);
+    _server.begin();
 }
 
 void ModbusIP::task() {
