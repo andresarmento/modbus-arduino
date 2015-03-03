@@ -28,6 +28,9 @@
 		<Unit filename="libraries/ModbusIP/ModbusIP.cpp" />
 		<Unit filename="libraries/ModbusIP/ModbusIP.h" />
 		<Unit filename="libraries/ModbusIP/keywords.txt" />
+		<Unit filename="libraries/ModbusIP_ENC28J60/ModbusIP_ENC28J60.cpp" />
+		<Unit filename="libraries/ModbusIP_ENC28J60/ModbusIP_ENC28J60.h" />
+		<Unit filename="libraries/ModbusIP_ENC28J60/keywords.txt" />
 		<Unit filename="libraries/ModbusSerial/ModbusSerial.cpp" />
 		<Unit filename="libraries/ModbusSerial/ModbusSerial.h" />
 		<Unit filename="libraries/ModbusSerial/keywords.txt" />

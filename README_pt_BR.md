@@ -211,7 +211,7 @@ word Ireg(word offset)
 Retorna o valor de um registrador.
 
 
-<h3>ModBus IP</h3>
+<h3>Modbus IP</h3>
 
 Há quatro exemplos que podem ser acessados da interface do Arduino, uma vez que você tenha instalado
 a biblioteca. Vejamos o exemplo Switch.ino (apenas as partes relativas ao modbus serão comentadas):
@@ -288,10 +288,10 @@ Por fim o valor do registrador SWITCH_ISTS é alterado conforme o estado da entr
 digital escolhida.
 
 
-<h3>ModBus IP (ENC28J60)</h3>
+<h3>Modbus IP (ENC28J60)</h3>
 
 A shield Ethernet padrão utilizada no Arduino é baseada no chip da Wiznet W5100, portanto, a IDE já vem
-com a biblioteca instalada. Caso você tenha uma shield baseada no ENC28J60 da Microchip, deverá instalar
+com a biblioteca instalada. Caso você tenha uma shield baseada no ENC28J60 da Microchip você deverá instalar
 outra biblioteca Ethernet. Dentre várias disponíveis optamos pela EtherCard.
 
 Faça o download da EtherCard em https://github.com/jcw/ethercard e a instale na sua IDE.
