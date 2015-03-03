@@ -309,7 +309,7 @@ Pronto! O uso das funções Modbus é idêntico a da biblioteca ModbusIP descrit
 1. A Ethercard está configurada para utilizar os pinos 10, 11 , 12 e 13.
 2. A alimentação das shields baseadas no ENC28J60 é geralmente 3.3V.
 
-Outra alternativa para o ENC28J60 é utilizar a biblioteca UIPEthernet, disponível em
+3. Outra alternativa para o ENC28J60 é utilizar a biblioteca UIPEthernet, disponível em
 https://github.com/ntruchsess/arduino_uip. Essa biblioteca foi feita de tal forma que
 imita as mesmas funções da biblioteca Ethernet padrão, cujo trabalho é feito pelo chip
 da Wiznet W5100. Como o ENC28J60 não possui todas as funções do outro chip, a biblioteca
@@ -327,10 +327,11 @@ por
 #include <UIPEthernet.h>
 ```
 
-Assim, você poderá utilizar qualquer biblioteca ou programa do arduino feito para a
-shield Wiznet na shield ENC28J60. O grande problema com essa solução (e por isso
-optamos pela EtherCard) é que a biblioteca UIPEthernet + ModbusIP ocupa cerca de 60%
-da memória de programa no Arduino Uno, enquanto que com a Ethercap + ModbusIP esse
+Assim, você poderá utilizar a biblioteca ModbusIP (Não a ModbusIP_ENC28J60).
+Na realidade isso permite que qualquer biblioteca ou skecth feito para a
+shield da Wiznet seja usado na shield ENC28J60. O grande problema com essa solução
+(e por isso optamos pela EtherCard) é que a biblioteca UIPEthernet + ModbusIP ocupa cerca de 60%
+da memória de programa no Arduino Uno, enquanto que com a EtherCard + ModbusIP_ENC28J60 esse
 valor cai para 30%!
 
 
