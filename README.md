@@ -297,7 +297,7 @@ the file ModbusIP.h and your sketches, changing the lines:
 #include <Ethernet.h>
 ```
 
-by
+bys
 
 ```
 #include <UIPEthernet.h>
