@@ -264,7 +264,7 @@ mb.Ists (SWITCH_ISTS, digitalRead (switchPin));
 Finally the value of SWITCH_ISTS register changes as the state of the selected digital input.
 
 
-<H3> Modbus IP(ENC28J60) </ h3>
+<h3> Modbus IP(ENC28J60) </h3>
 
 The Arduino standard Ethernet shield is based on chip WIZnet W5100, therefore the IDE comes
 with this library installed. If you have a shield based on ENC28J60 from Microchip you must install
@@ -280,7 +280,7 @@ Use the following includes in your sketches:
 ```
 Done! The use of Modbus functions is identical to the ModbusIP library described above.
 
-<B> Notes: </ b>
+<b> Notes: </b>
 
 1. EtherCard is configured to use the pins 10, 11, 12 and 13.
 2. The voltage for shields based on ENC28J60 is generally 3.3V.
