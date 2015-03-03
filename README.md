@@ -273,11 +273,11 @@ another Ethernet library. Among several available we chose EtherCard.
 Download the EtherCard in https://github.com/jcw/ethercard and install it in your IDE.
 Use the following includes in your sketches:
 
-`` `
+```
 #include <EtherCard.h>
 #include <ModbusIP_ENC28J60.h>
 #include <Modbus.h>
-`` `
+```
 Done! The use of Modbus functions is identical to the ModbusIP library described above.
 
 <B> Notes: </ b>
@@ -293,15 +293,15 @@ UIPEthernet uses a lot of memory, as it has to do in software what in the shield
 is made in hardware. If for some reason you need to use this library, just change
 the file ModbusIP.h and your sketches, changing the lines:
 
-`` `
+```
 #include <Ethernet.h>
-`` `
+```
 
 by
 
-`` `
+```
 #include <UIPEthernet.h>
-`` `
+```
 
 Then, you can use the ModbusIP library (not the ModbusIP_ENC28J60).
 In fact it allows any library or skecth, made for
