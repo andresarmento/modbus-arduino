@@ -183,7 +183,7 @@ Adds registers and configures initial value if specified.
 ```
 bool Coil (offset word, bool value)
 bool Hreg (offset word, word value)
-bool Ist (offset word, bool value)
+bool Ists (offset word, bool value)
 bool IREG (offset word, word value)
 ```
 Sets a value to the register.
@@ -191,7 +191,7 @@ Sets a value to the register.
 ```
 bool Coil (offset word)
 Hreg word (word offset)
-bool Ist (offset word)
+bool Ists (offset word)
 IREG word (word offset)
 ```
 Returns the value of a register.
