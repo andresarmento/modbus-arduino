@@ -53,14 +53,14 @@ class Modbus {
 
         void readRegisters(word startreg, word numregs);
         void writeSingleRegister(word reg, word value);
-        void writeMultipleRegisters(word startreg, word numoutputs, byte bytecount);
+        void writeMultipleRegisters(byte* frame,word startreg, word numoutputs, byte bytecount);
         void exceptionResponse(byte fcode, byte excode);
         #ifndef USE_HOLDING_REGISTERS_ONLY
             void readCoils(word startreg, word numregs);
             void readInputStatus(word startreg, word numregs);
             void readInputRegisters(word startreg, word numregs);
             void writeSingleCoil(word reg, word status);
-            void writeMultipleCoils(word startreg, word numoutputs, byte bytecount);
+            void writeMultipleCoils(byte* frame,word startreg, word numoutputs, byte bytecount);
         #endif
 
         TRegister* searchRegister(word addr);

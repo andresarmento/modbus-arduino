@@ -136,7 +136,7 @@ void Modbus::receivePDU(byte* frame) {
 
         case MB_FC_WRITE_REGS:
             //field1 = startreg, field2 = status
-            this->writeMultipleRegisters(field1, field2, frame[5]);
+            this->writeMultipleRegisters(frame,field1, field2, frame[5]);
         break;
 
         #ifndef USE_HOLDING_REGISTERS_ONLY
@@ -162,7 +162,7 @@ void Modbus::receivePDU(byte* frame) {
 
         case MB_FC_WRITE_COILS:
             //field1 = startreg, field2 = numoutputs
-            this->writeMultipleCoils(field1, field2, frame[5]);
+            this->writeMultipleCoils(frame,field1, field2, frame[5]);
         break;
 
         #endif
@@ -246,7 +246,7 @@ void Modbus::writeSingleRegister(word reg, word value) {
     _reply = MB_REPLY_ECHO;
 }
 
-void Modbus::writeMultipleRegisters(word startreg, word numoutputs, byte bytecount) {
+void Modbus::writeMultipleRegisters(byte* frame,word startreg, word numoutputs, byte bytecount) {
     //Check value
     if (numoutputs < 0x0001 || numoutputs > 0x007B || bytecount != 2 * numoutputs) {
         this->exceptionResponse(MB_FC_WRITE_REGS, MB_EX_ILLEGAL_VALUE);
@@ -279,7 +279,7 @@ void Modbus::writeMultipleRegisters(word startreg, word numoutputs, byte bytecou
     word val;
     word i = 0;
 	while(numoutputs--) {
-        val = (word)_frame[6+i*2] << 8 | (word)_frame[7+i*2];
+        val = (word)frame[6+i*2] << 8 | (word)frame[7+i*2];
         this->Hreg(startreg + i, val);
         i++;
 	}
@@ -447,7 +447,7 @@ void Modbus::writeSingleCoil(word reg, word status) {
     }
 
     //Check Address and execute (reg exists?)
-    if (!this->Coil(reg, status)) {
+    if (!this->Coil(reg, (bool)status)) {
         this->exceptionResponse(MB_FC_WRITE_COIL, MB_EX_ILLEGAL_ADDRESS);
         return;
     }
@@ -461,7 +461,7 @@ void Modbus::writeSingleCoil(word reg, word status) {
     _reply = MB_REPLY_ECHO;
 }
 
-void Modbus::writeMultipleCoils(word startreg, word numoutputs, byte bytecount) {
+void Modbus::writeMultipleCoils(byte* frame,word startreg, word numoutputs, byte bytecount) {
     //Check value
     word bytecount_calc = numoutputs / 8;
     if (numoutputs%8) bytecount_calc++;
@@ -498,7 +498,7 @@ void Modbus::writeMultipleCoils(word startreg, word numoutputs, byte bytecount) 
     word i;
 	while (numoutputs--) {
         i = (totoutputs - numoutputs) / 8;
-        this->Coil(startreg, bitRead(_frame[6+i], bitn));
+        this->Coil(startreg, bitRead(frame[6+i], bitn));
         //increment the bit index
         bitn++;
         if (bitn == 8) bitn = 0;
