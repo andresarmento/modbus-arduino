@@ -63,13 +63,17 @@ void ModbusIP::task() {
                 word len=_len+1;
                 _MBAP[4] = len >> 8;
                 _MBAP[5] = len & 0x00FF;
+                
+                byte sendbuffer[7 + _len];
+                
                 for (i = 0 ; i < 7 ; i++) {
-                    client.write(_MBAP[i]);
+                    sendbuffer[i] = _MBAP[i];
                 }
                 //PDU Frame
                 for (i = 0 ; i < _len ; i++) {
-                    client.write(_frame[i]);
+                    sendbuffer[i+7] = _frame[i];
                 }
+                client.write(sendbuffer, _len + 7);
             }
 
             free(_frame);
