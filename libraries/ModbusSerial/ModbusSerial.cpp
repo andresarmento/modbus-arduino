@@ -1,6 +1,6 @@
 /*
     ModbusSerial.cpp - Source for Modbus Serial Library
-    Copyright (C) 2014 André Sarmento Barbosa
+    Copyright (C) 2014 AndrÃ© Sarmento Barbosa
 */
 #include "ModbusSerial.h"
 
@@ -68,7 +68,11 @@ bool ModbusSerial::send(byte* frame) {
     byte i;
 
     if (this->_txPin >= 0) {
-        UCSR0A=UCSR0A |(1 << TXC0);
+        #ifdef __AVR_ATmega32U4__
+		UCSR1A=UCSR1A |(1 << TXC1);
+	#else
+		UCSR0A=UCSR0A |(1 << TXC0);
+	#endif
         digitalWrite(this->_txPin, HIGH);
         delay(1);
     }
@@ -78,14 +82,22 @@ bool ModbusSerial::send(byte* frame) {
     }
 
     if (this->_txPin >= 0) {
-        while (!(UCSR0A & (1 << TXC0)));
+        #ifdef __AVR_ATmega32U4__
+		while (!(UCSR1A & (1 << TXC1)));
+	#else
+		while (!(UCSR0A & (1 << TXC0)));
+	#endif
         digitalWrite(this->_txPin, LOW);
     }
 }
 
 bool ModbusSerial::sendPDU(byte* pduframe) {
     if (this->_txPin >= 0) {
-        UCSR0A=UCSR0A |(1 << TXC0);
+        #ifdef __AVR_ATmega32U4__
+		UCSR1A=UCSR1A |(1 << TXC1);
+	#else
+		UCSR0A=UCSR0A |(1 << TXC0);
+	#endif
         digitalWrite(this->_txPin, HIGH);
         delay(1);
     }
@@ -105,7 +117,11 @@ bool ModbusSerial::sendPDU(byte* pduframe) {
     (*_port).write(crc & 0xFF);
 
     if (this->_txPin >= 0) {
-        while (!(UCSR0A & (1 << TXC0)));
+        #ifdef __AVR_ATmega32U4__
+		while (!(UCSR1A & (1 << TXC1)));
+	#else
+		while (!(UCSR0A & (1 << TXC0)));
+	#endif
         digitalWrite(this->_txPin, LOW);
     }
 }
