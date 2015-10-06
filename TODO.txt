@@ -1,7 +1,5 @@
 TODO
 ====
-
-. ENC28J60 support (https://github.com/jcw/ethercard)
 . Code reuse in Modbus Base library
 . Implement Master for Serial and IP
 
