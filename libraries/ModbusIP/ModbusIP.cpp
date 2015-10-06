@@ -1,6 +1,6 @@
 /*
     ModbusIP.cpp - Source for Modbus IP Library
-    Copyright (C) 2015 André Sarmento Barbosa
+    Copyright (C) 2015 AndrÃ© Sarmento Barbosa
 */
 #include "ModbusIP.h"
 
@@ -60,8 +60,9 @@ void ModbusIP::task() {
             this->receivePDU(_frame);
             if (_reply != MB_REPLY_OFF) {
                 //MBAP
-                _MBAP[4] = _len >> 8;
-                _MBAP[5] = _len | 0x00FF;
+                word len=_len+1;
+                _MBAP[4] = len >> 8;
+                _MBAP[5] = len & 0x00FF;
                 for (i = 0 ; i < 7 ; i++) {
                     client.write(_MBAP[i]);
                 }
@@ -73,7 +74,7 @@ void ModbusIP::task() {
 
             free(_frame);
             _len = 0;
-            client.stop();
+            //client.stop();
         }
     }
 }
