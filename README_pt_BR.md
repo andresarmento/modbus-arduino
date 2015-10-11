@@ -345,18 +345,19 @@ O firmware utilizado no módulo foi o at_v0.20_on_SDKv0.9.3 disponível em:
 http://www.electrodragon.com/w/ESP8266_AT-command_firmware
 Outros firmwares AT devem funcionar *
 
-Atenção: Firmwares tais como o NodeMCU e MicroPython não são funcionarão pois as bibliotecas
-utilizadas aqui dependem de um firmware que reponda a comandos AT via interface serial.
+Atenção: Firmwares tais como o NodeMCU e MicroPython não funcionarão pois as bibliotecas
+utilizadas aqui dependem de um firmware que responda a comandos AT via interface serial.
 Os firmwares mencionados são utilizados quando se deseja utilizar os módulos ESP8266
 sem o arduino.
 
-Você precisará da biblioteca ESP8266 para o Arduino. Faça o download da ESP8266
-em https://github.com/itead/ITEADLIB_Arduino_WeeESP8266 e a instale na sua IDE.
+Você precisará da biblioteca ESP8266 para o Arduino. Faça o download em:
+
+https://github.com/itead/ITEADLIB_Arduino_WeeESP8266 e a instale na sua IDE.
 
 <b>Observações:</b>
 
 1. A biblioteca ESP8266 pode ser utilizada com interface serial por hardware (HardwareSerial) ou
-por software (SoftSerial). Por default ela utilizará HardwareSerial, para alterar edite o arquivo
+por software (SoftwareSerial). Por default ela utilizará HardwareSerial, para alterar edite o arquivo
 ESP8266.h removendo o comentário da linha:
 
 ```
@@ -369,11 +370,10 @@ ESP8266.h removendo o comentário da linha:
 Para o Modbus IP (ESP8266) há quatro exemplos que podem ser acessados da interface do Arduino.
 Vejamos o exemplo Lamp.ino (apenas as partes relativas ao modbus serão comentadas):
 
-Utilize os seguintes includes nos seus sketches:
 
 ```
 #include <ESP8266.h>
-#include <SoftwareSerial.h>   //Apenas se utilizar Softserial para se comunicar com o módulo
+#include <SoftwareSerial.h>   //Apenas se utilizar Softwareserial para se comunicar com o módulo
 #include <Modbus.h>
 #include <ModbusIP_ESP8266.h>
 ```
@@ -391,14 +391,15 @@ possuem somente uma serial (Ex.: Arduino UNO).
 ```
 ESP8266 wifi(wifiSerial, 9600);
 ```
-Em seguida cria o objeto wifi (ESP8266) especificando a velocidade taxa em bps.
-Atenção: Se utilizar Softserial não especifique taxas de 115200bps pois a serial por
-software não irá funcionar. Alguns firmwares/módulos vem com essa taxa por default. Você
+Cria o objeto wifi (ESP8266) especificando a taxa em bps.
+Atenção: Se utilizar Softwareserial não especifique taxas de 115200bps ou mais pois a serial por
+software não irá funcionar. Alguns firmwares/módulos vem com 115200bps por default. Você
 terá que alterar o módulo via comando AT:
 ```
 AT+CIOBAUD=9600
 ```
 
+Continuando o exemplo:
 ```
 const int LAMP1_COIL = 100;
 ```
@@ -455,14 +456,14 @@ De forma bastante similar os outros exemplos mostram o uso dos outros métodos
 disponíveis na biblioteca.
 
 
-```
-Como utilizar um IP estático com o módulo ESP8266
-```
+<b>Como utilizar um IP estático com o módulo ESP8266</b>
+
 Temos conhecimento atualmente de duas opções:
+
 1) No seu roteador configure o MAC Address do módulo para que o endereço IP fornecido por
 DHCP seja sempre o mesmo (A maior parte dos roteadores possuem esta funcionalidade).
 
-2) No seu código, inclua uma linha para alterar o endereço IP após ele ser recebido via DHCP:
+2) No seu código, inclua duas linhas para alterar o endereço IP após a configuração do módulo:
 
 ```
 mb.config(wifi, "your_ssid", "your_password");
@@ -470,7 +471,7 @@ delay(1000);
 wifiSerial.println("AT+CIPSTA=\"192.168.1.44\"");
 ```
 
-Obs.: Para que o módulo volte a receber IP via DHCP será necessário remover a linha
+Obs.: Para que o módulo volte a receber IP via DHCP será necessário remover as linhas
 e executar (pelo menos uma vez) o comando: AT+CWDHCP=1,1 via conexão direta com o
 módulo, ou:
 
