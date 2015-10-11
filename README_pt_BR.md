@@ -343,14 +343,15 @@ simples interface de rede sem fio para o Arduino.
 
 O firmware utilizado no módulo foi o at_v0.20_on_SDKv0.9.3 disponível em:
 http://www.electrodragon.com/w/ESP8266_AT-command_firmware
-Outros firmwares AT devem funcionar *
+
+(Outros firmwares AT compatíveis com a biblioteca WeeESP8266 da ITEAD devem funcionar)
 
 Atenção: Firmwares tais como o NodeMCU e MicroPython não funcionarão pois as bibliotecas
 utilizadas aqui dependem de um firmware que responda a comandos AT via interface serial.
 Os firmwares mencionados são utilizados quando se deseja utilizar os módulos ESP8266
 sem o arduino.
 
-Você precisará da biblioteca ESP8266 para o Arduino. Faça o download em:
+Você precisará da biblioteca WeeESP8266 (ITEAD) para o Arduino. Faça o download em:
 
 https://github.com/itead/ITEADLIB_Arduino_WeeESP8266 e a instale na sua IDE.
 
@@ -478,7 +479,6 @@ módulo, ou:
 ```
 wifiSerial.println("AT+CWDHCP=1,1");
 ```
-
 
 Outras bibliotecas Modbus
 =========================
