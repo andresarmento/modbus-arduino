@@ -6,7 +6,7 @@ O Modbus é um protocolo do tipo mestre-escravo, utilizado em automação indust
 podendo ser utilizado em outras áreas, como por exemplo, na automação residencial.
 
 O Modbus geralmente utiliza como meio físico as interfaces seriais RS-232 ou RS-485
-(quando é chamado Modbus Serial) e TCP/IP via Ethernet, por exemplo (Modbus IP).
+(quando é chamado Modbus Serial) e TCP/IP via Ethernet ou WiFi (Modbus IP).
 
 Na versão atual a biblioteca permite que o arduino opere como escravo, suportando
 tando Modbus Serial quanto Modbus IP. Para mais informações sobre o Modbus consulte:
@@ -333,6 +333,150 @@ shield da Wiznet seja usado na shield ENC28J60. O grande problema com essa solu�
 (e por isso optamos pela EtherCard) é que a biblioteca UIPEthernet + ModbusIP ocupa cerca de 60%
 da memória de programa no Arduino Uno, enquanto que com a EtherCard + ModbusIP_ENC28J60 esse
 valor cai para 30%!
+
+
+<h3>Modbus IP (ESP8266)</h3>
+
+Os módulos baseados no ESP8266 fazem bastante sucesso e são baratos. Com um firmware que
+responde a comandos AT (padrão em muitos módulos) é possível utilizá-los como uma
+simples interface de rede sem fio para o Arduino.
+
+O firmware utilizado no módulo foi o at_v0.20_on_SDKv0.9.3 disponível em:
+http://www.electrodragon.com/w/ESP8266_AT-command_firmware
+Outros firmwares AT devem funcionar *
+
+Atenção: Firmwares tais como o NodeMCU e MicroPython não são funcionarão pois as bibliotecas
+utilizadas aqui dependem de um firmware que reponda a comandos AT via interface serial.
+Os firmwares mencionados são utilizados quando se deseja utilizar os módulos ESP8266
+sem o arduino.
+
+Você precisará da biblioteca ESP8266 para o Arduino. Faça o download da ESP8266
+em https://github.com/itead/ITEADLIB_Arduino_WeeESP8266 e a instale na sua IDE.
+
+<b>Observações:</b>
+
+1. A biblioteca ESP8266 pode ser utilizada com interface serial por hardware (HardwareSerial) ou
+por software (SoftSerial). Por default ela utilizará HardwareSerial, para alterar edite o arquivo
+ESP8266.h removendo o comentário da linha:
+
+```
+#define ESP8266_USE_SOFTWARE_SERIAL
+```
+
+2. Lembre-se que a alimentação do módulos ESP8266 é 3.3V.
+
+
+Para o Modbus IP (ESP8266) há quatro exemplos que podem ser acessados da interface do Arduino.
+Vejamos o exemplo Lamp.ino (apenas as partes relativas ao modbus serão comentadas):
+
+Utilize os seguintes includes nos seus sketches:
+
+```
+#include <ESP8266.h>
+#include <SoftwareSerial.h>   //Apenas se utilizar Softserial para se comunicar com o módulo
+#include <Modbus.h>
+#include <ModbusIP_ESP8266.h>
+```
+Inclusão das bibliotecas necessárias.
+
+
+```
+SoftwareSerial wifiSerial(2 , 3);
+```
+Cria a interface serial via Software utilizando os pinos 2(RX) e 3(TX). Assim é possível utilizar
+a serial por hardware para comunicação com o PC (para debug por exemplo) em modelos de Arduino que
+possuem somente uma serial (Ex.: Arduino UNO).
+
+
+```
+ESP8266 wifi(wifiSerial, 9600);
+```
+Em seguida cria o objeto wifi (ESP8266) especificando a velocidade taxa em bps.
+Atenção: Se utilizar Softserial não especifique taxas de 115200bps pois a serial por
+software não irá funcionar. Alguns firmwares/módulos vem com essa taxa por default. Você
+terá que alterar o módulo via comando AT:
+```
+AT+CIOBAUD=9600
+```
+
+```
+const int LAMP1_COIL = 100;
+```
+Define o registrador Modbus para representar lâmpada ou led. Este valor é o offset
+(baseado em 0) a ser colocado no seu sistema supervisório ou software de teste. Observe
+que se seu software utiliza offsets baseados em 1 o valor configurado
+lá deverá ser 101, para este exemplo.
+
+
+```
+ModbusIP mb;
+```
+Cria a instância mb (ModbusIP) a ser utilizada.
+
+
+```
+mb.config(wifi, "your_ssid", "your_password");
+```
+Configura o módulo ESP8266. Os valores entre aspas correspodem ao nome da rede (SSID) e a chave
+de sergurança.
+
+Por default a configuração IP será recebida via DHCP. Veja ao final as opções para ter um IP
+estático (importante para que não seja necessário alterar no mestre/supervisório caso o IP mude).
+
+
+Em seguida temos:
+```
+mb.addCoil(LAMP1_COIL);
+```
+Adiciona o registrador do tipo Coil (saída digital) que será responsável por
+acionar a led ou lâmpada e verificar seu estado.
+A biblioteca permite configurar um valor inicial para o registrador:
+
+```
+mb.addCoil(LAMP1_COIL, true);
+```
+Nesse caso o registrador é adicionado e configurado como true. Caso se utilize
+o primeira forma o valor default é false.
+
+
+```
+mb.task();
+```
+Este método faz toda a mágica, respondendo as requisições e alterando os registradores
+se necessário, ele deve ser chamado apenas uma vez, no início no loop.
+
+
+```
+digitalWrite(ledPin, mb.Coil(LAMP1_COIL));
+```
+Por fim o valor do registrador LAMP1_COIL é utilizado para acionar a lâmpada ou led.
+
+De forma bastante similar os outros exemplos mostram o uso dos outros métodos
+disponíveis na biblioteca.
+
+
+```
+Como utilizar um IP estático com o módulo ESP8266
+```
+Temos conhecimento atualmente de duas opções:
+1) No seu roteador configure o MAC Address do módulo para que o endereço IP fornecido por
+DHCP seja sempre o mesmo (A maior parte dos roteadores possuem esta funcionalidade).
+
+2) No seu código, inclua uma linha para alterar o endereço IP após ele ser recebido via DHCP:
+
+```
+mb.config(wifi, "your_ssid", "your_password");
+delay(1000);
+wifiSerial.println("AT+CIPSTA=\"192.168.1.44\"");
+```
+
+Obs.: Para que o módulo volte a receber IP via DHCP será necessário remover a linha
+e executar (pelo menos uma vez) o comando: AT+CWDHCP=1,1 via conexão direta com o
+módulo, ou:
+
+```
+wifiSerial.println("AT+CWDHCP=1,1");
+```
 
 
 Outras bibliotecas Modbus

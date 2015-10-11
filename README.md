@@ -5,7 +5,7 @@ This library allows your Arduino to communicate via Modbus protocol. The Modbus 
 used in industrial automation and can be used in other areas, such as home automation.
 
 The Modbus generally uses serial RS-232 or RS-485 as physical layer (then called Modbus Serial) and
-TCP/IP via Ethernet or WiFi (Modbus over IP).
+TCP/IP via Ethernet or WiFi (Modbus IP).
 
 In the current version the library allows the Arduino operate as a slave, supporting Modbus Serial and
 Modbus over IP. For more information about Modbus see:
