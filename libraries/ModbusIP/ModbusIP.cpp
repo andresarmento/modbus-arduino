@@ -46,7 +46,7 @@ void ModbusIP::task() {
             _len = _MBAP[4] << 8 | _MBAP[5];
             _len--;  // Do not count with last byte from MBAP
 
-            if (_MBAP[2] !=0 | _MBAP[3] !=0) return;   //Not a MODBUSIP packet
+            if (_MBAP[2] !=0 || _MBAP[3] !=0) return;   //Not a MODBUSIP packet
             if (_len > MODBUSIP_MAXFRAME) return;      //Length is over MODBUSIP_MAXFRAME
 
             _frame = (byte*) malloc(_len);
@@ -63,9 +63,9 @@ void ModbusIP::task() {
                 word len=_len+1;
                 _MBAP[4] = len >> 8;
                 _MBAP[5] = len & 0x00FF;
-                
+
                 byte sendbuffer[7 + _len];
-                
+
                 for (i = 0 ; i < 7 ; i++) {
                     sendbuffer[i] = _MBAP[i];
                 }
