@@ -1,5 +1,5 @@
 /*
-    ModbusIP.cpp - Source for Modbus IP Library
+    ModbusIP_ENC28J60.cpp - Source for Modbus IP ENC28J60 Library
     Copyright (C) 2015 André Sarmento Barbosa
 */
 #include "ModbusIP_ENC28J60.h"

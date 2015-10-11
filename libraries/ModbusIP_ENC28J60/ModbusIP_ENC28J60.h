@@ -1,5 +1,5 @@
 /*
-    ModbusIP.h - Header for Modbus IP Library
+    ModbusIP_ENC28J60.h - Header for Modbus IP ENC28J60 Library
     Copyright (C) 2015 André Sarmento Barbosa
 */
 #include <Arduino.h>
