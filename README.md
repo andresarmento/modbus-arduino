@@ -310,7 +310,7 @@ Wiznet shield be used in shield ENC28J60. The big problem with this approach
 arduino program memory, whereas with Ethercard + ModbusIP_ENC28J60
 this value drops to 30%!
 
-<h3>Modbus IP (ESP8266)</h3>
+<h3>Modbus IP (ESP8266 AT)</h3>
 
 Modules based on ESP8266 are quite successful and cheap. With firmware that
 responds to AT commands (standard on many modules) you can use them as a
@@ -342,7 +342,7 @@ ESP8266.h removing the comments from line:
 2. Remember that the power of ESP8266 module is 3.3V.
 
 
-For Modbus IP (ESP8266) there is four examples that can be accessed from the Arduino interface.
+For Modbus IP (ESP8266 AT) there is four examples that can be accessed from the Arduino interface.
 Let's look at the example Lamp.ino (only the parts concerning Modbus will be commented):
 
 
@@ -350,7 +350,7 @@ Let's look at the example Lamp.ino (only the parts concerning Modbus will be com
 #include <ESP8266.h>
 #include <SoftwareSerial.h>   //Apenas se utilizar Softwareserial para se comunicar com o módulo
 #include <Modbus.h>
-#include <ModbusIP_ESP8266.h>
+#include <ModbusIP_ESP8266AT.h>
 ```
 Inclusion of the necessary libraries.
 

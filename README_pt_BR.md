@@ -368,7 +368,7 @@ ESP8266.h removendo o comentário da linha:
 2. Lembre-se que a alimentação do módulos ESP8266 é 3.3V.
 
 
-Para o Modbus IP (ESP8266) há quatro exemplos que podem ser acessados da interface do Arduino.
+Para a Modbus IP (ESP8266 AT) há quatro exemplos que podem ser acessados da interface do Arduino.
 Vejamos o exemplo Lamp.ino (apenas as partes relativas ao modbus serão comentadas):
 
 
