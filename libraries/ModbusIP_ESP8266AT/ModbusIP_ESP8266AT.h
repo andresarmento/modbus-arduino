@@ -1,13 +1,13 @@
 /*
-    ModbusIP_ESP8266.h - Header for Modbus IP ESP8266 Library
+    ModbusIP_ESP8266AT.h - Header for Modbus IP ESP8266 AT Library
     Copyright (C) 2015 André Sarmento Barbosa
 */
 #include <Arduino.h>
 #include <Modbus.h>
 #include <ESP8266.h>
 
-#ifndef MODBUSIP_ESP8266_H
-#define MODBUSIP_ESP8266_H
+#ifndef MODBUSIP_ESP8266AT_H
+#define MODBUSIP_ESP8266AT_H
 
 #define MODBUSIP_PORT 	  502
 #define MODBUSIP_MAXFRAME 200
@@ -23,5 +23,5 @@ class ModbusIP : public Modbus {
         void task();
 };
 
-#endif //MODBUSIP_ESP8266_H
+#endif //MODBUSIP_ESP8266AT_H
 

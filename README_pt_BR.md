@@ -335,7 +335,7 @@ da memória de programa no Arduino Uno, enquanto que com a EtherCard + ModbusIP_
 valor cai para 30%!
 
 
-<h3>Modbus IP (ESP8266)</h3>
+<h3>Modbus IP (ESP8266 AT)</h3>
 
 Os módulos baseados no ESP8266 fazem bastante sucesso e são baratos. Com um firmware que
 responde a comandos AT (padrão em muitos módulos) é possível utilizá-los como uma
@@ -376,7 +376,7 @@ Vejamos o exemplo Lamp.ino (apenas as partes relativas ao modbus serão comentad
 #include <ESP8266.h>
 #include <SoftwareSerial.h>   //Apenas se utilizar Softwareserial para se comunicar com o módulo
 #include <Modbus.h>
-#include <ModbusIP_ESP8266.h>
+#include <ModbusIP_ESP8266AT.h>
 ```
 Inclusão das bibliotecas necessárias.
 

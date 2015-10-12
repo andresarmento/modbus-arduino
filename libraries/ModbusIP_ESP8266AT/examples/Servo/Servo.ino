@@ -1,5 +1,5 @@
 /*
-  Modbus-Arduino Example - Servo (Modbus IP ESP8266)
+  Modbus-Arduino Example - Servo (Modbus IP ESP8266 AT)
   Copyright by André Sarmento Barbosa
   http://github.com/andresarmento/modbus-arduino
 */
@@ -7,7 +7,7 @@
 #include <ESP8266.h>
 #include <SoftwareSerial.h>
 #include <Modbus.h>
-#include <ModbusIP_ESP8266.h>
+#include <ModbusIP_ESP8266AT.h>
 #include <Servo.h>
 
 SoftwareSerial wifiSerial(2 , 3);
