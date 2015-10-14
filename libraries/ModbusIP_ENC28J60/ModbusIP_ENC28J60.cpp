@@ -62,8 +62,8 @@ void ModbusIP::task() {
 
         if (_reply != MB_REPLY_OFF) {
             //MBAP
-            _MBAP[4] = _len >> 8;
-            _MBAP[5] = _len | 0x00FF;
+            _MBAP[4] = (_len+1) >> 8;     //_len+1 for last byte from MBAP
+            _MBAP[5] = (_len+1) & 0x00FF;
 
             BufferFiller bfill = ether.tcpOffset();
             bfill.emit_raw((const char *)_MBAP, 7);
