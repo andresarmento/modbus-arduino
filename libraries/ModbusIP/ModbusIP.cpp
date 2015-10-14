@@ -60,9 +60,8 @@ void ModbusIP::task() {
             this->receivePDU(_frame);
             if (_reply != MB_REPLY_OFF) {
                 //MBAP
-                word len=_len+1;
-                _MBAP[4] = len >> 8;
-                _MBAP[5] = len & 0x00FF;
+                _MBAP[4] = (_len+1) >> 8;     //_len+1 for last byte from MBAP
+                _MBAP[5] = (_len+1) & 0x00FF;
 
                 byte sendbuffer[7 + _len];
 
