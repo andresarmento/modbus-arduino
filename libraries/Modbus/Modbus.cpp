@@ -59,7 +59,7 @@ word Modbus::Reg(word address) {
     if(reg)
         return(reg->value);
     else
-        return(NULL);
+        return(0);
 }
 
 void Modbus::addHreg(word offset, word value) {
