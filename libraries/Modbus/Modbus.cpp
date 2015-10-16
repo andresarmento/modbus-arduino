@@ -192,7 +192,7 @@ void Modbus::readRegisters(word startreg, word numregs) {
     //Check Address
     //*** See comments on readCoils method.
     if (!this->searchRegister(startreg + 40001)) {
-        this->exceptionResponse(MB_FC_READ_COILS, MB_EX_ILLEGAL_ADDRESS);
+        this->exceptionResponse(MB_FC_READ_REGS, MB_EX_ILLEGAL_ADDRESS);
         return;
     }
 
