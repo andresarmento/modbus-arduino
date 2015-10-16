@@ -61,9 +61,9 @@ void ModbusIP::task() {
                 i++;
             }
             _wifi->send(mux_id, buffer, _len + 7);
-            _wifi->releaseTCP(mux_id);
         }
 
+        _wifi->releaseTCP(mux_id);
         free(_frame);
         _len = 0;
     }
