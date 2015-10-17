@@ -10,7 +10,7 @@
 
 class ModbusSerial : public Modbus {
     private:
-        HardwareSerial* _port;
+        Stream* _port;
         long  _baud;
         u_int _format;
         int   _txPin;
@@ -22,6 +22,9 @@ class ModbusSerial : public Modbus {
         ModbusSerial();
         bool setSlaveId(byte slaveId);
         byte getSlaveId();
+        #ifdef __AVR_ATmega32U4__
+        bool config(Serial_* port, long baud, u_int format, int txPin=-1);
+        #endif
         bool config(HardwareSerial* port, long baud, u_int format, int txPin=-1);
         void task();
         bool receive(byte* frame);

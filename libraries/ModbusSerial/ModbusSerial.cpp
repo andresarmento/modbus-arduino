@@ -40,6 +40,30 @@ bool ModbusSerial::config(HardwareSerial* port, long baud, u_int format, int txP
     return true;
 }
 
+#ifdef __AVR_ATmega32U4__
+bool ModbusSerial::config(Serial_* port, long baud, u_int format, int txPin) {
+    this->_port = port;
+    this->_txPin = txPin;
+    (*port).begin(baud, format);
+    while (!(*port));
+
+    if (txPin >= 0) {
+        pinMode(txPin, OUTPUT);
+        digitalWrite(txPin, LOW);
+    }
+
+    if (baud > 19200) {
+        _t15 = 750;
+        _t35 = 1750;
+    } else {
+        _t15 = 15000000/baud; // 1T * 1.5 = T1.5
+        _t35 = 35000000/baud; // 1T * 3.5 = T3.5
+    }
+
+    return true;
+}
+#endif
+
 bool ModbusSerial::receive(byte* frame) {
     //first byte of frame = address
     byte address = frame[0];
@@ -68,11 +92,6 @@ bool ModbusSerial::send(byte* frame) {
     byte i;
 
     if (this->_txPin >= 0) {
-        #ifdef __AVR_ATmega32U4__
-		UCSR1A=UCSR1A |(1 << TXC1);
-	#else
-		UCSR0A=UCSR0A |(1 << TXC0);
-	#endif
         digitalWrite(this->_txPin, HIGH);
         delay(1);
     }
@@ -81,23 +100,16 @@ bool ModbusSerial::send(byte* frame) {
         (*_port).write(frame[i]);
     }
 
+    (*_port).flush();
+    delayMicroseconds(_t35);
+
     if (this->_txPin >= 0) {
-        #ifdef __AVR_ATmega32U4__
-		while (!(UCSR1A & (1 << TXC1)));
-	#else
-		while (!(UCSR0A & (1 << TXC0)));
-	#endif
         digitalWrite(this->_txPin, LOW);
     }
 }
 
 bool ModbusSerial::sendPDU(byte* pduframe) {
     if (this->_txPin >= 0) {
-        #ifdef __AVR_ATmega32U4__
-		UCSR1A=UCSR1A |(1 << TXC1);
-	#else
-		UCSR0A=UCSR0A |(1 << TXC0);
-	#endif
         digitalWrite(this->_txPin, HIGH);
         delay(1);
     }
@@ -116,12 +128,10 @@ bool ModbusSerial::sendPDU(byte* pduframe) {
     (*_port).write(crc >> 8);
     (*_port).write(crc & 0xFF);
 
+    (*_port).flush();
+    delayMicroseconds(_t35);
+
     if (this->_txPin >= 0) {
-        #ifdef __AVR_ATmega32U4__
-		while (!(UCSR1A & (1 << TXC1)));
-	#else
-		while (!(UCSR0A & (1 << TXC0)));
-	#endif
         digitalWrite(this->_txPin, LOW);
     }
 }
