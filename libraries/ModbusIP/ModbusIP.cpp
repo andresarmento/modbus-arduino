@@ -39,7 +39,7 @@ void ModbusIP::task() {
         if (client.connected()) {
             int i = 0;
             while (client.available()){
-            _MBAP[i] = client.read();
+                _MBAP[i] = client.read();
                 i++;
                 if (i==7) break;  //MBAP length has 7 bytes size
             }
