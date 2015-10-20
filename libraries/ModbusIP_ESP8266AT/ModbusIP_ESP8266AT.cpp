@@ -21,17 +21,21 @@ void ModbusIP::config(ESP8266 &wifi, String ssid, String password) {
 }
 
 void ModbusIP::task() {
-
     uint8_t buffer[128] = {0};
     uint8_t mux_id;
-    uint32_t len = _wifi->recv(&mux_id, buffer, sizeof(buffer), 100);
 
-    if (len > 0) {
-        int i = 0;
-        while (i < 7) {
-            _MBAP[i] = buffer[i];
-             i++;
-        }
+	if (prev_conn) {
+		_wifi->stopTCPServer();
+		_wifi->enableMUX();
+		_wifi->startTCPServer(MODBUSIP_PORT);
+		_wifi->setTCPServerTimeout(10);
+		prev_conn = false;
+	}
+    uint32_t raw_len = _wifi->recv(&mux_id, buffer, sizeof(buffer), MODBUSIP_TIMEOUT);
+
+    if (raw_len > 7) {
+
+        for (int i = 0; i < 7; i++)	_MBAP[i] = buffer[i]; //Get MBAP
 
         _len = _MBAP[4] << 8 | _MBAP[5];
         _len--; // Do not count with last byte from MBAP
@@ -39,11 +43,8 @@ void ModbusIP::task() {
         if (_len > MODBUSIP_MAXFRAME) return;      //Length is over MODBUSIP_MAXFRAME
 
         _frame = (byte*) malloc(_len);
-        i = 0;
-        while (i < _len){
-            _frame[i] = buffer[7+i];  //Forget MBAP and take just modbus pdu
-            i++;
-        }
+
+        for (int i=0; i < _len; i++) _frame[i] = buffer[7+i]; //Get Modbus PDU
 
         this->receivePDU(_frame);
 
@@ -55,15 +56,13 @@ void ModbusIP::task() {
             buffer[4] = _MBAP[4];
             buffer[5] = _MBAP[5];
 
-            i = 0;
-            while (i < _len){
-                buffer[i+7] = _frame[i];
-                i++;
-            }
+            for (int i=0; i<_len; i++)	buffer[i+7] = _frame[i];
+
             _wifi->send(mux_id, buffer, _len + 7);
         }
 
-        _wifi->releaseTCP(mux_id);
+		prev_conn = true;
+
         free(_frame);
         _len = 0;
     }

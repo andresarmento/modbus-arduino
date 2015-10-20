@@ -17,6 +17,7 @@ class ModbusIP : public Modbus {
     private:
         byte _MBAP[7];
         ESP8266* _wifi;
+		bool prev_conn;
     public:
         ModbusIP();
         void config(ESP8266 &wifi, String ssid, String password);
