@@ -80,7 +80,7 @@ There are five classes corresponding to five headers that may be used:
 <li>ModbusIP_ESP8266AT - Modbus IP Library (for ESP8266 chip with AT firmware) </li>
 </ul>
 <h4>
-Obs .: If you want to use Modbus in ESP8266 without the Arduino, I have news:
+If you want to use Modbus in ESP8266 without the Arduino, I have news:
 http://www.github.com/andresarmento/modbus-esp8266
 </h4>
 By opting for Modbus Serial or Modbus IP you must include in your sketch the corresponding header and the base library header, eg:
