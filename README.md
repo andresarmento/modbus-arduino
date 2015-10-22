@@ -75,7 +75,7 @@ There are five classes corresponding to five headers that may be used:
 <ul>
 <li>Modbus - Base Library</li>
 <li>ModbusSerial - Modbus Serial Library (RS-232 and RS-485)</li>
-<li>ModbusIP - Modbus IP Library</li>
+<li>ModbusIP - Modbus IP Library (standard Ethernet Shield) </li>
 <li>ModbusIP_ENC28J60 - Modbus IP Library (for ENC28J60 chip)</li>
 <li>ModbusIP_ESP8266AT - Modbus IP Library (for ESP8266 chip with AT firmware) </li>
 </ul>
