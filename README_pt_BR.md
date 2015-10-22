@@ -78,13 +78,17 @@ Dessa forma, somente as seguintes funções são suportadas:
 Como utilizar
 =============
 
-Existem quatro classes que correspondem aos quatro cabeçalhos que podem ser utilizados:
+Existem cinco classes que correspondem aos cinco cabeçalhos que podem ser utilizados:
 <ul>
     <li>Modbus - Biblioteca Base</li>
     <li>ModbusSerial - Biblioteca Modbus Serial (RS-232 e RS-485)</li>
-    <li>ModbusIP - Biblioteca Modbus IP</li>
+    <li>ModbusIP - Biblioteca Modbus IP (Shield Ethernet padrão)</li>
     <li>ModbusIP_ENC28J60 - Biblioteca Modbus IP (para o chip ENC28J60)</li>
+    <li>ModbusIP_ESP8266AT - Biblioteca Modbus IP (Para o chip ESP8266 com firmware AT) </li>
 </ul>
+
+Obs.: Se você quer utilizar Modbus no ESP8266 sem o Arduino, tenho novidades:
+http://www.github.com/andresarmento/modbus-esp8266
 
 Ao optar por Modbus Serial ou Modbus IP você deve incluir o cabeçalho correspondente e o cabeçalho da biblioteca base em seu sketch, Ex:
 ```
