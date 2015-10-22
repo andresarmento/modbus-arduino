@@ -86,10 +86,8 @@ Existem cinco classes que correspondem aos cinco cabeçalhos que podem ser utili
     <li>ModbusIP_ENC28J60 - Biblioteca Modbus IP (para o chip ENC28J60)</li>
     <li>ModbusIP_ESP8266AT - Biblioteca Modbus IP (Para o chip ESP8266 com firmware AT) </li>
 </ul>
-<h4>
-Se você quer utilizar Modbus no ESP8266 sem o Arduino, tenho novidades:
-http://www.github.com/andresarmento/modbus-esp8266
-</h4>
+<h4>Se você quer utilizar Modbus no ESP8266 sem o Arduino, tenho novidades:
+http://www.github.com/andresarmento/modbus-esp8266</h4>
 Ao optar por Modbus Serial ou Modbus IP você deve incluir o cabeçalho correspondente e o cabeçalho da biblioteca base em seu sketch, Ex:
 ```
 #include <Modbus.h>
