@@ -70,15 +70,17 @@ Thus, only the following functions are supported:
 How to
 ======
 
-There are four classes corresponding to four headers that may be used:
+There are five classes corresponding to five headers that may be used:
 
 <ul>
 <li>Modbus - Base Library</li>
 <li>ModbusSerial - Modbus Serial Library (RS-232 and RS-485)</li>
-<li>ModbusIP - IP Modbus Library</li>
-<li>ModbusIP_ENC28J60 - IP Modbus Library (for ENC28J60 chip)</li>
+<li>ModbusIP - Modbus IP Library (standard Ethernet Shield) </li>
+<li>ModbusIP_ENC28J60 - Modbus IP Library (for ENC28J60 chip)</li>
+<li>ModbusIP_ESP8266AT - Modbus IP Library (for ESP8266 chip with AT firmware) </li>
 </ul>
-
+<h4>If you want to use Modbus in ESP8266 without the Arduino, I have news:
+http://www.github.com/andresarmento/modbus-esp8266</h4>
 By opting for Modbus Serial or Modbus IP you must include in your sketch the corresponding header and the base library header, eg:
 
 ```
