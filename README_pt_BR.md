@@ -50,10 +50,10 @@ Características
 
 <b>Observações:</b>
 
-1. Quando se usa Modbus IP o protocolo de transporte é o TCP (porta 502) e a conexão
+1) Quando se usa Modbus IP o protocolo de transporte é o TCP (porta 502) e a conexão
 é finalizada a cada mensagem transmitida, ou seja, não é do tipo keep-alive.
 
-2. Os offsets para acesso aos registradores são baseados em 0. Assim, tenha cuidado
+2) Os offsets para acesso aos registradores são baseados em 0. Assim, tenha cuidado
 ao configurar seu seu supervisório ou utilitário de teste. Por exempo, no ScadaBR
 (http://www.scadabr.com.br) os offsets são baseados em 0, então, um registrador
 configurado como 100 na biblioteca será configurado como 100 no ScadaBR. Por outro
@@ -61,7 +61,7 @@ lado, no software de teste CAS Modbus Scanner (http://www.chipkin.com/products/s
 os offsets são baseados em 1, logo, um registrador configurado como 100 na biblioteca
 deverá ser 101 neste software.
 
-3. No início do arquivo Modbus.h da biblioteca há uma opção para limitar o funcionamento
+3) No início do arquivo Modbus.h da biblioteca há uma opção para limitar o funcionamento
 da mesma às funções de Holding Registers, salvando espaço na memória de programa.
 Basta retirar o comentário da seguinte linha:
 
@@ -74,7 +74,8 @@ Dessa forma, somente as seguintes funções são suportadas:
     <li>0x06 - Write Single Register</li>
     <li>0x10 - Write Multiple Registers</li>
 </ul>
-4. Com o uso da ModbusSerial é possível escolher entre Hardware Serial (padrão) ou Software Serial. Caso
+
+4) Com o uso da ModbusSerial é possível escolher entre Hardware Serial (padrão) ou Software Serial. Caso
 você opte por Software Serial edite o arquivo ModbusSerial.h e retire o comentário da seguinte linha:
 
 ```
