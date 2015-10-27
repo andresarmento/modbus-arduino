@@ -46,13 +46,13 @@ Features
 
 <b>Notes:</b>
 
-1. When using Modbus IP the transport protocol is TCP (port 502) and the connection is terminated to each transmitted message, that is, is not a keep-alive type connection.
+1) When using Modbus IP the transport protocol is TCP (port 502) and the connection is terminated to each transmitted message, that is, is not a keep-alive type connection.
 
-2. The offsets for registers are 0-based. So be careful when setting your supervisory system or your testing software. For example, in ScadaBR (http://www.scadabr.com.br)
+2) The offsets for registers are 0-based. So be careful when setting your supervisory system or your testing software. For example, in ScadaBR (http://www.scadabr.com.br)
 offsets are 0-based, then, a register configured as 100 in the library is set to 100 in ScadaBR. On the other hand, in the CAS Modbus Scanner
 (http://www.chipkin.com/products/software/modbus-software/cas-modbus-scanner/) offsets are 1-based, so a register configured as 100 in library should be 101 in this software.
 
-3. Early in the library Modbus.h file there is an option to limit the operation
+3) Early in the library Modbus.h file there is an option to limit the operation
 to the functions of Holding Registers, saving space in the program memory.
 Just comment out the following line:
 
@@ -66,7 +66,7 @@ Thus, only the following functions are supported:
     <li>0x10 - Write Multiple Registers</li>
 </ul>
 
-4. When using Modbus Serial is possible to choose between Hardware Serial(default) or Software Serial. In this
+4) When using Modbus Serial is possible to choose between Hardware Serial(default) or Software Serial. In this
 case you must edit the ModbusSerial.h file and comment out the following line:
 
 ```
@@ -85,7 +85,7 @@ And in the setup() function:
 ```
 SoftwareSerial myserial(2,3);
 mb.config(&myserial, 38400);   // mb.config(mb.config(&myserial, 38400, 4) for RS-485
-
+```
 
 How to
 ======
