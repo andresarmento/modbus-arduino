@@ -75,6 +75,27 @@ Dessa forma, somente as seguintes funções são suportadas:
     <li>0x10 - Write Multiple Registers</li>
 </ul>
 
+4. Com o uso da ModbusSerial é possível escolher entre Hardware Serial (padrão) ou Software Serial. Caso
+você opte por Software Serial edite o arquivo ModbusSerial.h e retire o comentário da seguinte linha:
+
+```
+#define USE_SOFTWARE_SERIAL
+```
+
+Você poderá agora construir seu programa principal colocando os includes necessários:
+```
+#include <Modbus.h>
+#include <ModbusSerial.h>
+#include <SoftwareSerial.h>
+```
+
+E utilizando no setup():
+
+```
+SoftwareSerial myserial(2,3);
+mb.config(&myserial, 38400);   // mb.config(mb.config(&myserial, 38400, 4) para RS-485
+```
+
 Como utilizar
 =============
 

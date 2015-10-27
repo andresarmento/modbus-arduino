@@ -66,6 +66,26 @@ Thus, only the following functions are supported:
     <li>0x10 - Write Multiple Registers</li>
 </ul>
 
+4. When using Modbus Serial is possible to choose between Hardware Serial(default) or Software Serial. In this
+case you must edit the ModbusSerial.h file and comment out the following line:
+
+```
+#define USE_SOFTWARE_SERIAL
+```
+
+Now, You can build your main program putting all necessary includes:
+```
+#include <Modbus.h>
+#include <ModbusSerial.h>
+#include <SoftwareSerial.h>
+```
+
+And in the setup() function:
+
+```
+SoftwareSerial myserial(2,3);
+mb.config(&myserial, 38400);   // mb.config(mb.config(&myserial, 38400, 4) for RS-485
+
 
 How to
 ======
@@ -135,7 +155,7 @@ Create the mb instance (ModbusSerial) to be used.
 
 
 ```
-mb.config (& Serial, 38400, SERIAL_8N1);
+mb.config (&Serial, 38400, SERIAL_8N1);
 mb.setSlaveId (10);
 ```
 Sets the serial port and the slave Id. Note that the serial port is passed as reference, which permits the use of other serial ports in other Arduino models.
