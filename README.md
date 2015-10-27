@@ -85,6 +85,7 @@ And in the setup() function:
 ```
 SoftwareSerial myserial(2,3);
 mb.config(&myserial, 38400);   // mb.config(mb.config(&myserial, 38400, 4) for RS-485
+```
 
 
 How to
