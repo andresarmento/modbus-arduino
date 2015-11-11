@@ -46,7 +46,7 @@ Features
 
 <b>Notes:</b>
 
-1) When using Modbus IP the transport protocol is TCP (port 502) and, by default, the connection is terminated to each transmitted message, that is, is not a keep-alive type connection. if you need a TCP keep-alive connection you have to remove comments of this line in ModbusIP library (or ModbusIP_* libraries):
+1) When using Modbus IP the transport protocol is TCP (port 502) and, by default, the connection is terminated to each transmitted message, that is, is not a keep-alive type connection. If you need a TCP keep-alive connection you have to remove comments of this line in ModbusIP.h header (or ModbusIP_* headers):
 ```
 #define TCP_KEEP_ALIVE
 ```
