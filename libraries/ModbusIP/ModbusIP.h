@@ -1,6 +1,6 @@
 /*
     ModbusIP.h - Header for Modbus IP Library
-    Copyright (C) 2015 André Sarmento Barbosa
+    Copyright (C) 2015 AndrÃ© Sarmento Barbosa
 */
 #include <Arduino.h>
 #include <Modbus.h>
@@ -12,6 +12,8 @@
 
 #define MODBUSIP_PORT 	  502
 #define MODBUSIP_MAXFRAME 200
+
+//#define TCP_STOP
 
 class ModbusIP : public Modbus {
     private:

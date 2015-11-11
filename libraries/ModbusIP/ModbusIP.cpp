@@ -75,7 +75,9 @@ void ModbusIP::task() {
                 client.write(sendbuffer, _len + 7);
             }
 
+#ifdef TCP_STOP
             client.stop();
+#endif
             free(_frame);
             _len = 0;
         }

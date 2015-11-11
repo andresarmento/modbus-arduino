@@ -1,6 +1,6 @@
 /*
     ModbusIP_ENC28J60.cpp - Source for Modbus IP ENC28J60 Library
-    Copyright (C) 2015 André Sarmento Barbosa
+    Copyright (C) 2015 AndrÃ© Sarmento Barbosa
 */
 #include "ModbusIP_ENC28J60.h"
 
@@ -11,27 +11,27 @@ ModbusIP::ModbusIP() {
 }
 
 void ModbusIP::config(uint8_t *mac) {
-    ether.begin(sizeof Ethernet::buffer, mac, 10);
+    ether.begin(sizeof Ethernet::buffer, mac, ENC28J60_CS);
     ether.dhcpSetup();
 }
 
 void ModbusIP::config(uint8_t *mac, uint8_t * ip) {
-    ether.begin(sizeof Ethernet::buffer, mac, 10);
+    ether.begin(sizeof Ethernet::buffer, mac, ENC28J60_CS);
     ether.staticSetup(ip);
 }
 
 void ModbusIP::config(uint8_t *mac, uint8_t * ip, uint8_t * dns) {
-    ether.begin(sizeof Ethernet::buffer, mac, 10);
+    ether.begin(sizeof Ethernet::buffer, mac, ENC28J60_CS);
     ether.staticSetup(ip, 0, dns);
 }
 
 void ModbusIP::config(uint8_t *mac, uint8_t * ip, uint8_t * dns, uint8_t * gateway) {
-    ether.begin(sizeof Ethernet::buffer, mac, 10);
+    ether.begin(sizeof Ethernet::buffer, mac, ENC28J60_CS);
     ether.staticSetup(ip, gateway, dns);
 }
 
 void ModbusIP::config(uint8_t *mac, uint8_t * ip, uint8_t * dns, uint8_t * gateway, uint8_t * subnet) {
-    ether.begin(sizeof Ethernet::buffer, mac, 10);
+    ether.begin(sizeof Ethernet::buffer, mac, ENC28J60_CS);
     ether.staticSetup(ip, gateway, dns, subnet);
 }
 
@@ -68,7 +68,13 @@ void ModbusIP::task() {
             BufferFiller bfill = ether.tcpOffset();
             bfill.emit_raw((const char *)_MBAP, 7);
             bfill.emit_raw((const char *)_frame, _len);
+#ifdef TCP_STOP
             ether.httpServerReply(bfill.position());
+#else
+            ether.httpServerReplyAck ();
+            ether.httpServerReply_with_flags(bfill.position(), TCP_FLAGS_ACK_V|TCP_FLAGS_PUSH_V);
+#endif
+
         }
 
         free(_frame);

@@ -1,6 +1,6 @@
 /*
     ModbusIP_ENC28J60.h - Header for Modbus IP ENC28J60 Library
-    Copyright (C) 2015 André Sarmento Barbosa
+    Copyright (C) 2015 AndrÃ© Sarmento Barbosa
 */
 #include <Arduino.h>
 #include <Modbus.h>
@@ -11,6 +11,9 @@
 
 #define MODBUSIP_PORT 	  502
 #define MODBUSIP_MAXFRAME 200
+
+#define ENC28J60_CS 	10 //Default chip select pin
+//#define TCP_STOP
 
 class ModbusIP : public Modbus {
     private:
