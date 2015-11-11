@@ -68,11 +68,11 @@ void ModbusIP::task() {
             BufferFiller bfill = ether.tcpOffset();
             bfill.emit_raw((const char *)_MBAP, 7);
             bfill.emit_raw((const char *)_frame, _len);
-#ifdef TCP_STOP
-            ether.httpServerReply(bfill.position());
-#else
+#ifdef TCP_KEEP_ALIVE
             ether.httpServerReplyAck ();
-            ether.httpServerReply_with_flags(bfill.position(), TCP_FLAGS_ACK_V|TCP_FLAGS_PUSH_V);
+            ether.httpServerReply_with_flags(bfill.position(), TCP_FLAGS_ACK_V|TCP_FLAGS_PUSH_V); 
+#else
+            ether.httpServerReply(bfill.position());
 #endif
 
         }
