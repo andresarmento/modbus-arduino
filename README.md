@@ -29,7 +29,7 @@ Features
 
 <ul>
 <li>Operates as a slave (master mode in development) </li>
-<li>Supports Modbus Serial (RS-232 or RS485) and Modbus IP (TCP, not keep-alive)</li>
+<li>Supports Modbus Serial (RS-232 or RS485) and Modbus IP (TCP)</li>
 <li>Reply exception messages for all supported functions</li>
 <li>Modbus functions supported:</li>
 <ul>
@@ -46,7 +46,10 @@ Features
 
 <b>Notes:</b>
 
-1) When using Modbus IP the transport protocol is TCP (port 502) and the connection is terminated to each transmitted message, that is, is not a keep-alive type connection.
+1) When using Modbus IP the transport protocol is TCP (port 502) and, by default, the connection is terminated to each transmitted message, that is, is not a keep-alive type connection. if you need a TCP keep-alive connection you have to remove comments of this line in ModbusIP library (or ModbusIP_* libraries):
+´´´
+#define TCP_KEEP_ALIVE
+´´´
 
 2) The offsets for registers are 0-based. So be careful when setting your supervisory system or your testing software. For example, in ScadaBR (http://www.scadabr.com.br)
 offsets are 0-based, then, a register configured as 100 in the library is set to 100 in ScadaBR. On the other hand, in the CAS Modbus Scanner
