@@ -50,8 +50,12 @@ Características
 
 <b>Observações:</b>
 
-1) Quando se usa Modbus IP o protocolo de transporte é o TCP (porta 502) e a conexão
-é finalizada a cada mensagem transmitida, ou seja, não é do tipo keep-alive.
+1) Quando se usa Modbus IP o protocolo de transporte é o TCP (porta 502) e, por default, a conexão
+é finalizada a cada mensagem transmitida, ou seja, não é do tipo keep-alive. Se você precisa de uma conexão
+do tipo keep-alive você deverá remover o comentário desta linha no arquivo ModbusIP.h (ou ModbusIP_*.h):
+´´´
+#define TCP_KEEP_ALIVE
+´´´
 
 2) Os offsets para acesso aos registradores são baseados em 0. Assim, tenha cuidado
 ao configurar seu seu supervisório ou utilitário de teste. Por exempo, no ScadaBR
