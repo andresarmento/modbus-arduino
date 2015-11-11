@@ -13,7 +13,7 @@
 #define MODBUSIP_PORT 	  502
 #define MODBUSIP_MAXFRAME 200
 
-//#define TCP_STOP
+//#define TCP_KEEP_ALIVE
 
 class ModbusIP : public Modbus {
     private:
