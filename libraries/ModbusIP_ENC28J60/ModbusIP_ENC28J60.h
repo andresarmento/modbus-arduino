@@ -13,7 +13,7 @@
 #define MODBUSIP_MAXFRAME 200
 
 #define ENC28J60_CS 	10 //Default chip select pin
-//#define TCP_STOP
+//#define TCP_KEEP_ALIVE
 
 class ModbusIP : public Modbus {
     private:
