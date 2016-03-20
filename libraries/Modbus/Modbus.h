@@ -43,6 +43,7 @@ enum {
 typedef struct TRegister {
     word address;
     word value;
+	word (*cb) (word, byte); // pointer to callback function
     struct TRegister* next;
 } TRegister;
 
@@ -51,7 +52,7 @@ class Modbus {
         TRegister *_regs_head;
         TRegister *_regs_last;
 
-        void readRegisters(word startreg, word numregs);
+	void readRegisters(word startreg, word numregs);
         void writeSingleRegister(word reg, word value);
         void writeMultipleRegisters(byte* frame,word startreg, word numoutputs, byte bytecount);
         void exceptionResponse(byte fcode, byte excode);
@@ -65,8 +66,8 @@ class Modbus {
 
         TRegister* searchRegister(word addr);
 
-        void addReg(word address, word value = 0);
-        bool Reg(word address, word value);
+        void addReg(word address, word value = 0, word (*cb)(word, byte) = 0);
+        bool Reg(word address, word value, byte src = 0);
         word Reg(word address);
 
     protected:
@@ -78,18 +79,18 @@ class Modbus {
     public:
         Modbus();
 
-        void addHreg(word offset, word value = 0);
-        bool Hreg(word offset, word value);
+        void addHreg(word offset, word value = 0, word (*cb)(word, byte) = 0);
+        bool Hreg(word offset, word value, byte src = 0);
         word Hreg(word offset);
 
         #ifndef USE_HOLDING_REGISTERS_ONLY
-            void addCoil(word offset, bool value = false);
-            void addIsts(word offset, bool value = false);
-            void addIreg(word offset, word value = 0);
+            void addCoil(word offset, bool value = false, word (*cb)(word, byte) = 0);
+            void addIsts(word offset, bool value = false, word (*cb)(word, byte) = 0);
+            void addIreg(word offset, word value = 0, word (*cb)(word, byte) = 0);
 
-            bool Coil(word offset, bool value);
-            bool Ists(word offset, bool value);
-            bool Ireg(word offset, word value);
+            bool Coil(word offset, bool value, byte src = 0);
+            bool Ists(word offset, bool value, byte src = 0);
+            bool Ireg(word offset, word value, byte src = 0);
 
             bool Coil(word offset);
             bool Ists(word offset);
