@@ -1,3 +1,4 @@
+Read/Write Multiple Coil/Inputs Fixed! (8 bit bug)
 Modbus Library for Arduino
 ==========================
 
