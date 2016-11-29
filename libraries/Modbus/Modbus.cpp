@@ -1,6 +1,6 @@
 /*
     Modbus.cpp - Source for Modbus Base Library
-    Copyright (C) 2014 André Sarmento Barbosa
+    Copyright (C) 2014 AndrÃ© Sarmento Barbosa
 */
 #include "Modbus.h"
 
@@ -261,6 +261,15 @@ void Modbus::writeMultipleRegisters(byte* frame,word startreg, word numoutputs, 
         }
     }
 
+    word val;
+    word i = 0;
+    word numoutputstmp = numoutputs;
+    while(numoutputstmp--) {
+        val = (word)frame[6+i*2] << 8 | (word)frame[7+i*2];
+        this->Hreg(startreg + i, val);
+        i++;
+    }
+	
     //Clean frame buffer
     free(_frame);
 	_len = 5;
@@ -275,14 +284,6 @@ void Modbus::writeMultipleRegisters(byte* frame,word startreg, word numoutputs, 
     _frame[2] = startreg & 0x00FF;
     _frame[3] = numoutputs >> 8;
     _frame[4] = numoutputs & 0x00FF;
-
-    word val;
-    word i = 0;
-	while(numoutputs--) {
-        val = (word)frame[6+i*2] << 8 | (word)frame[7+i*2];
-        this->Hreg(startreg + i, val);
-        i++;
-	}
 
     _reply = MB_REPLY_NORMAL;
 }
@@ -478,6 +479,20 @@ void Modbus::writeMultipleCoils(byte* frame,word startreg, word numoutputs, byte
         }
     }
 
+    byte bitn = 0;
+    word totoutputs = numoutputs;
+    word i;
+    word numoutputstmp = numoutputs;
+	while (numoutputstmp--) {
+        i = (totoutputs - numoutputstmp) / 8;
+        this->Coil(startreg, bitRead(frame[6+i], bitn));
+        //increment the bit index
+        bitn++;
+        if (bitn == 8) bitn = 0;
+        //increment the register
+        startreg++;
+	}
+	
     //Clean frame buffer
     free(_frame);
 	_len = 5;
@@ -493,18 +508,6 @@ void Modbus::writeMultipleCoils(byte* frame,word startreg, word numoutputs, byte
     _frame[3] = numoutputs >> 8;
     _frame[4] = numoutputs & 0x00FF;
 
-    byte bitn = 0;
-    word totoutputs = numoutputs;
-    word i;
-	while (numoutputs--) {
-        i = (totoutputs - numoutputs) / 8;
-        this->Coil(startreg, bitRead(frame[6+i], bitn));
-        //increment the bit index
-        bitn++;
-        if (bitn == 8) bitn = 0;
-        //increment the register
-        startreg++;
-	}
 
     _reply = MB_REPLY_NORMAL;
 }
