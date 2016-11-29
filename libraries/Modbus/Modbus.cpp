@@ -479,6 +479,20 @@ void Modbus::writeMultipleCoils(byte* frame,word startreg, word numoutputs, byte
         }
     }
 
+    byte bitn = 0;
+    word totoutputs = numoutputs;
+    word i;
+    word numoutputstmp = numoutputs;
+	while (numoutputstmp--) {
+        i = (totoutputs - numoutputstmp) / 8;
+        this->Coil(startreg, bitRead(frame[6+i], bitn));
+        //increment the bit index
+        bitn++;
+        if (bitn == 8) bitn = 0;
+        //increment the register
+        startreg++;
+	}
+	
     //Clean frame buffer
     free(_frame);
 	_len = 5;
@@ -494,18 +508,6 @@ void Modbus::writeMultipleCoils(byte* frame,word startreg, word numoutputs, byte
     _frame[3] = numoutputs >> 8;
     _frame[4] = numoutputs & 0x00FF;
 
-    byte bitn = 0;
-    word totoutputs = numoutputs;
-    word i;
-	while (numoutputs--) {
-        i = (totoutputs - numoutputs) / 8;
-        this->Coil(startreg, bitRead(frame[6+i], bitn));
-        //increment the bit index
-        bitn++;
-        if (bitn == 8) bitn = 0;
-        //increment the register
-        startreg++;
-	}
 
     _reply = MB_REPLY_NORMAL;
 }
