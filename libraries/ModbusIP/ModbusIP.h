@@ -17,7 +17,9 @@
 
 class ModbusIP : public Modbus {
     private:
+        EthernetClient _client;
         EthernetServer _server;
+        bool _firstClient;
         byte _MBAP[7];
 
     public:
