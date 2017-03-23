@@ -17,16 +17,44 @@ byte ModbusSerial::getSlaveId() {
     return _slaveId;
 }
 
-bool ModbusSerial::config(HardwareSerial* port, long baud, u_int format, int txPin) {
+bool ModbusSerial::config(HardwareSerial* port, long baud, u_int format, int txPin1) {
     this->_port = port;
-    this->_txPin = txPin;
+    this->_txPin1 = txPin1;
     (*port).begin(baud, format);
 
     delay(2000);
 
-    if (txPin >= 0) {
-        pinMode(txPin, OUTPUT);
-        digitalWrite(txPin, LOW);
+    if (txPin1 >= 0) {
+        pinMode(txPin1, OUTPUT);
+        digitalWrite(txPin1, LOW);
+    }
+
+    if (baud > 19200) {
+        _t15 = 750;
+        _t35 = 1750;
+    } else {
+        _t15 = 15000000/baud; // 1T * 1.5 = T1.5
+        _t35 = 35000000/baud; // 1T * 3.5 = T3.5
+    }
+
+    return true;
+}
+
+bool ModbusSerial::config(HardwareSerial* port, long baud, u_int format, int txPin1, int txPin2) {
+    this->_port = port;
+    this->_txPin1 = txPin1;
+    this->_txPin2 = txPin2;
+    (*port).begin(baud, format);
+
+    delay(2000);
+
+    if (txPin1 >= 0) {
+        pinMode(txPin1, OUTPUT);
+        digitalWrite(txPin1, LOW);
+    }
+    if (txPin2 >= 0) {
+        pinMode(txPin2, OUTPUT);
+        digitalWrite(txPin2, LOW);
     }
 
     if (baud > 19200) {
@@ -41,16 +69,44 @@ bool ModbusSerial::config(HardwareSerial* port, long baud, u_int format, int txP
 }
 
 #ifdef USE_SOFTWARE_SERIAL
-bool ModbusSerial::config(SoftwareSerial* port, long baud, int txPin) {
+bool ModbusSerial::config(SoftwareSerial* port, long baud, int txPin1) {
     this->_port = port;
-    this->_txPin = txPin;
+    this->_txPin1 = txPin1;
     (*port).begin(baud);
 
     delay(2000);
 
-    if (txPin >= 0) {
-        pinMode(txPin, OUTPUT);
-        digitalWrite(txPin, LOW);
+    if (txPin1 >= 0) {
+        pinMode(txPin1, OUTPUT);
+        digitalWrite(txPin1, LOW);
+    }
+
+    if (baud > 19200) {
+        _t15 = 750;
+        _t35 = 1750;
+    } else {
+        _t15 = 15000000/baud; // 1T * 1.5 = T1.5
+        _t35 = 35000000/baud; // 1T * 3.5 = T3.5
+    }
+
+    return true;
+}
+
+bool ModbusSerial::config(SoftwareSerial* port, long baud, int txPin1, int txPin2) {
+    this->_port = port;
+    this->_txPin1 = txPin1;
+    this->_txPin2 = txPin2;
+    (*port).begin(baud);
+
+    delay(2000);
+
+    if (txPin1 >= 0) {
+        pinMode(txPin1, OUTPUT);
+        digitalWrite(txPin1, LOW);
+    }
+    if (txPin2 >= 0) {
+        pinMode(txPin2, OUTPUT);
+        digitalWrite(txPin2, LOW);
     }
 
     if (baud > 19200) {
@@ -66,15 +122,42 @@ bool ModbusSerial::config(SoftwareSerial* port, long baud, int txPin) {
 #endif
 
 #ifdef __AVR_ATmega32U4__
-bool ModbusSerial::config(Serial_* port, long baud, u_int format, int txPin) {
+bool ModbusSerial::config(Serial_* port, long baud, u_int format, int txPin1){
     this->_port = port;
-    this->_txPin = txPin;
+    this->_txPin1 = txPin1;
     (*port).begin(baud, format);
     while (!(*port));
 
-    if (txPin >= 0) {
-        pinMode(txPin, OUTPUT);
-        digitalWrite(txPin, LOW);
+    if (txPin1 >= 0) {
+        pinMode(txPin1, OUTPUT);
+        digitalWrite(txPin1, LOW);
+    }
+
+    if (baud > 19200) {
+        _t15 = 750;
+        _t35 = 1750;
+    } else {
+        _t15 = 15000000/baud; // 1T * 1.5 = T1.5
+        _t35 = 35000000/baud; // 1T * 3.5 = T3.5
+    }
+
+    return true;
+}
+
+bool ModbusSerial::config(Serial_* port, long baud, u_int format, int txPin1, int txPin2) {
+    this->_port = port;
+    this->_txPin1 = txPin1;
+    this->_txPin2 = txPin2;
+    (*port).begin(baud, format);
+    while (!(*port));
+
+    if (txPin1 >= 0) {
+        pinMode(txPin1, OUTPUT);
+        digitalWrite(txPin1, LOW);
+    }
+    if (txPin2 >= 0) {
+        pinMode(txPin2, OUTPUT);
+        digitalWrite(txPin2, LOW);
     }
 
     if (baud > 19200) {
@@ -116,8 +199,14 @@ bool ModbusSerial::receive(byte* frame) {
 bool ModbusSerial::send(byte* frame) {
     byte i;
 
-    if (this->_txPin >= 0) {
-        digitalWrite(this->_txPin, HIGH);
+    if (this->_txPin1 >= 0) {
+        digitalWrite(this->_txPin1, HIGH);
+        delay(1);
+    }
+
+    if (this->_txPin1 >= 0 && this->_txPin2 >= 0) {
+        digitalWrite(this->_txPin1, HIGH);
+        digitalWrite(this->_txPin2, HIGH);
         delay(1);
     }
 
@@ -128,14 +217,23 @@ bool ModbusSerial::send(byte* frame) {
     (*_port).flush();
     delayMicroseconds(_t35);
 
-    if (this->_txPin >= 0) {
-        digitalWrite(this->_txPin, LOW);
+    if (this->_txPin1 >= 0) {
+        digitalWrite(this->_txPin1, LOW);
+    }
+    if (this->_txPin1 >= 0 && this->_txPin2 >= 0) {
+        digitalWrite(this->_txPin1, LOW);
+        digitalWrite(this->_txPin2, LOW);
     }
 }
 
 bool ModbusSerial::sendPDU(byte* pduframe) {
-    if (this->_txPin >= 0) {
-        digitalWrite(this->_txPin, HIGH);
+    if (this->_txPin1 >= 0 && this->_txPin2 >= 0) {
+        digitalWrite(this->_txPin1, HIGH);
+        digitalWrite(this->_txPin2, HIGH);
+        delay(1);
+    }
+    if (this->_txPin1 >= 0) {
+        digitalWrite(this->_txPin1, HIGH);
         delay(1);
     }
 
@@ -156,8 +254,12 @@ bool ModbusSerial::sendPDU(byte* pduframe) {
     (*_port).flush();
     delayMicroseconds(_t35);
 
-    if (this->_txPin >= 0) {
-        digitalWrite(this->_txPin, LOW);
+    if (this->_txPin1 >= 0) {
+        digitalWrite(this->_txPin1, LOW);
+    }
+    if (this->_txPin1 >= 0 && this->_txPin2 >= 0) {
+        digitalWrite(this->_txPin1, LOW);
+        digitalWrite(this->_txPin2, LOW);
     }
 }
 

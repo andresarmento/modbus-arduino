@@ -19,7 +19,8 @@ class ModbusSerial : public Modbus {
         Stream* _port;
         long  _baud;
         u_int _format;
-        int   _txPin;
+        int   _txPin1;
+        int   _txPin2;
         unsigned int _t15; // inter character time out
         unsigned int _t35; // frame delay
         byte  _slaveId;
@@ -28,7 +29,8 @@ class ModbusSerial : public Modbus {
         ModbusSerial();
         bool setSlaveId(byte slaveId);
         byte getSlaveId();
-        bool config(HardwareSerial* port, long baud, u_int format, int txPin=-1);
+        bool config(HardwareSerial* port, long baud, u_int format, int txPin1=-1);
+        bool config(HardwareSerial* port, long baud, u_int format, int txPin1=-1, int txPin2=-1);
         #ifdef USE_SOFTWARE_SERIAL
         bool config(SoftwareSerial* port, long baud, int txPin=-1);
         #endif
