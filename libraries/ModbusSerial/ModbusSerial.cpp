@@ -187,7 +187,7 @@ void ModbusSerial::task() {
     _len = 0;
 }
 
-word ModbusSerial::calcCrc(byte address, byte* pduFrame, byte pduLen) {
+/*word ModbusSerial::calcCrc(byte address, byte* pduFrame, byte pduLen) {
 	byte CRCHi = 0xFF, CRCLo = 0x0FF, Index;
 
     Index = CRCHi ^ address;
@@ -201,9 +201,29 @@ word ModbusSerial::calcCrc(byte address, byte* pduFrame, byte pduLen) {
     }
 
     return (CRCHi << 8) | CRCLo;
+}*/
+
+word ModbusSerial::calcCrc(byte address, byte* pduFrame, byte pduLen) {
+    uint8_t j;
+    uint16_t crc;
+
+    crc = 0xFFFF;
+    crc = crc ^ address;
+        for (j=0; j < 8 ; j++){
+            if (crc & 0x0001)
+                crc = (crc >> 1) ^ 0xA001;
+            else
+                crc = crc >> 1;
+        }
+    while (pduLen--) {
+        crc = crc ^*pduFrame++;
+        for (j=0; j < 8 ; j++){
+            if (crc & 0x0001)
+                crc = (crc >> 1) ^ 0xA001;
+            else
+                crc = crc >> 1;
+        }
+    }
+    return (crc << 8 | crc >> 8);
+
 }
-
-
-
-
-
