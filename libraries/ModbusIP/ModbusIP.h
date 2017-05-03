@@ -5,7 +5,7 @@
 #include <Arduino.h>
 #include <Modbus.h>
 #include <SPI.h>
-#include <Ethernet.h>
+#include <UIPEthernet.h>
 
 #ifndef MODBUSIP_H
 #define MODBUSIP_H
@@ -13,13 +13,11 @@
 #define MODBUSIP_PORT 	  502
 #define MODBUSIP_MAXFRAME 200
 
-//#define TCP_KEEP_ALIVE
+#define TCP_KEEP_ALIVE
 
 class ModbusIP : public Modbus {
     private:
-        EthernetClient _client;
         EthernetServer _server;
-        bool _firstClient;
         byte _MBAP[7];
 
     public:
@@ -33,4 +31,3 @@ class ModbusIP : public Modbus {
 };
 
 #endif //MODBUSIP_H
-

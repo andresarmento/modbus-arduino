@@ -5,7 +5,6 @@
 #include "ModbusIP.h"
 
 ModbusIP::ModbusIP():_server(MODBUSIP_PORT) {
-    _firstClient = false;
 }
 
 void ModbusIP::config(uint8_t *mac) {
@@ -37,7 +36,6 @@ void ModbusIP::task() {
     EthernetClient client = _server.available();
 
     if (client) {
-        _firstClient = true;
         if (client.connected()) {
             int i = 0;
             while (client.available()){
@@ -83,13 +81,5 @@ void ModbusIP::task() {
             free(_frame);
             _len = 0;
         }
-        if(client != _client)
-		{
-			if(_firstClient)
-			{
-				_client.stop();
-			}
-			_client = client;			
-		}
     }
 }
