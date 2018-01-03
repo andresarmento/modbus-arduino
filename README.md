@@ -1,5 +1,8 @@
+Read/Write Multiple Coil/Inputs Fixed! (8 bit bug)
 Modbus Library for Arduino
 ==========================
+
+Bugs in main repo are fixed regarding to read/write for more than 8 coils.
 
 This library allows your Arduino to communicate via Modbus protocol. The Modbus is a master-slave protocol
 used in industrial automation and can be used in other areas, such as home automation.
