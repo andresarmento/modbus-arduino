@@ -187,6 +187,7 @@ void ModbusSerial::task() {
     _len = 0;
 }
 
+#ifndef USE_FLASH_PROGMEM
 word ModbusSerial::calcCrc(byte address, byte* pduFrame, byte pduLen) {
 	byte CRCHi = 0xFF, CRCLo = 0x0FF, Index;
 
@@ -202,8 +203,24 @@ word ModbusSerial::calcCrc(byte address, byte* pduFrame, byte pduLen) {
 
     return (CRCHi << 8) | CRCLo;
 }
+#endif
 
 
 
+#ifdef USE_FLASH_PROGMEM
+word ModbusSerial::calcCrc(byte address, byte* pduFrame, byte pduLen) {
+  byte CRCHi = 0xFF, CRCLo = 0x0FF, Index;
 
+  Index = CRCHi ^ address;
+  CRCHi = CRCLo ^ pgm_read_byte(&_auchCRCHi[Index]);
+  CRCLo = pgm_read_byte(&_auchCRCLo[Index]);
 
+  while (pduLen--) {
+    Index = CRCHi ^ *pduFrame++;
+    CRCHi = CRCLo ^ pgm_read_byte(&_auchCRCHi[Index]);
+    CRCLo = pgm_read_byte(&_auchCRCLo[Index]);
+  }
+
+  return (CRCHi << 8) | CRCLo;
+}
+#endif
