@@ -5,6 +5,8 @@
 #include <Arduino.h>
 #include <Modbus.h>
 
+#ifndef MODBUSSERIAL_H
+#define MODBUSSERIAL_H
 
 //#define USE_SOFTWARE_SERIAL
 #define USE_FLASH_PROGMEM
