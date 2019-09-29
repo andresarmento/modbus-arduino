@@ -6,8 +6,14 @@
 
 byte Ethernet::buffer[MODBUSIP_MAXFRAME];
 
+uint8_t ENC28J60_CS = 10;   //Default chip select pin
+
 ModbusIP::ModbusIP() {
     ether.hisport = MODBUSIP_PORT;
+}
+
+void ModbusIP::setSS(uint8_t ssPin) {
+    ENC28J60_CS = ssPin;
 }
 
 void ModbusIP::config(uint8_t *mac) {
