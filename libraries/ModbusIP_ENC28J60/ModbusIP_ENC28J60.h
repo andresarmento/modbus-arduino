@@ -12,7 +12,7 @@
 #define MODBUSIP_PORT 	  502
 #define MODBUSIP_MAXFRAME 200
 
-#define ENC28J60_CS 	10 //Default chip select pin
+//#define ENC28J60_CS 	10 //Default chip select pin
 //#define TCP_KEEP_ALIVE
 
 class ModbusIP : public Modbus {
@@ -21,6 +21,7 @@ class ModbusIP : public Modbus {
 
     public:
         ModbusIP();
+        void setSS(uint8_t ssPin);
         void config(uint8_t *mac);
         void config(uint8_t *mac, uint8_t * ip);
         void config(uint8_t *mac, uint8_t * ip, uint8_t * dns);
