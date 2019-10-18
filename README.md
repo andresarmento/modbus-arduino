@@ -215,9 +215,9 @@ Sets a value to the register.
 
 ```
 bool Coil (offset word)
-word Hreg (word offset)
+Hreg word (word offset)
 bool Ists (offset word)
-word IREG (word offset)
+IREG word (word offset)
 ```
 Returns the value of a register.
 
