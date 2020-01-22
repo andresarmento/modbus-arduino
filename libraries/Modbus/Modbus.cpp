@@ -1,6 +1,6 @@
 /*
     Modbus.cpp - Source for Modbus Base Library
-    Copyright (C) 2014 André Sarmento Barbosa
+    Copyright (C) 2014 AndrÃ© Sarmento Barbosa
 */
 #include "Modbus.h"
 
@@ -326,8 +326,9 @@ void Modbus::readCoils(word startreg, word numregs) {
     byte bitn = 0;
     word totregs = numregs;
     word i;
-	while (numregs--) {
+	while (numregs) {
         i = (totregs - numregs) / 8;
+        numregs--;
 		if (this->Coil(startreg))
 			bitSet(_frame[2+i], bitn);
 		else
@@ -377,8 +378,9 @@ void Modbus::readInputStatus(word startreg, word numregs) {
     byte bitn = 0;
     word totregs = numregs;
     word i;
-	while (numregs--) {
+	while (numregs) {
         i = (totregs - numregs) / 8;
+        numregs--;
 		if (this->Ists(startreg))
 			bitSet(_frame[2+i], bitn);
 		else
