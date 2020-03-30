@@ -1,6 +1,6 @@
 /*
     Modbus.cpp - Source for Modbus Base Library
-    Copyright (C) 2014 André Sarmento Barbosa
+    Copyright (C) 2014 Andrï¿½ Sarmento Barbosa
 */
 #include "Modbus.h"
 
@@ -377,7 +377,7 @@ void Modbus::readInputStatus(word startreg, word numregs) {
     byte bitn = 0;
     word totregs = numregs;
     word i;
-	while (numregs--) {
+	do {
         i = (totregs - numregs) / 8;
 		if (this->Ists(startreg))
 			bitSet(_frame[2+i], bitn);
@@ -388,7 +388,7 @@ void Modbus::readInputStatus(word startreg, word numregs) {
 		if (bitn == 8) bitn = 0;
 		//increment the register
 		startreg++;
-	}
+	} while (numregs--);
 
     _reply = MB_REPLY_NORMAL;
 }
