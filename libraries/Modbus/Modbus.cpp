@@ -216,7 +216,7 @@ void Modbus::readRegisters(word startreg, word numregs) {
 
     word val;
     word i = 0;
-	while(numregs--) {
+	while(numregs) {
         //retrieve the value from the register bank for the current register
         val = this->Hreg(startreg + i);
         //write the high byte of the register value
@@ -224,6 +224,7 @@ void Modbus::readRegisters(word startreg, word numregs) {
         //write the low byte of the register value
         _frame[3 + i * 2] = val & 0xFF;
         i++;
+		numregs--;
 	}
 
     _reply = MB_REPLY_NORMAL;
@@ -278,10 +279,11 @@ void Modbus::writeMultipleRegisters(byte* frame,word startreg, word numoutputs, 
 
     word val;
     word i = 0;
-	while(numoutputs--) {
+	while(numoutputs) {
         val = (word)frame[6+i*2] << 8 | (word)frame[7+i*2];
         this->Hreg(startreg + i, val);
         i++;
+		numoutputs--;
 	}
 
     _reply = MB_REPLY_NORMAL;
