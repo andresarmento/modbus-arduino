@@ -24,10 +24,6 @@ I also thought it would be cool have a base library for Modbus and derive it for
 I appreciate the work of all the authors of the other libraries, of which I used several ideas to compose the modbus-arduino.
 At the end of this document is a list of libraries and their authors.
 
-Why this fork?
-==============
-This fork fixes a few issues that I found where the coils and references which are multiples of 8 weren't working correctly. It was just a small (but significant) iterator issue.
-
 Features
 ========
 
